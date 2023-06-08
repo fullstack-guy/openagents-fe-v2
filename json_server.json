@@ -1,0 +1,89 @@
+{
+  "home": {
+    "messages": "2",
+    "agents": "2",
+    "tasks": "3",
+    "sources": "1"
+  },
+  "agents": [
+    {
+      "name": "Elias",
+      "role": "Website chatbot",
+      "status": "active",
+      "picture_url": "",
+      "color": "red"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "1",
+      "sender":"Elias",
+      "last_message": "Hi my name is Elias",
+      "since": "7m"
+    },
+    {
+      "id": "2",
+      "sender":"Peter parker",
+      "last_message": "News report is ready",
+      "since": "1d"
+    }
+  ],
+  "messages": [
+    {
+      "id": "1",
+      "session_id": "1",
+      "sender":"agent",
+      "message": "Hi my name is Elias",
+      "since": "7m"
+    },
+    {
+      "id": "2",
+      "session_id": "1",
+      "sender":"user",
+      "message": "How can I help you?",
+      "since": "6m"
+    },
+    {
+      "id": "3",
+      "session_id": "1",
+      "sender":"agent",
+      "message": "How can I help you?",
+      "since": "6m"
+    },
+    {
+      "id": "4",
+      "session_id": "1",
+      "sender":"user",
+      "message": "How can I help you?",
+      "since": "6m"
+    },
+    {
+      "id": "5",
+      "session_id": "1",
+      "sender":"agent",
+      "message": "How can I help you?",
+      "since": "6m"
+    },
+    {
+      "id": "6",
+      "session_id": "1",
+      "sender":"user",
+      "message": "How can I help you?",
+      "since": "6m"
+    },
+    {
+      "id": "7",
+      "session_id": "1",
+      "sender":"agent",
+      "message": "How can I help you?",
+      "since": "6m"
+    },
+    {
+      "id": "8",
+      "session_id": "1",
+      "sender":"user",
+      "message": "How can I help you?",
+      "since": "6m"
+    }
+  ]
+}
