@@ -1,10 +1,30 @@
 {
-  "home": {
-    "messages": "2",
-    "agents": "2",
-    "tasks": "3",
-    "sources": "1"
-  },
+  "home": [
+        {
+            "title": "Agents",
+            "count": 56,
+            "rate": 0.09,
+            "chartData": [1, 2, 3, 4, 5, ]
+        },
+        {
+            "title": "Messages",
+            "count": 120,
+            "rate": 0.12,
+            "chartData": [2, 3, 4, 5, 6, 7]
+        },
+        {
+            "title": "Sources",
+            "count": 35,
+            "rate": 0.05,
+            "chartData": [9, 8, 7, 6, 5, 40]
+        },
+        {
+            "title": "Tasks",
+            "count": 89,
+            "rate": 0.07,
+            "chartData": [1, 0, 2, 37, 8, 9]
+        }
+    ],
   "agents": [
     {
       "name": "Elias",
