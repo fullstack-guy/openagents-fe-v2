@@ -4,7 +4,7 @@
             "title": "Agents",
             "count": 56,
             "rate": 0.09,
-            "chartData": [1, 2, 3, 4, 5, ]
+            "chartData": [1, 2, 3, 4, 5,5 ]
         },
         {
             "title": "Messages",
