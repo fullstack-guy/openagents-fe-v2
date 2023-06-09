@@ -37,32 +37,36 @@ export const AgentSlice = createSlice({
         setVisibilityFilter: (state, action) => {
             state.currentAgentFilter = action.payload;
         },
-        updateAgent: {
-            reducer: (state, action) => {
-                state.agents = state.agents.map((contact) =>
-                    contact.id === action.payload.id
-                        ? {...contact, [action.payload.field]: action.payload.value}
-                        : contact,
-                );
-            },
-            prepare: (id, field, value) => {
-                return {
-                    payload: {id, field, value},
-                };
-            },
+        updateAgentConfig: (state, action) => {
+            const {name, value} = action.payload;
+            console.log("name", name)
+            const selectedAgent = state.agents.find(agent => agent.id === state.selectedAgentId);
+            if (selectedAgent) {
+                // Update the specific property of the selected agent
+                selectedAgent.agent_configs[name] = value;
+            }
         },
+        getAgentConfig: (state, action) => {
+            const {name} = action.payload;
+            console.log("name", name)
+            const selectedAgent = state.agents.find(agent => agent.id === state.selectedAgentId);
+            if (selectedAgent) {
+                return selectedAgent.agent_configs[name]
+            }
+        },
+
     },
 });
 
 // Selector to get the selected agent's data
 export const {
-
     getAgents,
     searchAgent,
-    setAgentEditable,
     selectAgent,
     deleteAgent,
-    updateAgent,
+    setAgentEditable,
+    updateAgentConfig,
+    getAgentConfig,
     setVisibilityFilter,
 } = AgentSlice.actions;
 
@@ -78,7 +82,7 @@ export const fetchAgents = () => async (dispatch) => {
             "status": "enabled",
             "name": "Othmane website support",
             "agent_configs": {
-                "website_name": "Othmane Zoheir personal website",
+                "name": "Othmane Zoheir personal website",
                 "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
                 "industry": "Software Development - Web Applications",
                 "brand_voice": "professional, friendly, and passionate",
@@ -95,7 +99,7 @@ export const fetchAgents = () => async (dispatch) => {
                 "status": "enabled",
                 "name": "Elias",
                 "agent_configs": {
-                    "website_name": "Othmane Zoheir personal website",
+                    "name": "Othmane Zoheir personal website",
                     "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
                     "industry": "Software Development - Web Applications",
                     "brand_voice": "professional, friendly, and passionate",

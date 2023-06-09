@@ -1,11 +1,8 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {Box, Button, TextField, Typography, Grid, Stack} from '@mui/material';
-import {setAgentEditable, updateAgent} from 'src/store/AgentSlice';
-import Scrollbar from 'src/components/custom-scroll/Scrollbar';
-import BlankCard from 'src/components/shared/BlankCard';
-import SketchExample from "src/components/shared/HexColourButton";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { Box, Button, Typography, Grid, Stack } from '@mui/material';
+import { setAgentEditable } from 'src/store/AgentSlice';
+import AgentConfigForm from 'src/components/agents/AgentConfigForm';
 
 function replaceUnderscoresAndCapitalize(str) {
     var modifiedStr = str.replace(/_/g, ' ')
@@ -15,7 +12,7 @@ function replaceUnderscoresAndCapitalize(str) {
     return modifiedStr;
 }
 
-const AgentConfig = ({selectedAgent}) => {
+const AgentConfig = ({ selectedAgent }) => {
     const isAgentEditable = useSelector((state) => state.agentsReducer.isAgentEditable);
     const dispatch = useDispatch();
 
@@ -26,48 +23,11 @@ const AgentConfig = ({selectedAgent}) => {
         }
     }) : [];
 
-    const renderField = (data) => {
-        switch (data.name) {
-            case 'source_url':
-                return (
-                    <TextField
-                        id={data.name}
-                        size="small"
-                        fullWidth
-                        type="text"
-                        value={data.value}
-                        onChange={(e) =>
-                            dispatch(updateAgent(selectedAgent.id, data.name, e.target.value))
-                        }
-                    />
-                );
-            case 'color':
-                return (
-                    <SketchExample
-                        color={data.value || "black"}
-                    />
-                );
-            default:
-                return (
-                    <TextField
-                        id={data.name}
-                        size="small"
-                        fullWidth
-                        type="text"
-                        value={data.value}
-                        onChange={(e) =>
-                            dispatch(updateAgent(selectedAgent.id, data.name, e.target.value))
-                        }
-                    />
-                );
-        }
-    };
-
     return (
-        <Box sx={{overflow: 'auto'}}>
-
-            {!isAgentEditable ? (
-
+        <Box sx={{ overflow: 'auto' }}>
+            {isAgentEditable ? (
+                <AgentConfigForm selectedAgent={selectedAgent} />
+            ) : (
                 <Box p={3}>
                     <Grid container spacing={3}>
                         {configData.map((data) => (
@@ -82,7 +42,6 @@ const AgentConfig = ({selectedAgent}) => {
                             </Grid>
                         ))}
                     </Grid>
-
                     <Stack spacing={2} direction="row" mt={3}>
                         <Button
                             color="primary"
@@ -94,30 +53,6 @@ const AgentConfig = ({selectedAgent}) => {
                         </Button>
                     </Stack>
                 </Box>
-            ) : (
-                <BlankCard sx={{p: 0}}>
-                    <Scrollbar sx={{height: {lg: 'calc(100vh - 360px)', md: '100vh'}}}>
-                        <Box pt={1}>
-                            {configData.map((data) => (
-                                <Box key={data.id} px={3} py={1.5}>
-                                    <Typography variant="subname1" fontWeight={600} mb={0.5}>
-                                        {data.name}
-                                    </Typography>
-                                    {renderField(data)}
-                                </Box>
-                            ))}
-                            <Box p={3} display="flex" justifyContent="flex-end">
-                                <Button
-                                    color="primary"
-                                    variant="contained"
-                                    onClick={() => dispatch(setAgentEditable())}
-                                >
-                                    Save Config
-                                </Button>
-                            </Box>
-                        </Box>
-                    </Scrollbar>
-                </BlankCard>
             )}
         </Box>
     );
