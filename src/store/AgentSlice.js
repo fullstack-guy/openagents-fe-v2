@@ -56,7 +56,7 @@ export const AgentSlice = createSlice({
 
 // Selector to get the selected agent's data
 export const {
-    
+
     getAgents,
     searchAgent,
     setAgentEditable,
@@ -79,9 +79,9 @@ export const fetchAgents = () => async (dispatch) => {
             "name": "Othmane website support",
             "agent_configs": {
                 "website_name": "Othmane Zoheir personal website",
-                "brand_voice": "professional, friendly, and passionate",
                 "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
                 "industry": "Software Development - Web Applications",
+                "brand_voice": "professional, friendly, and passionate",
                 "tone": "casual and friendly",
                 "language": "technical jargon"
             }
@@ -96,9 +96,9 @@ export const fetchAgents = () => async (dispatch) => {
                 "name": "Elias",
                 "agent_configs": {
                     "website_name": "Othmane Zoheir personal website",
-                    "brand_voice": "professional, friendly, and passionate",
                     "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
                     "industry": "Software Development - Web Applications",
+                    "brand_voice": "professional, friendly, and passionate",
                     "tone": "casual and friendly",
                     "language": "technical jargon"
                 }

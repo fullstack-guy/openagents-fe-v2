@@ -29,10 +29,7 @@ const AgentDetails = () => {
     const selectedAgentId = useSelector((state) => state.agentsReducer.selectedAgentId);
     const selectedAgent = agents.find(x => x.id === selectedAgentId);
 
-    console.log(selectedAgent)
-
     const editContact = useSelector((state) => state.agentsReducer.editContact);
-    const dispatch = useDispatch();
 
     return (
         <>
@@ -61,7 +58,7 @@ const AgentDetails = () => {
                                     </Box>
                                     <AgentTabs></AgentTabs>
                                     <Box sx={{overflow: 'auto'}}>
-                                        <AgentConfig></AgentConfig>
+                                        <AgentConfig selectedAgent={selectedAgent}></AgentConfig>
                                     </Box>
                                 </Box>
                             </Box>

@@ -6,22 +6,25 @@ import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import BlankCard from 'src/components/shared/BlankCard';
 import SketchExample from "src/components/shared/HexColourButton";
 
-const AgentConfig = () => {
-    const selected_agent_id = useSelector((state) => state.agentsReducer.selectedAgentId);
-    const isAgentEditable = useSelector((state) => state.agentsReducer.isAgentEditable);
 
+function replaceUnderscoresAndCapitalize(str) {
+    var modifiedStr = str.replace(/_/g, ' ')
+        .split(' ')
+        .join(' ');
+    modifiedStr = modifiedStr.charAt(0).toUpperCase() + modifiedStr.slice(1);
+    return modifiedStr;
+}
+
+const AgentConfig = ({selectedAgent}) => {
+    const isAgentEditable = useSelector((state) => state.agentsReducer.isAgentEditable);
     const dispatch = useDispatch();
 
-    const configData = [
-        {
-            name: 'source_url',
-            value: "Maff.tv",
-        },
-        {
-            name: 'color',
-            value: "",
-        },
-    ];
+    const configData = selectedAgent.agent_configs ? Object.keys(selectedAgent.agent_configs).map(key => {
+        return {
+            name: key,
+            value: selectedAgent.agent_configs[key]
+        }
+    }) : [];
 
     const renderField = (data) => {
         switch (data.name) {
@@ -34,19 +37,29 @@ const AgentConfig = () => {
                         type="text"
                         value={data.value}
                         onChange={(e) =>
-                            dispatch(updateAgent(data.name, e.target.value))
+                            dispatch(updateAgent(selectedAgent.id, data.name, e.target.value))
                         }
                     />
                 );
             case 'color':
                 return (
                     <SketchExample
-                        color={"black"}
+                        color={data.value || "black"}
                     />
                 );
-            // handle more types as needed
             default:
-                return null;
+                return (
+                    <TextField
+                        id={data.name}
+                        size="small"
+                        fullWidth
+                        type="text"
+                        value={data.value}
+                        onChange={(e) =>
+                            dispatch(updateAgent(selectedAgent.id, data.name, e.target.value))
+                        }
+                    />
+                );
         }
     };
 
@@ -60,7 +73,7 @@ const AgentConfig = () => {
                         {configData.map((data) => (
                             <Grid item xs={12} sm={6} key={data.id}>
                                 <Typography variant="body2" color="text.secondary">
-                                    {data.name}
+                                    {replaceUnderscoresAndCapitalize(data.name)}
                                 </Typography>
                                 <Typography variant="subtitle1" mb={0.5} fontWeight={600}>
                                     {data.value}
