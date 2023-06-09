@@ -6,8 +6,8 @@ import { searchAgent } from 'src/store/AgentSlice';
 import { IconMenu2, IconSearch } from '@tabler/icons';
 
 
-const ContactSearch = ({ onClick }) => {
-  const searchTerm = useSelector((state) => state.agentsReducer.contactSearch);
+const AgentSearch = ({ onClick }) => {
+  const searchTerm = useSelector((state) => state.agentsReducer.agentSearch);
   const dispatch = useDispatch();
 
   return (
@@ -40,4 +40,4 @@ const ContactSearch = ({ onClick }) => {
   );
 };
 
-export default ContactSearch;
+export default AgentSearch;

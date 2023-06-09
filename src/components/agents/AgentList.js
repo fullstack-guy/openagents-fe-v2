@@ -16,11 +16,11 @@ const AgentList = ({ showrightSidebar }) => {
     dispatch(fetchAgents());
   }, [dispatch]);
 
-  const getVisibleContacts = (contacts, filter, contactSearch) => {
+  const getVisibleContacts = (contacts, filter, agentSearch) => {
     switch (filter) {
       case 'show_all':
         return contacts.filter(
-          (c) => !c.deleted && c.firstname.toLocaleLowerCase().includes(contactSearch),
+          (c) => !c.deleted && c.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       case 'frequent_contact':
@@ -28,12 +28,12 @@ const AgentList = ({ showrightSidebar }) => {
           (c) =>
             !c.deleted &&
             c.frequentlycontacted &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch),
+            c.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       case 'starred_contact':
         return contacts.filter(
-          (c) => !c.deleted && c.starred && c.firstname.toLocaleLowerCase().includes(contactSearch),
+          (c) => !c.deleted && c.starred && c.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       case 'engineering_department':
@@ -41,7 +41,7 @@ const AgentList = ({ showrightSidebar }) => {
           (c) =>
             !c.deleted &&
             c.department === 'Engineering' &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch),
+            c.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       case 'support_department':
@@ -49,7 +49,7 @@ const AgentList = ({ showrightSidebar }) => {
           (c) =>
             !c.deleted &&
             c.department === 'Support' &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch),
+            c.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       case 'sales_department':
@@ -57,22 +57,24 @@ const AgentList = ({ showrightSidebar }) => {
           (c) =>
             !c.deleted &&
             c.department === 'Sales' &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch),
+            c.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       default:
         throw new Error(`Unknown filter: ${filter}`);
     }
   };
+
+
   const contacts = useSelector((state) =>
     getVisibleContacts(
-      state.agentsReducer.contacts,
+      state.agentsReducer.agents,
       state.agentsReducer.currentAgentFilter,
-      state.agentsReducer.contactSearch,
+      state.agentsReducer.agentSearch,
     ),
   );
 
-  const active = useSelector((state) => state.agentsReducer.contactContent);
+  const active = useSelector((state) => state.agentsReducer.agentData);
 
   return (
     <List>

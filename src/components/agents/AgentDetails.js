@@ -13,7 +13,7 @@ import {
     Tooltip,
 } from '@mui/material';
 import {
-    isAgentConfigEdit,
+    setAgentEditable,
     updateAgent,
     deleteAgent,
 } from 'src/store/AgentSlice';
@@ -21,11 +21,14 @@ import BlankCard from 'src/components/shared/BlankCard';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import emailIcon from 'src/assets/images/breadcrumb/emailSv.png';
 import AgentTabs from './AgentTabs';
+import AgentConfig from "./AgentConfig";
 
 const AgentDetails = () => {
-    const contactDetail = useSelector(
-        (state) => state.agentsReducer.contacts[state.agentsReducer.contactContent - 1],
+
+    const agentData = useSelector(
+        (state) => state.agentsReducer.agents[state.agentsReducer.agentData - 1],
     );
+
     const editContact = useSelector((state) => state.agentsReducer.editContact);
     const dispatch = useDispatch();
 
@@ -34,56 +37,56 @@ const AgentDetails = () => {
             id: 1,
             title: 'Firstname',
             alias: 'firstname',
-            gdata: contactDetail ? contactDetail.firstname : '',
+            gdata: agentData ? agentData.firstname : '',
             type: 'text',
         },
         {
             id: 2,
             title: 'Lastname',
             alias: 'lastname',
-            gdata: contactDetail ? contactDetail.lastname : '',
+            gdata: agentData ? agentData.lastname : '',
             type: 'text',
         },
         {
             id: 3,
             title: 'Company',
             alias: 'company',
-            gdata: contactDetail ? contactDetail.company : '',
+            gdata: agentData ? agentData.company : '',
             type: 'text',
         },
         {
             id: 4,
             title: 'Department',
             alias: 'department',
-            gdata: contactDetail ? contactDetail.department : '',
+            gdata: agentData ? agentData.department : '',
             type: 'text',
         },
         {
             id: 5,
             title: 'Email',
             alias: 'email',
-            gdata: contactDetail ? contactDetail.email : '',
+            gdata: agentData ? agentData.email : '',
             type: 'email',
         },
         {
             id: 6,
             title: 'Phone',
             alias: 'phone',
-            gdata: contactDetail ? contactDetail.phone : '',
+            gdata: agentData ? agentData.phone : '',
             type: 'phone',
         },
         {
             id: 7,
             title: 'Address',
             alias: 'address',
-            gdata: contactDetail ? contactDetail.address : '',
+            gdata: agentData ? agentData.address : '',
             type: 'text',
         },
         {
             id: 8,
             title: 'Notes',
             alias: 'notes',
-            gdata: contactDetail ? contactDetail.notes : '',
+            gdata: agentData ? agentData.notes : '',
             type: 'text',
         },
     ];
@@ -93,7 +96,7 @@ const AgentDetails = () => {
             {/* ------------------------------------------- */}
             {/* Contact Detail Part */}
             {/* ------------------------------------------- */}
-            {contactDetail && !contactDetail.deleted ? (
+            {agentData && !agentData.deleted ? (
                 <>
                     <Box sx={{overflow: 'auto'}}>
                         {!editContact ? (
@@ -103,46 +106,30 @@ const AgentDetails = () => {
                                          flexDirection={"column"}
                                          alignItems="center">
                                         <Avatar
-                                            alt={contactDetail.image}
-                                            src={contactDetail.image}
+                                            alt={agentData.image}
+                                            src={agentData.image}
                                             sx={{width: '72px', height: '72px'}}
                                         />
                                         <Typography variant="h6" mb={0.5}>
-                                            {contactDetail.firstname} {contactDetail.lastname}
+                                            {agentData.name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary"
                                                     mb={0.5}>
-                                            {contactDetail.department}
+                                            {agentData.role}
                                         </Typography>
 
                                     </Box>
                                     <AgentTabs></AgentTabs>
-                                    <Grid container>
-                                        <Grid item lg={6} xs={12} mt={4}>
-                                            <Typography variant="body2" color="text.secondary">
-                                                Phone Number
-                                            </Typography>
-                                            <Typography variant="subtitle1" mb={0.5} fontWeight={600}>
-                                                {contactDetail.phone}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item lg={6} xs={12} mt={4}>
-                                            <Typography variant="body2" color="text.secondary">
-                                                Email address
-                                            </Typography>
-                                            <Typography variant="subtitle1" fontWeight={600} mb={0.5}>
-                                                {contactDetail.email}
-                                            </Typography>
-                                        </Grid>
-
-                                    </Grid>
+                                    <Box sx={{overflow: 'auto'}}>
+                                        <AgentConfig></AgentConfig>
+                                    </Box>
                                 </Box>
                                 <Box p={3} gap={1} display="flex">
                                     <Button
                                         color="primary"
                                         variant="contained"
                                         size="medium"
-                                        onClick={() => dispatch(isAgentConfigEdit())}
+                                        onClick={() => dispatch(setAgentEditable())}
                                     >
                                         Edit
                                     </Button>
@@ -150,7 +137,7 @@ const AgentDetails = () => {
                                         color="error"
                                         variant="contained"
                                         size="medium"
-                                        onClick={() => dispatch(deleteAgent(contactDetail.id))}
+                                        onClick={() => dispatch(deleteAgent(agentData.id))}
                                     >
                                         Delete
                                     </Button>
@@ -177,7 +164,7 @@ const AgentDetails = () => {
                                                         type="text"
                                                         value={data.gdata}
                                                         onChange={(e) =>
-                                                            dispatch(updateAgent(contactDetail.id, data.alias, e.target.value))
+                                                            dispatch(updateAgent(agentData.id, data.alias, e.target.value))
                                                         }
                                                     />
                                                 </Box>
@@ -186,7 +173,7 @@ const AgentDetails = () => {
                                                 <Button
                                                     color="primary"
                                                     variant="contained"
-                                                    onClick={() => dispatch(isAgentConfigEdit())}
+                                                    onClick={() => dispatch(setAgentEditable())}
                                                 >
                                                     Save Contact
                                                 </Button>

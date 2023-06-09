@@ -17,11 +17,9 @@ const AgentListItem = ({
   onContactClick,
   onStarredClick,
   onDeleteClick,
-  id,
-  firstname,
-  lastname,
+  name,
+  role,
   image,
-  department,
   starred,
   active,
 }) => {
@@ -34,20 +32,14 @@ const AgentListItem = ({
       <ListItemText>
         <Stack direction="row" gap="10px" alignItems="center">
           <Box mr="auto" onClick={onContactClick}>
-            <Typography variant="subtitle1" noWrap fontWeight={600} sx={{ maxWidth: '150px' }}>
-              {firstname} {lastname}
+            <Typography variant="subtitle1" noWrap fontWeight={600}>
+              {name}
             </Typography>
             <Typography variant="body2" color="text.secondary" noWrap>
-              {department}
+              {role}
             </Typography>
           </Box>
-          <IconStar
-            onClick={onStarredClick}
-            size="16"
-            stroke={1.5}
-            style={{ fill: starred ? '#FFC107' : '', stroke: starred ? '#FFC107' : '' }}
-          />
-          <IconTrash onClick={onDeleteClick} size="16" stroke={1.5} />
+
         </Stack>
       </ListItemText>
     </ListItemButton>

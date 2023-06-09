@@ -4,7 +4,7 @@ import PageContainer from 'src/components/container/PageContainer';
 import Breadcrumb from 'src/layouts/shared/breadcrumb/Breadcrumb';
 import AgentDetails from 'src/components/agents/AgentDetails';
 import AgentList from 'src/components/agents/AgentList';
-import ContactSearch from 'src/components/agents/ContactSearch';
+import AgentSearch from 'src/components/agents/AgentSearch';
 import AgentFilter from 'src/components/agents/AgentFilter';
 import AppCard from 'src/components/shared/AppCard';
 
@@ -46,7 +46,7 @@ const Agents = () => {
             flexShrink: 0,
           }}
         >
-          <ContactSearch onClick={() => setLeftSidebarOpen(true)} />
+          <agentSearch onClick={() => setLeftSidebarOpen(true)} />
           <AgentList showrightSidebar={() => setRightSidebarOpen(true)} />
         </Box>
         {/* ------------------------------------------- */}

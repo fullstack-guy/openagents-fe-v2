@@ -1,10 +1,10 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Box, Button, TextField, Typography, Grid, Stack} from '@mui/material';
-import {isEditConfig, UpdateConfig} from 'src/store/AgentSlice';
-import {ColorPicker} from 'react-color'; // This is just an example, replace with the color picker of your choice
+import {setAgentEditable, updateAgent} from 'src/store/AgentSlice';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import BlankCard from 'src/components/shared/BlankCard';
+import SketchExample from "src/components/shared/HexColourButton";
 
 const AgentConfig = () => {
     const configDetail = useSelector((state) => state.agentsReducer.config);
@@ -13,17 +13,15 @@ const AgentConfig = () => {
 
     const configData = [
         {
-            id: 1,
             name: 'source_url',
-            value: configDetail ? configDetail.source_url : '',
+            value: "Maff.tv",
         },
         {
-            id: 2,
             name: 'color',
             value: configDetail ? configDetail.color : '',
         },
     ];
-    
+
     const renderField = (data) => {
         switch (data.name) {
             case 'source_url':
@@ -35,15 +33,14 @@ const AgentConfig = () => {
                         type="text"
                         value={data.value}
                         onChange={(e) =>
-                            dispatch(UpdateConfig(data.name, e.target.value))
+                            dispatch(updateAgent(data.name, e.target.value))
                         }
                     />
                 );
             case 'color':
                 return (
-                    <ColorPicker
-                        color={data.value}
-                        onChange={(color) => dispatch(UpdateConfig(data.name, color.hex))}
+                    <SketchExample
+                        color={"black"}
                     />
                 );
             // handle more types as needed
@@ -56,26 +53,28 @@ const AgentConfig = () => {
         <Box sx={{overflow: 'auto'}}>
 
             {!editConfig ? (
-                
+
                 <Box p={3}>
                     <Grid container spacing={3}>
                         {configData.map((data) => (
                             <Grid item xs={12} sm={6} key={data.id}>
-                                <Typography variant="subname1" fontWeight={600} mb={0.5}>
+                                <Typography variant="body2" color="text.secondary">
                                     {data.name}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="subtitle1" mb={0.5} fontWeight={600}>
                                     {data.value}
                                 </Typography>
+
                             </Grid>
                         ))}
                     </Grid>
+
                     <Stack spacing={2} direction="row" mt={3}>
                         <Button
                             color="primary"
                             variant="contained"
                             size="medium"
-                            onClick={() => dispatch(isEditConfig())}
+                            onClick={() => dispatch(setAgentEditable())}
                         >
                             Edit Config
                         </Button>
@@ -97,7 +96,7 @@ const AgentConfig = () => {
                                 <Button
                                     color="primary"
                                     variant="contained"
-                                    onClick={() => dispatch(isEditConfig())}
+                                    onClick={() => dispatch(setAgentEditable())}
                                 >
                                     Save Config
                                 </Button>

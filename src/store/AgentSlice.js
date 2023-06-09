@@ -3,13 +3,13 @@ import {createSlice} from '@reduxjs/toolkit';
 import user2 from "../assets/images/profile/user-2.jpg";
 import user3 from "../assets/images/profile/user-3.jpg";
 
-const API_URL = '/api/data/contacts/ContactsData';
+const API_URL = '/api/data/agents/ContactsData';
 
 const initialState = {
-    contacts: [],
-    contactContent: 1,
-    contactSearch: '',
-    editContact: false,
+    agents: [],
+    agentData: 1,
+    agentSearch: '',
+    isAgentEditable: false,
     currentAgentFilter: 'show_all',
     configs: {}
 };
@@ -19,28 +19,28 @@ export const AgentSlice = createSlice({
     initialState,
     reducers: {
         getAgents: (state, action) => {
-            state.contacts = action.payload;
+            state.agents = action.payload;
         },
         searchAgent: (state, action) => {
-            state.contactSearch = action.payload;
+            state.agentSearch = action.payload;
         },
         selectAgent: (state, action) => {
-            state.contactContent = action.payload;
+            state.agentData = action.payload;
         },
         deleteAgent: (state, action) => {
-            const index = state.contacts.findIndex((contact) => contact.id === action.payload);
-            state.contacts.splice(index, 1);
+            const index = state.agents.findIndex((contact) => contact.id === action.payload);
+            state.agents.splice(index, 1);
         },
 
-        isAgentConfigEdit: (state) => {
-            state.editContact = !state.editContact;
+        setAgentEditable: (state) => {
+            state.isAgentEditable = !state.isAgentEditable;
         },
         setVisibilityFilter: (state, action) => {
             state.currentAgentFilter = action.payload;
         },
         updateAgent: {
             reducer: (state, action) => {
-                state.contacts = state.contacts.map((contact) =>
+                state.agents = state.agents.map((contact) =>
                     contact.id === action.payload.id
                         ? {...contact, [action.payload.field]: action.payload.value}
                         : contact,
@@ -52,57 +52,45 @@ export const AgentSlice = createSlice({
                 };
             },
         },
-        
-
     },
 });
 
-export const {
-    getAgents,
-    searchAgent,
-    isAgentConfigEdit,
-    selectAgent,
-    deleteAgent,
-    updateAgent,
-    setVisibilityFilter,
-} = AgentSlice.actions;
 
 export const fetchAgents = () => async (dispatch) => {
     try {
         dispatch(getAgents([
             {
-                id: 1,
-                firstname: 'Georgeanna',
-                lastname: 'Ramero',
-                image: user2,
-                department: 'Sales',
-                company: 'Muller Inc',
-                phone: '456-485-5623',
-                email: 'qq739v47ggn@claimab.com',
-                address: '19214 110th Rd, Saint Albans, NY, 1141',
-                notes: 'Devolved Tangible Projection',
-                frequentlycontacted: true,
-                starred: true,
-                deleted: false,
-            },
-            {
-                id: 2,
-                firstname: 'Cami',
-                lastname: 'Macha',
-                image: user3,
-                department: 'Support',
-                company: 'Zboncak LLC',
-                phone: '999-895-9652',
-                email: 'Camisad@claimab.com',
-                address: '76 Hamilton Ave, Yonkers, NY, 10705',
-                notes: 'Horizontal Bi-Directional Capability',
-                frequentlycontacted: false,
-                starred: false,
-                deleted: false,
-            }]));
+                "id": 1,
+                "image": user2,
+                "department":"Engineering",
+                "agent_template_id": 1,
+                "role": "Website support",
+                "status": "enabled",
+                "name": "Othmane website support",
+                "agent_configs": {
+                    "website_name": "Othmane Zoheir personal website",
+                    "brand_voice": "professional, friendly, and passionate",
+                    "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
+                    "industry": "Software Development - Web Applications",
+                    "tone": "casual and friendly",
+                    "language": "technical jargon"
+                }
+            }
+        ]));
     } catch (err) {
         throw new Error(err);
     }
 };
+
+export const {
+    getAgents,
+    searchAgent,
+    setAgentEditable,
+    selectAgent,
+    deleteAgent,
+    updateAgent,
+    setVisibilityFilter,
+    updateAgentConfig,
+} = AgentSlice.actions;
 
 export default AgentSlice.reducer;
