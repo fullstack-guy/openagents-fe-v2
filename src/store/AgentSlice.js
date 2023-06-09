@@ -7,11 +7,10 @@ const API_URL = '/api/data/agents/ContactsData';
 
 const initialState = {
     agents: [],
-    agentData: 1,
+    selectedAgentId: 1,
     agentSearch: '',
     isAgentEditable: false,
     currentAgentFilter: 'show_all',
-    configs: {}
 };
 
 export const AgentSlice = createSlice({
@@ -25,7 +24,7 @@ export const AgentSlice = createSlice({
             state.agentSearch = action.payload;
         },
         selectAgent: (state, action) => {
-            state.agentData = action.payload;
+            state.selectedAgentId = action.payload;
         },
         deleteAgent: (state, action) => {
             const index = state.agents.findIndex((contact) => contact.id === action.payload);
@@ -55,18 +54,46 @@ export const AgentSlice = createSlice({
     },
 });
 
+// Selector to get the selected agent's data
+export const {
+    
+    getAgents,
+    searchAgent,
+    setAgentEditable,
+    selectAgent,
+    deleteAgent,
+    updateAgent,
+    setVisibilityFilter,
+} = AgentSlice.actions;
+
 
 export const fetchAgents = () => async (dispatch) => {
     try {
-        dispatch(getAgents([
+        dispatch(getAgents([{
+            "id": 1,
+            "image": user2,
+            "department": "Engineering",
+            "agent_template_id": 1,
+            "role": "Website support",
+            "status": "enabled",
+            "name": "Othmane website support",
+            "agent_configs": {
+                "website_name": "Othmane Zoheir personal website",
+                "brand_voice": "professional, friendly, and passionate",
+                "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
+                "industry": "Software Development - Web Applications",
+                "tone": "casual and friendly",
+                "language": "technical jargon"
+            }
+        },
             {
-                "id": 1,
+                "id": 2,
                 "image": user2,
-                "department":"Engineering",
+                "department": "Engineering",
                 "agent_template_id": 1,
                 "role": "Website support",
                 "status": "enabled",
-                "name": "Othmane website support",
+                "name": "Elias",
                 "agent_configs": {
                     "website_name": "Othmane Zoheir personal website",
                     "brand_voice": "professional, friendly, and passionate",
@@ -75,22 +102,10 @@ export const fetchAgents = () => async (dispatch) => {
                     "tone": "casual and friendly",
                     "language": "technical jargon"
                 }
-            }
-        ]));
+            }]));
     } catch (err) {
         throw new Error(err);
     }
 };
-
-export const {
-    getAgents,
-    searchAgent,
-    setAgentEditable,
-    selectAgent,
-    deleteAgent,
-    updateAgent,
-    setVisibilityFilter,
-    updateAgentConfig,
-} = AgentSlice.actions;
 
 export default AgentSlice.reducer;

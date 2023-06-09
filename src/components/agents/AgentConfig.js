@@ -7,8 +7,9 @@ import BlankCard from 'src/components/shared/BlankCard';
 import SketchExample from "src/components/shared/HexColourButton";
 
 const AgentConfig = () => {
-    const configDetail = useSelector((state) => state.agentsReducer.config);
-    const editConfig = useSelector((state) => state.agentsReducer.editConfig);
+    const selected_agent_id = useSelector((state) => state.agentsReducer.selectedAgentId);
+    const isAgentEditable = useSelector((state) => state.agentsReducer.isAgentEditable);
+
     const dispatch = useDispatch();
 
     const configData = [
@@ -18,7 +19,7 @@ const AgentConfig = () => {
         },
         {
             name: 'color',
-            value: configDetail ? configDetail.color : '',
+            value: "",
         },
     ];
 
@@ -52,7 +53,7 @@ const AgentConfig = () => {
     return (
         <Box sx={{overflow: 'auto'}}>
 
-            {!editConfig ? (
+            {!isAgentEditable ? (
 
                 <Box p={3}>
                     <Grid container spacing={3}>
