@@ -23,6 +23,7 @@ import emailIcon from 'src/assets/images/breadcrumb/emailSv.png';
 import AgentTabs from './AgentTabs';
 import AgentConfig from "./AgentConfig";
 import {IconAB2, IconBolt, IconDatabase, IconSettings} from "@tabler/icons";
+import AgentSourcesTable from "./AgentSources";
 
 const AgentDetails = () => {
     const [value, setValue] = React.useState(0);
@@ -84,6 +85,7 @@ const AgentDetails = () => {
                                     <Box sx={{overflow: 'auto'}}>
                                         {
                                             value === 0 ? <AgentConfig selectedAgent={selectedAgent}></AgentConfig> :
+                                                value === 1 ? <AgentSourcesTable></AgentSourcesTable> :
                                                 null
                                         }
                                     </Box>

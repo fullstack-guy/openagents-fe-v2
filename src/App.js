@@ -12,7 +12,7 @@ function App() {
     const routing = useRoutes(Router);
     const theme = ThemeSettings();
     const dispatch = useDispatch();
-    const notification = useSelector(state => state.notification);
+    const notification = useSelector(state => state.notificationReducer);
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') return;

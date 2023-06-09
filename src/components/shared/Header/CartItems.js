@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { IconMinus, IconPlus } from '@tabler/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import emptyCart from 'src/assets/images/products/empty-shopping-cart.svg';
-import { increment, decrement } from 'src/store/apps/eCommerce/EcommerceSlice';
+import { increment, decrement } from 'src/store/AgentSourcesSlice';
 
 const CartItems = () => {
   const dispatch = useDispatch();
