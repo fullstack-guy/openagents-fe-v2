@@ -38,12 +38,11 @@ export const AgentSlice = createSlice({
             state.currentAgentFilter = action.payload;
         },
         updateAgentConfig: (state, action) => {
-            const {name, value} = action.payload;
-            console.log("name", name)
+            const updatedConfig = action.payload;
             const selectedAgent = state.agents.find(agent => agent.id === state.selectedAgentId);
             if (selectedAgent) {
-                // Update the specific property of the selected agent
-                selectedAgent.agent_configs[name] = value;
+                // Update the agent_configs of the selected agent
+                selectedAgent.agent_configs = updatedConfig;
             }
         },
         getAgentConfig: (state, action) => {
