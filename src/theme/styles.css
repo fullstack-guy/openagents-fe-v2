@@ -1,0 +1,34 @@
+.gradient-hover-effect {
+    display: flex;
+    padding: 0.875em 2em;
+    font-family: inherit;
+    color: #fff;
+    text-decoration: none;
+    place-content: center;
+    border: solid 1px transparent;
+    border-radius: 10px;
+    transition: 0.5s !important;
+    background: black;
+}
+
+.gradient-hover-effect:hover, .gradient-hover-effect:focus {
+    background: radial-gradient(circle at 20% 100%, rgb(14, 54, 179) 0%, rgb(0, 0, 0) 100%);
+    color: #fff;
+    border: solid 1px rgb(25, 54, 139);
+}
+
+
+.create-agent-card {
+    display: flex;
+    padding: 0.875em 2em;
+    font-family: inherit;
+    color: #fff;
+    text-decoration: none;
+    place-content: center;
+    border: solid 1px transparent;
+    border-radius: 30px;
+    transition: 0.5s !important;
+    color: #fff;
+    border: solid 1px rgb(18, 38, 99);
+    background: radial-gradient(circle at 20% 100%, rgb(2, 19, 70) 0%, rgb(0, 0, 0) 100%) !important;
+}
