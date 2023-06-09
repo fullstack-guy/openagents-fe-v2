@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { List } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  SelectContact,
-  fetchContacts,
-  DeleteContact,
-  toggleStarredContact,
+  selectAgent,
+  fetchAgents,
+  deleteAgent,
 } from 'src/store/AgentSlice';
 
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
@@ -14,7 +13,7 @@ import AgentListItem from './AgentListItem';
 const AgentList = ({ showrightSidebar }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchAgents());
   }, [dispatch]);
 
   const getVisibleContacts = (contacts, filter, contactSearch) => {
@@ -84,11 +83,10 @@ const AgentList = ({ showrightSidebar }) => {
             active={contact.id === active}
             {...contact}
             onContactClick={() => {
-              dispatch(SelectContact(contact.id));
+              dispatch(selectAgent(contact.id));
               showrightSidebar();
             }}
-            onDeleteClick={() => dispatch(DeleteContact(contact.id))}
-            onStarredClick={() => dispatch(toggleStarredContact(contact.id))}
+            onDeleteClick={() => dispatch(deleteAgent(contact.id))}
           />
         ))}
       </Scrollbar>

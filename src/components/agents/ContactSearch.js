@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Fab, TextField, InputAdornment } from '@mui/material';
 
-import { SearchContact } from 'src/store/AgentSlice';
+import { searchAgent } from 'src/store/AgentSlice';
 import { IconMenu2, IconSearch } from '@tabler/icons';
 
 
@@ -34,7 +34,7 @@ const ContactSearch = ({ onClick }) => {
         value={searchTerm}
         placeholder="Search Contacts"
         variant="outlined"
-        onChange={(e) => dispatch(SearchContact(e.target.value))}
+        onChange={(e) => dispatch(searchAgent(e.target.value))}
       />
     </Box>
   );

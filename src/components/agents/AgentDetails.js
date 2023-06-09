@@ -13,10 +13,9 @@ import {
     Tooltip,
 } from '@mui/material';
 import {
-    isEdit,
-    UpdateContact,
-    DeleteContact,
-    toggleStarredContact,
+    isAgentConfigEdit,
+    updateAgent,
+    deleteAgent,
 } from 'src/store/AgentSlice';
 import BlankCard from 'src/components/shared/BlankCard';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
@@ -143,7 +142,7 @@ const AgentDetails = () => {
                                         color="primary"
                                         variant="contained"
                                         size="medium"
-                                        onClick={() => dispatch(isEdit())}
+                                        onClick={() => dispatch(isAgentConfigEdit())}
                                     >
                                         Edit
                                     </Button>
@@ -151,12 +150,11 @@ const AgentDetails = () => {
                                         color="error"
                                         variant="contained"
                                         size="medium"
-                                        onClick={() => dispatch(DeleteContact(contactDetail.id))}
+                                        onClick={() => dispatch(deleteAgent(contactDetail.id))}
                                     >
                                         Delete
                                     </Button>
                                 </Box>
-
 
 
                             </Box>
@@ -179,7 +177,7 @@ const AgentDetails = () => {
                                                         type="text"
                                                         value={data.gdata}
                                                         onChange={(e) =>
-                                                            dispatch(UpdateContact(contactDetail.id, data.alias, e.target.value))
+                                                            dispatch(updateAgent(contactDetail.id, data.alias, e.target.value))
                                                         }
                                                     />
                                                 </Box>
@@ -188,7 +186,7 @@ const AgentDetails = () => {
                                                 <Button
                                                     color="primary"
                                                     variant="contained"
-                                                    onClick={() => dispatch(isEdit())}
+                                                    onClick={() => dispatch(isAgentConfigEdit())}
                                                 >
                                                     Save Contact
                                                 </Button>

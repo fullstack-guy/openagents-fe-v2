@@ -11,37 +11,34 @@ const initialState = {
     contactSearch: '',
     editContact: false,
     currentAgentFilter: 'show_all',
+    configs: {}
 };
 
 export const AgentSlice = createSlice({
     name: 'agents',
     initialState,
     reducers: {
-        getContacts: (state, action) => {
+        getAgents: (state, action) => {
             state.contacts = action.payload;
         },
-        SearchContact: (state, action) => {
+        searchAgent: (state, action) => {
             state.contactSearch = action.payload;
         },
-        SelectContact: (state, action) => {
+        selectAgent: (state, action) => {
             state.contactContent = action.payload;
         },
-        DeleteContact: (state, action) => {
+        deleteAgent: (state, action) => {
             const index = state.contacts.findIndex((contact) => contact.id === action.payload);
             state.contacts.splice(index, 1);
         },
-        toggleStarredContact: (state, action) => {
-            state.contacts = state.contacts.map((contact) =>
-                contact.id === action.payload ? {...contact, starred: !contact.starred} : contact,
-            );
-        },
-        isEdit: (state) => {
+
+        isAgentConfigEdit: (state) => {
             state.editContact = !state.editContact;
         },
         setVisibilityFilter: (state, action) => {
             state.currentAgentFilter = action.payload;
         },
-        UpdateContact: {
+        updateAgent: {
             reducer: (state, action) => {
                 state.contacts = state.contacts.map((contact) =>
                     contact.id === action.payload.id
@@ -55,59 +52,24 @@ export const AgentSlice = createSlice({
                 };
             },
         },
-        addContact: {
-            reducer: (state, action) => {
-                state.contacts.push(action.payload);
-            },
-            prepare: (
-                id,
-                firstname,
-                lastname,
-                image,
-                department,
-                company,
-                phone,
-                email,
-                address,
-                notes,
-            ) => {
-                return {
-                    payload: {
-                        id,
-                        firstname,
-                        lastname,
-                        image,
-                        department,
-                        company,
-                        phone,
-                        email,
-                        address,
-                        notes,
-                        frequentlycontacted: false,
-                        starred: false,
-                        deleted: false,
-                    },
-                };
-            },
-        },
+        
+
     },
 });
 
 export const {
-    getContacts,
-    SearchContact,
-    isEdit,
-    SelectContact,
-    DeleteContact,
-    toggleStarredContact,
-    UpdateContact,
-    addContact,
+    getAgents,
+    searchAgent,
+    isAgentConfigEdit,
+    selectAgent,
+    deleteAgent,
+    updateAgent,
     setVisibilityFilter,
 } = AgentSlice.actions;
 
-export const fetchContacts = () => async (dispatch) => {
+export const fetchAgents = () => async (dispatch) => {
     try {
-        dispatch(getContacts([
+        dispatch(getAgents([
             {
                 id: 1,
                 firstname: 'Georgeanna',
