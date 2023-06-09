@@ -23,20 +23,6 @@ const Agents = () => {
         {/* ------------------------------------------- */}
         {/* Left Part */}
         {/* ------------------------------------------- */}
-
-        <Drawer
-          open={isLeftSidebarOpen}
-          onClose={() => setLeftSidebarOpen(false)}
-          sx={{
-            width: drawerWidth,
-            [`& .MuiDrawer-paper`]: { width: drawerWidth, position: 'relative', zIndex: 2 },
-            flexShrink: 0,
-          }}
-          variant={lgUp ? 'permanent' : 'temporary'}
-        >
-          <AgentFilter />
-        </Drawer>
-        {/* ------------------------------------------- */}
         {/* Middle part */}
         {/* ------------------------------------------- */}
         <Box

@@ -19,6 +19,10 @@ export const AgentSlice = createSlice({
     name: 'agents',
     initialState,
     reducers: {
+        addAgent: (state, action) => {
+            // The agent data will come in the payload
+            state.agents.push(action.payload);
+        },
         getAgents: (state, action) => {
             state.agents = action.payload;
         },
@@ -62,6 +66,7 @@ export const AgentSlice = createSlice({
 // Selector to get the selected agent's data
 export const {
     getAgents,
+    addAgent,
     searchAgent,
     selectAgent,
     deleteAgent,

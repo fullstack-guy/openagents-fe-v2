@@ -23,7 +23,8 @@ const AgentFilter = () => {
             id: 2,
             name: 'All',
             sort: 'show_all',
-            icon: IconMail,
+            icon: IconFolder,
+            color: 'error.main',
         },
         {
             id: 2,
