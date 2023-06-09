@@ -1,8 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Box, Button, Typography, Grid, Stack } from '@mui/material';
-import { setAgentEditable } from 'src/store/AgentSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {Box, Button, Typography, Grid, Stack} from '@mui/material';
+import {setAgentEditable} from 'src/store/AgentSlice';
 import AgentConfigForm from 'src/components/agents/AgentConfigForm';
+import NotificationOld from "src/components/shared/NotificationOld";
 
 function replaceUnderscoresAndCapitalize(str) {
     var modifiedStr = str.replace(/_/g, ' ')
@@ -12,7 +13,7 @@ function replaceUnderscoresAndCapitalize(str) {
     return modifiedStr;
 }
 
-const AgentConfig = ({ selectedAgent }) => {
+const AgentConfig = ({selectedAgent}) => {
     const isAgentEditable = useSelector((state) => state.agentsReducer.isAgentEditable);
     const dispatch = useDispatch();
 
@@ -23,10 +24,13 @@ const AgentConfig = ({ selectedAgent }) => {
         }
     }) : [];
 
+
     return (
-        <Box sx={{ overflow: 'auto' }}>
+
+        <Box sx={{overflow: 'auto'}}>
+
             {isAgentEditable ? (
-                <AgentConfigForm selectedAgent={selectedAgent} />
+                <AgentConfigForm selectedAgent={selectedAgent}/>
             ) : (
                 <Box p={3}>
                     <Grid container spacing={3}>

@@ -4,6 +4,7 @@ import {Link, useLocation} from 'react-router-dom';
 import {IconSettings, IconInfoCircle, IconDatabase, IconBolt, IconAB2} from '@tabler/icons';
 
 const AgentTabs = () => {
+
     const location = useLocation();
     const [value, setValue] = React.useState(location.pathname);
     const handleChange = (event, newValue) => {

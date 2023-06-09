@@ -16,48 +16,48 @@ const AgentList = ({ showrightSidebar }) => {
     dispatch(fetchAgents());
   }, [dispatch]);
 
-  const getVisibleContacts = (contacts, filter, agentSearch) => {
+  const getVisibleContacts = (agents, filter, agentSearch) => {
     switch (filter) {
       case 'show_all':
-        return contacts.filter(
-          (c) => !c.deleted && c.name.toLocaleLowerCase().includes(agentSearch),
+        return agents.filter(
+          (a) => !a.deleted && a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
         );
 
-      case 'frequent_contact':
-        return contacts.filter(
-          (c) =>
-            !c.deleted &&
-            c.frequentlycontacted &&
-            c.name.toLocaleLowerCase().includes(agentSearch),
+      case 'frequent_agent':
+        return agents.filter(
+          (a) =>
+            !a.deleted &&
+            a.frequentlyagented &&
+            a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
         );
 
-      case 'starred_contact':
-        return contacts.filter(
-          (c) => !c.deleted && c.starred && c.name.toLocaleLowerCase().includes(agentSearch),
+      case 'starred_agent':
+        return agents.filter(
+          (a) => !a.deleted && a.starred && a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       case 'engineering_department':
-        return contacts.filter(
-          (c) =>
-            !c.deleted &&
-            c.department === 'Engineering' &&
-            c.name.toLocaleLowerCase().includes(agentSearch),
+        return agents.filter(
+          (a) =>
+            !a.deleted &&
+            a.department === 'Engineering' &&
+            a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       case 'support_department':
-        return contacts.filter(
-          (c) =>
-            !c.deleted &&
-            c.department === 'Support' &&
-            c.name.toLocaleLowerCase().includes(agentSearch),
+        return agents.filter(
+          (a) =>
+            !a.deleted &&
+            a.department === 'Support' &&
+            a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       case 'sales_department':
-        return contacts.filter(
-          (c) =>
-            !c.deleted &&
-            c.department === 'Sales' &&
-            c.name.toLocaleLowerCase().includes(agentSearch),
+        return agents.filter(
+          (a) =>
+            !a.deleted &&
+            a.department === 'Sales' &&
+            a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
         );
 
       default:
@@ -66,7 +66,7 @@ const AgentList = ({ showrightSidebar }) => {
   };
 
 
-  const contacts = useSelector((state) =>
+  const agents = useSelector((state) =>
     getVisibleContacts(
       state.agentsReducer.agents,
       state.agentsReducer.currentAgentFilter,
@@ -79,16 +79,16 @@ const AgentList = ({ showrightSidebar }) => {
   return (
     <List>
       <Scrollbar sx={{ height: { lg: 'calc(100vh - 100px)', md: '100vh' }, maxHeight: '800px' }}>
-        {contacts.map((contact) => (
+        {agents.map((agent) => (
           <AgentListItem
-            key={contact.id}
-            active={contact.id === active}
-            {...contact}
+            key={agent.id}
+            active={agent.id === active}
+            {...agent}
             onContactClick={() => {
-              dispatch(selectAgent(contact.id));
+              dispatch(selectAgent(agent.id));
               showrightSidebar();
             }}
-            onDeleteClick={() => dispatch(deleteAgent(contact.id))}
+            onDeleteClick={() => dispatch(deleteAgent(agent.id))}
           />
         ))}
       </Scrollbar>

@@ -57,16 +57,33 @@
     {
       "id": 1,
       "agent_template_id": 1,
+      "photo_url": "https://gcdnb.pbrd.co/images/DYNWeSaSHgKO.png",
       "role": "Website support",
       "status": "enabled",
-      "name": "Othmane website support",
       "agent_configs": {
-        "website_name": "Othmane Zoheir personal website",
+        "name": "Othmane website support",
         "brand_voice": "professional, friendly, and passionate",
         "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
         "industry": "Software Development - Web Applications",
         "tone": "casual and friendly",
-        "language": "technical jargon"
+        "language": "technical jargon",
+        "additional_instructions": "   "
+      }
+    },
+    {
+      "id": 2,
+      "photo_url": "https://pbs.twimg.com/profile_images/1473412917366243338/lE1Y5IVs_400x400.jpg",
+      "agent_template_id": 2,
+      "role": "News reporter",
+      "status": "enabled",
+      "agent_configs": {
+        "name": "Peter Parker",
+        "topics": "crypto, ai, tech",
+        "tone": "Direct",
+        "frequency": "Daily",
+        "posting_time": "10:00",
+        "emails": "zozoheir@umich.edu, something@gmail.com",
+        "additional_instructions": "   "
       }
     }
   ],

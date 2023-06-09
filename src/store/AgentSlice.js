@@ -2,6 +2,8 @@ import axios from 'src/utils/axios';
 import {createSlice} from '@reduxjs/toolkit';
 import user2 from "../assets/images/profile/user-2.jpg";
 import user3 from "../assets/images/profile/user-3.jpg";
+import {BACKEND_URL} from "../configs";
+import {getHomeStats} from "./AnalyticsSlice";
 
 const API_URL = '/api/data/agents/ContactsData';
 
@@ -71,41 +73,10 @@ export const {
 
 
 export const fetchAgents = () => async (dispatch) => {
+
     try {
-        dispatch(getAgents([{
-            "id": 1,
-            "image": user2,
-            "department": "Engineering",
-            "agent_template_id": 1,
-            "role": "Website support",
-            "status": "enabled",
-            "name": "Othmane website support",
-            "agent_configs": {
-                "name": "Othmane Zoheir personal website",
-                "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
-                "industry": "Software Development - Web Applications",
-                "brand_voice": "professional, friendly, and passionate",
-                "tone": "casual and friendly",
-                "language": "technical jargon"
-            }
-        },
-            {
-                "id": 2,
-                "image": user2,
-                "department": "Engineering",
-                "agent_template_id": 1,
-                "role": "Website support",
-                "status": "enabled",
-                "name": "Elias",
-                "agent_configs": {
-                    "name": "Othmane Zoheir personal website",
-                    "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
-                    "industry": "Software Development - Web Applications",
-                    "brand_voice": "professional, friendly, and passionate",
-                    "tone": "casual and friendly",
-                    "language": "technical jargon"
-                }
-            }]));
+        const response = await axios.get(BACKEND_URL + '/agents');
+        dispatch(getAgents(response.data));
     } catch (err) {
         throw new Error(err);
     }
