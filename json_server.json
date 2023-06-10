@@ -87,6 +87,24 @@
       }
     }
   ],
+  "agents-sources": [
+    {
+      "id": 1,
+      "name": "Personal website",
+      "status": "enabled",
+      "type": "Website",
+      "agent_id": 1,
+      "last_updated_at": "2021-05-01T12:00:00.000000Z"
+    },
+    {
+      "id": 2,
+      "name": "Manual instructions",
+      "status": "enabled",
+      "type": "PDF",
+      "agent_id": 2,
+      "last_updated_at": "2021-06-01T12:00:00.000000Z"
+    }
+  ],
   "sessions": [
     {
       "id": "1",

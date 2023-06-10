@@ -1,11 +1,7 @@
 import axios from 'src/utils/axios';
 import {createSlice} from '@reduxjs/toolkit';
-import user2 from "../assets/images/profile/user-2.jpg";
-import user3 from "../assets/images/profile/user-3.jpg";
 import {BACKEND_URL} from "../configs";
-import {getHomeStats} from "./AnalyticsSlice";
 
-const API_URL = '/api/data/agents/ContactsData';
 
 const initialState = {
     agents: [],
