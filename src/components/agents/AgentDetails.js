@@ -23,7 +23,7 @@ import emailIcon from 'src/assets/images/breadcrumb/emailSv.png';
 import AgentTabs from './AgentTabs';
 import AgentConfig from "./AgentConfig";
 import {IconAB2, IconBolt, IconDatabase, IconSettings} from "@tabler/icons";
-import AgentSourcesTable from "./AgentSources";
+import AgentSourcesTable from "./AgentSourcesTable";
 
 const AgentDetails = () => {
     const [value, setValue] = React.useState(0);
