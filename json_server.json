@@ -60,7 +60,7 @@
       "photo_url": "https://gcdnb.pbrd.co/images/DYNWeSaSHgKO.png",
       "role": "Website support",
       "status": "enabled",
-      "agent_configs": {
+      "configs": {
         "name": "Othmane website support",
         "brand_voice": "professional, friendly, and passionate",
         "contact_info": "Email: support@devco.com, Phone: 123-456-7890",
@@ -76,7 +76,7 @@
       "agent_template_id": 2,
       "role": "News reporter",
       "status": "enabled",
-      "agent_configs": {
+      "configs": {
         "name": "Peter Parker",
         "topics": "crypto, ai, tech",
         "tone": "Direct",

@@ -14,7 +14,7 @@ import {IconStar, IconTrash} from '@tabler/icons';
 
 const AgentListItem = ({
                            onContactClick,
-                           agent_configs,
+                           configs,
                            role,
                            photo_url,
                            image,
@@ -30,7 +30,7 @@ const AgentListItem = ({
                 <Stack direction="row" gap="10px" alignItems="center">
                     <Box mr="auto" onClick={onContactClick}>
                         <Typography variant="subtitle1" noWrap fontWeight={600}>
-                            {agent_configs.name}
+                            {configs.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary" noWrap>
                             {role}

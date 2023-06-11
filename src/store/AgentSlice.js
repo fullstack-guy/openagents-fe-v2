@@ -1,6 +1,5 @@
-import axios from 'src/utils/axios';
+import axiosServices from 'src/utils/axios';
 import {createSlice} from '@reduxjs/toolkit';
-import {BACKEND_URL} from "../configs";
 
 
 const initialState = {
@@ -43,8 +42,8 @@ export const AgentSlice = createSlice({
             const updatedConfig = action.payload;
             const selectedAgent = state.agents.find(agent => agent.id === state.selectedAgentId);
             if (selectedAgent) {
-                // Update the agent_configs of the selected agent
-                selectedAgent.agent_configs = updatedConfig;
+                // Update the configs of the selected agent
+                selectedAgent.configs = updatedConfig;
             }
         },
         getAgentConfig: (state, action) => {
@@ -52,7 +51,7 @@ export const AgentSlice = createSlice({
             console.log("name", name)
             const selectedAgent = state.agents.find(agent => agent.id === state.selectedAgentId);
             if (selectedAgent) {
-                return selectedAgent.agent_configs[name]
+                return selectedAgent.configs[name]
             }
         },
 
@@ -76,8 +75,9 @@ export const {
 export const fetchAgents = () => async (dispatch) => {
 
     try {
-        const response = await axios.get(BACKEND_URL + '/agents');
-        dispatch(getAgents(response.data));
+        const response = await axiosServices.get('/agent');
+        console.log(response.data)
+        dispatch(getAgents(response.data.data));
     } catch (err) {
         throw new Error(err);
     }

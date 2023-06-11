@@ -17,10 +17,10 @@ const AgentConfig = ({selectedAgent}) => {
     const isAgentEditable = useSelector((state) => state.agentsReducer.isAgentEditable);
     const dispatch = useDispatch();
 
-    const configData = selectedAgent.agent_configs ? Object.keys(selectedAgent.agent_configs).map(key => {
+    const configData = selectedAgent.configs ? Object.keys(selectedAgent.configs).map(key => {
         return {
             name: key,
-            value: selectedAgent.agent_configs[key]
+            value: selectedAgent.configs[key]
         }
     }) : [];
 

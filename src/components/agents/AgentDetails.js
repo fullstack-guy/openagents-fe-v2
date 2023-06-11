@@ -56,7 +56,7 @@ const AgentDetails = () => {
                                             sx={{width: '72px', height: '72px'}}
                                         />
                                         <Typography variant="h6" mb={0.5}>
-                                            {selectedAgent.agent_configs.name}
+                                            {selectedAgent.configs.name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary"
                                                     mb={0.5}>

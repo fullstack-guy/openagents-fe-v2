@@ -21,7 +21,7 @@ const AgentList = ({showrightSidebar}) => {
         switch (filter) {
             case 'show_all':
                 return agents.filter(
-                    (a) => !a.deleted && a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
+                    (a) => !a.deleted && a.configs.name.toLocaleLowerCase().includes(agentSearch),
                 );
 
             case 'frequent_agent':
@@ -29,12 +29,12 @@ const AgentList = ({showrightSidebar}) => {
                     (a) =>
                         !a.deleted &&
                         a.frequentlyagented &&
-                        a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
+                        a.configs.name.toLocaleLowerCase().includes(agentSearch),
                 );
 
             case 'starred_agent':
                 return agents.filter(
-                    (a) => !a.deleted && a.starred && a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
+                    (a) => !a.deleted && a.starred && a.configs.name.toLocaleLowerCase().includes(agentSearch),
                 );
 
             case 'engineering_department':
@@ -42,7 +42,7 @@ const AgentList = ({showrightSidebar}) => {
                     (a) =>
                         !a.deleted &&
                         a.department === 'Engineering' &&
-                        a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
+                        a.configs.name.toLocaleLowerCase().includes(agentSearch),
                 );
 
             case 'support_department':
@@ -50,7 +50,7 @@ const AgentList = ({showrightSidebar}) => {
                     (a) =>
                         !a.deleted &&
                         a.department === 'Support' &&
-                        a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
+                        a.configs.name.toLocaleLowerCase().includes(agentSearch),
                 );
 
             case 'sales_department':
@@ -58,7 +58,7 @@ const AgentList = ({showrightSidebar}) => {
                     (a) =>
                         !a.deleted &&
                         a.department === 'Sales' &&
-                        a.agent_configs.name.toLocaleLowerCase().includes(agentSearch),
+                        a.configs.name.toLocaleLowerCase().includes(agentSearch),
                 );
 
             default:

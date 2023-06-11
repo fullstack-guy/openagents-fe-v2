@@ -101,20 +101,22 @@ const HomeStats = () => {
     }]
     if (homeStats.length > 0) {
         homeStats.forEach(stat => {
-            const {title, count, rate, chartData} = stat;
+            const {title, count, rate, ts_data} = stat;
             const {href, icon} = stats_icon_mapping[title];
-            const seriescolumnchart = [{
-                name: '',
-                color: primary,
-                data: [1, 2, 3, 4 ,5 ,6 ,7 ,8],
-            }];
+            console.log(ts_data)
+
+            // TODO : Figure out why chartData is not rendering when using ts_data
             cards_data.push({
                 href,
                 icon,
                 title,
                 count: count,
                 rate: rate,
-                chartData: seriescolumnchart,
+                chartData: [{
+                    name: '',
+                    color: primary,
+                    data: [1,6, 2, 4, 5,3,4,10,5,6,1,8],
+                }],
             });
         });
     } else {
@@ -130,8 +132,6 @@ const HomeStats = () => {
             });
         });
     }
-
-    console.log(cards_data)
 
     return (
         <Grid container spacing={3} mt={3}>

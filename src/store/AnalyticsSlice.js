@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {BACKEND_URL} from "src/configs";
+import axiosServices from "../utils/axios";
 
 const initialState = {
     home_stats: [],
@@ -19,12 +20,12 @@ export const AnalyticsSlice = createSlice({
 
 });
 
-export const { getHomeStats } = AnalyticsSlice.actions;
+export const {getHomeStats} = AnalyticsSlice.actions;
 
 export const fetchHomeStats = () => async (dispatch) => {
     try {
-        const response = await axios.get(BACKEND_URL + '/home');
-        dispatch(getHomeStats(response.data));
+        const response = await axiosServices.get('/home-analytics');
+        dispatch(getHomeStats(response.data.data));
     } catch (err) {
         throw new Error(err);
     }

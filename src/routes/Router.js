@@ -1,6 +1,7 @@
 import React, {lazy} from 'react';
 import {Navigate} from 'react-router-dom';
 import Loadable from '../layouts/shared/loadable/Loadable';
+import Login from "../pages/Login/Login";
 
 /* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
@@ -19,6 +20,8 @@ const Router = [
             {path: '/', element: <Navigate to="/home"/>},
             {path: '/home', exact: true, element: <ModernDash/>},
             {path: '/agents', exact: true, element: <Agents/>},
+            {path: '/login', exact: true, element: <Login/>},
+
         ],
     },
 ];
