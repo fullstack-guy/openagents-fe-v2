@@ -2,10 +2,10 @@ import {filter, map} from 'lodash';
 import {createSlice} from '@reduxjs/toolkit';
 import axiosServices from 'src/utils/axios';
 import {getAgents} from "./AgentSlice";
+import {showNotification} from "./NotificationSlice";
 
 const initialState = {
-    sources: [
-    ],
+    sources: [],
     productSearch: '',
     sortBy: 'newest',
     total: 0,
@@ -20,6 +20,13 @@ export const EcommerceSlice = createSlice({
         // HAS ERROR
         hasError(state, action) {
             state.error = action.payload;
+        },
+        unlinkAgentSource: (state, action) => {
+            const index = state.sources.findIndex((source) => source.id === action.payload);
+            state.sources.splice(index, 1);
+        },
+        unlinkAllAgentSources: (state, action) => {
+            state.sources = [];
         },
         // GET PRODUCTS
         setAgentSources: (state, action) => {
@@ -104,6 +111,9 @@ export const EcommerceSlice = createSlice({
 export const {
     hasError,
     setAgentSources,
+    deleteAllAgentSources,
+    deleteAgentSource,
+    unlinkAgentSource,
     SearchProduct,
     setVisibilityFilter,
     sortByProducts,
@@ -120,7 +130,7 @@ export const {
 
 export const fetchAgentSources = () => async (dispatch) => {
     try {
-        const response = await axiosServices.get('/knowledge-source');
+        const response = await axiosServices.get('/knowledge_source');
         console.log(response.data)
         dispatch(setAgentSources(response.data.data));
     } catch (error) {
@@ -128,6 +138,20 @@ export const fetchAgentSources = () => async (dispatch) => {
     }
 };
 
+export const fetchUnlinkAgentSource = (agentId, sourceId) => async (dispatch) => {
+    try {
+        const response = await axiosServices.delete(`/knowledge_source/connections?agent_id=${agentId}&knowledge_source_id=${sourceId}`);
+        dispatch(unlinkAgentSource(sourceId));
+        console.log(response.data)
+    } catch (error) {
+        dispatch(showNotification({
+            severity: 'error',
+            title: 'Error',
+            message: error.response.data.message
+        }));
+        dispatch(hasError(error));
+    }
+};
 
 
 export default EcommerceSlice.reducer;

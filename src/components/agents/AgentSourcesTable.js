@@ -27,13 +27,14 @@ import {visuallyHidden} from '@mui/utils';
 import {Button} from '@mui/material';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {fetchAgentSources} from 'src/store/AgentSourcesSlice';
+import {fetchAgentSources, fetchUnlinkAgentSource} from 'src/store/AgentSourcesSlice';
 import CustomCheckbox from 'src/components/forms/theme-elements/CustomCheckbox';
 import CustomSwitch from 'src/components/forms/theme-elements/CustomSwitch';
-import {IconSearch, IconTrash} from '@tabler/icons';
+import {IconSearch, IconTrash, IconUnlink} from '@tabler/icons';
 import sourceIcons from "./SourceIcons";
 import {useEffect} from "react";
-import {fetchAgents} from "../../store/AgentSlice";
+import {unlinkAgentSource} from "src/store/AgentSourcesSlice"
+
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -250,12 +251,12 @@ const AgentSourcesTable = () => {
     };
 
     // This is for the single row sleect
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
+    const handleSingleCheckboxClick = (event, id) => {
+        const selectedIndex = selected.indexOf(id);
         let newSelected = [];
 
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, id);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
@@ -266,12 +267,21 @@ const AgentSourcesTable = () => {
                 selected.slice(selectedIndex + 1),
             );
         }
-
         setSelected(newSelected);
     };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
+    };
+
+    const selectedAgentId = useSelector((state) => state.agentsReducer.selectedAgentId);
+    console.log("selectedAgentId ", selectedAgentId);
+    const onUnlinkClick = (source_id) => {
+        if (selectedAgentId) {
+            dispatch(fetchUnlinkAgentSource(source_id, selectedAgentId));
+        } else {
+            console.log('No selected agent ID');
+        }
     };
 
     const handleChangeRowsPerPage = (event) => {
@@ -327,7 +337,7 @@ const AgentSourcesTable = () => {
                                                 <TableCell padding="checkbox">
                                                     <CustomCheckbox
                                                         color="primary"
-                                                        onClick={(event) => handleClick(event, row.id)}
+                                                        onClick={(event) => handleSingleCheckboxClick(event, row.id)}
                                                         checked={isItemSelected}
                                                         inputprops={{
                                                             'aria-labelledby': labelId,
@@ -375,7 +385,7 @@ const AgentSourcesTable = () => {
 
                                                 <TableCell>
                                                     <Typography>
-                                                        {row.last_updated_at ? format(new Date(row.last_updated_at), 'dd MMMM HH:mm') : 'Unknown date'}
+                                                        {row.last_trained_at ? format(new Date(row.last_trained_at), 'dd MMMM HH:mm') : 'NA'}
                                                     </Typography>
                                                 </TableCell>
 
@@ -398,15 +408,15 @@ const AgentSourcesTable = () => {
                                                 </TableCell>
 
                                                 <TableCell>
-                                                    <Button color="secondary"
-                                                            variant="outlined"
-                                                            fullWidth
+                                                    <IconUnlink
+                                                        onClick={() => onUnlinkClick(row.id)}
+                                                        style={{cursor: "pointer"}}
                                                     >
-                                                        Manage
-                                                    </Button>
+                                                    </IconUnlink>
                                                 </TableCell>
                                             </TableRow>
-                                        );
+                                        )
+                                            ;
                                     })}
                                 {emptyRows > 0 && (
                                     <TableRow

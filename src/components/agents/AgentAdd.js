@@ -26,7 +26,7 @@ const AgentAdd = () => {
 
     const formik = useFormik({
         initialValues: {
-            "role": "Website support",
+            "role": "Website chatbot",
             "configs": {
                 "name": ""
             }
