@@ -17,7 +17,7 @@ import {
     IconAlertCircle,
 } from '@tabler/icons';
 import {useSelector, useDispatch} from 'react-redux';
-import {fetchHomeStats} from "src/store/AnalyticsSlice";
+import {GET_ANALYTICS_HOME} from "src/services/AnalyticsService";
 
 
 const HomeStats = () => {
@@ -31,7 +31,7 @@ const HomeStats = () => {
 
 
     useEffect(() => {
-        dispatch(fetchHomeStats());
+        dispatch(GET_ANALYTICS_HOME());
     }, [dispatch]);
 
     const optionscolumnchart = {

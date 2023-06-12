@@ -1,7 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import axios from 'axios';
-import {BACKEND_URL} from "src/configs";
-import axiosServices from "../utils/axios";
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     home_stats: [],
@@ -13,22 +10,13 @@ export const AnalyticsSlice = createSlice({
     name: 'analytics',
     initialState,
     reducers: {
-        getHomeStats: (state, action) => {
+        setHomeStats: (state, action) => {
             state.home_stats = action.payload;
         },
     },
 
 });
 
-export const {getHomeStats} = AnalyticsSlice.actions;
-
-export const fetchHomeStats = () => async (dispatch) => {
-    try {
-        const response = await axiosServices.get('/home-analytics');
-        dispatch(getHomeStats(response.data.data));
-    } catch (err) {
-        throw new Error(err);
-    }
-};
+export const {setHomeStats} = AnalyticsSlice.actions;
 
 export default AnalyticsSlice.reducer;

@@ -5,7 +5,7 @@ import {
     selectAgent,
     deleteAgent,
 } from 'src/store/AgentSlice';
-import {getAgents} from "src/services/Agents"
+import {GET_AGENTS} from "src/services/AgentsService"
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import AgentListItem from './AgentListItem';
 import AgentAdd from './AgentAdd';
@@ -15,7 +15,7 @@ const AgentList = ({showrightSidebar}) => {
 
 
     useEffect(() => {
-        dispatch(getAgents());
+        dispatch(GET_AGENTS());
     }, [dispatch]);
 
     const getVisibleContacts = (agents, filter, agentSearch) => {

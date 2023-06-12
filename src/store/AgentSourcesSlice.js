@@ -111,47 +111,11 @@ export const EcommerceSlice = createSlice({
 export const {
     hasError,
     setAgentSources,
-    deleteAllAgentSources,
-    deleteAgentSource,
     unlinkAgentSource,
-    SearchProduct,
     setVisibilityFilter,
-    sortByProducts,
-    filterProducts,
-    sortByGender,
     increment,
-    deleteCart,
     decrement,
-    addToCart,
-    sortByPrice,
-    filterReset,
-    sortByColor,
 } = EcommerceSlice.actions;
-
-export const fetchAgentSources = () => async (dispatch) => {
-    try {
-        const response = await axiosServices.get('/knowledge_source');
-        console.log(response.data)
-        dispatch(setAgentSources(response.data.data));
-    } catch (error) {
-        dispatch(hasError(error));
-    }
-};
-
-export const fetchUnlinkAgentSource = (agentId, sourceId) => async (dispatch) => {
-    try {
-        const response = await axiosServices.delete(`/knowledge_source/connections?agent_id=${agentId}&knowledge_source_id=${sourceId}`);
-        dispatch(unlinkAgentSource(sourceId));
-        console.log(response.data)
-    } catch (error) {
-        dispatch(showNotification({
-            severity: 'error',
-            title: 'Fail',
-            message: error.response.data.message
-        }));
-        dispatch(hasError(error));
-    }
-};
 
 
 export default EcommerceSlice.reducer;

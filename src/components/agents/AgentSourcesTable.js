@@ -28,14 +28,12 @@ import {visuallyHidden} from '@mui/utils';
 import {Button} from '@mui/material';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {fetchAgentSources, fetchUnlinkAgentSource} from 'src/store/AgentSourcesSlice';
 import CustomCheckbox from 'src/components/forms/theme-elements/CustomCheckbox';
-import CustomSwitch from 'src/components/forms/theme-elements/CustomSwitch';
 import {IconSearch, IconTrash, IconUnlink} from '@tabler/icons';
 import sourceIcons from "./SourceIcons";
 import {useEffect} from "react";
-import {unlinkAgentSource} from "src/store/AgentSourcesSlice"
 
+import {GET_KNOWLEDGE_SOURCES, DELETE_SOURCE_CONNECTION} from "src/services/KnowledgeSourcesService"
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -224,7 +222,7 @@ const AgentSourcesTable = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchAgentSources());
+        dispatch(GET_KNOWLEDGE_SOURCES());
     }, [dispatch]);
 
 
@@ -286,7 +284,7 @@ const AgentSourcesTable = () => {
     console.log("selectedAgentId ", selectedAgentId);
     const onUnlinkClick = (source_id) => {
         if (selectedAgentId) {
-            dispatch(fetchUnlinkAgentSource(source_id, selectedAgentId));
+            dispatch(DELETE_SOURCE_CONNECTION(source_id, selectedAgentId));
         } else {
             console.log('No selected agent ID');
         }

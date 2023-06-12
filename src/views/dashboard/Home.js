@@ -11,7 +11,6 @@ const Home = () => {
                     <HomeStats/>
                 </Grid>
             </Grid>
-            <Welcome/>
         </Box>
     );
 };
