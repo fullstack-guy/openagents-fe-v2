@@ -21,6 +21,7 @@ import {
     TextField,
     InputAdornment,
     Paper,
+    Grid
 } from '@mui/material';
 
 import {visuallyHidden} from '@mui/utils';
@@ -93,7 +94,7 @@ const headCells = [
         id: 'action',
         numeric: false,
         disablePadding: false,
-        label: 'Action',
+        label: '',
     },
 ];
 
@@ -170,21 +171,28 @@ const EnhancedTableToolbar = (props) => {
                     {numSelected} selected
                 </Typography>
             ) : (
-                <Box sx={{flex: '1 1 100%'}}>
-                    <TextField
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <IconSearch size="1.1rem"/>
-                                </InputAdornment>
-                            ),
-                        }}
-                        placeholder="Search sources"
-                        size="small"
-                        onChange={handleSearch}
-                        value={search}
-                    />
-                </Box>
+                <Grid container justifyContent="space-between" alignItems="center">
+                    <Grid item xs={9}>
+                        <TextField
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <IconSearch size="1.1rem"/>
+                                    </InputAdornment>
+                                ),
+                            }}
+                            placeholder="Search sources"
+                            size="small"
+                            onChange={handleSearch}
+                            value={search}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button variant="contained" color="primary">
+                            Connect source
+                        </Button>
+                    </Grid>
+                </Grid>
             )}
 
             {numSelected > 0 ? (
@@ -408,11 +416,11 @@ const AgentSourcesTable = () => {
                                                 </TableCell>
 
                                                 <TableCell>
-                                                    <IconUnlink
+                                                    <Button
                                                         onClick={() => onUnlinkClick(row.id)}
-                                                        style={{cursor: "pointer"}}
                                                     >
-                                                    </IconUnlink>
+                                                        Disconnect
+                                                    </Button>
                                                 </TableCell>
                                             </TableRow>
                                         )

@@ -146,7 +146,7 @@ export const fetchUnlinkAgentSource = (agentId, sourceId) => async (dispatch) =>
     } catch (error) {
         dispatch(showNotification({
             severity: 'error',
-            title: 'Error',
+            title: 'Fail',
             message: error.response.data.message
         }));
         dispatch(hasError(error));

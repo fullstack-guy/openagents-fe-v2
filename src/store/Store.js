@@ -4,13 +4,16 @@ import AnalyticsReducer from './AnalyticsSlice';
 import AgentsReducer from './AgentSlice';
 import NotificationReducer from './NotificationSlice';
 import AgentSourcesReducer from './AgentSourcesSlice';
+import ChatReducer from './ChatSlice';
+
 export const store = configureStore({
     reducer: {
         agentSourcesReducer: AgentSourcesReducer,
         notificationReducer: NotificationReducer,
         customizer: CustomizerReducer,
         analyticsReducer: AnalyticsReducer,
-        agentsReducer: AgentsReducer
+        agentsReducer: AgentsReducer,
+        chatReducer:ChatReducer,
     },
 });
 

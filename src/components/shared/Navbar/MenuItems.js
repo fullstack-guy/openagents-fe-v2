@@ -1,5 +1,6 @@
 import {
     IconAperture,
+    IconMessage
 
 } from '@tabler/icons';
 
@@ -18,6 +19,12 @@ const Menuitems = [
         title: 'Agents',
         icon: IconAperture,
         href: '/agents',
+    },
+    {
+        id: uniqueId(),
+        title: 'Chat',
+        icon: IconMessage,
+        href: '/chats',
     },
 ];
 
