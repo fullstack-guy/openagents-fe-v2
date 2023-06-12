@@ -3,18 +3,19 @@ import {List} from '@mui/material';
 import {useSelector, useDispatch} from 'react-redux';
 import {
     selectAgent,
-    fetchAgents,
     deleteAgent,
 } from 'src/store/AgentSlice';
-
+import {getAgents} from "src/services/Agents"
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import AgentListItem from './AgentListItem';
 import AgentAdd from './AgentAdd';
 
 const AgentList = ({showrightSidebar}) => {
     const dispatch = useDispatch();
+
+
     useEffect(() => {
-        dispatch(fetchAgents());
+        dispatch(getAgents());
     }, [dispatch]);
 
     const getVisibleContacts = (agents, filter, agentSearch) => {

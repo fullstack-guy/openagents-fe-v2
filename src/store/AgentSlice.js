@@ -1,4 +1,3 @@
-import axiosServices from 'src/utils/axios';
 import {createSlice} from '@reduxjs/toolkit';
 
 
@@ -18,7 +17,7 @@ export const AgentSlice = createSlice({
             // The agent data will come in the payload
             state.agents.push(action.payload);
         },
-        getAgents: (state, action) => {
+        setAgents: (state, action) => {
             state.agents = action.payload;
         },
         searchAgent: (state, action) => {
@@ -60,7 +59,7 @@ export const AgentSlice = createSlice({
 
 // Selector to get the selected agent's data
 export const {
-    getAgents,
+    setAgents,
     addAgent,
     searchAgent,
     selectAgent,
@@ -72,15 +71,5 @@ export const {
 } = AgentSlice.actions;
 
 
-export const fetchAgents = () => async (dispatch) => {
-
-    try {
-        const response = await axiosServices.get('/agent');
-        console.log(response.data)
-        dispatch(getAgents(response.data.data));
-    } catch (err) {
-        throw new Error(err);
-    }
-};
 
 export default AgentSlice.reducer;

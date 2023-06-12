@@ -1,7 +1,7 @@
 import {filter, map} from 'lodash';
 import {createSlice} from '@reduxjs/toolkit';
 import axiosServices from 'src/utils/axios';
-import {getAgents} from "./AgentSlice";
+import {setAgents} from "./AgentSlice";
 import {showNotification} from "./NotificationSlice";
 
 const initialState = {
