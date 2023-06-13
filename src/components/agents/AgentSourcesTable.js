@@ -221,15 +221,15 @@ const AgentSourcesTable = () => {
     const [search, setSearch] = React.useState('');
 
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(GET_KNOWLEDGE_SOURCES());
-    }, [dispatch]);
-
-
     const agent_sources = useSelector((state) => state.agentSourcesReducer.sources);
+    const agents = useSelector((state) => state.agentsReducer.agents);
+    const selected_agent_id = useSelector((state) => state.agentsReducer.selected_agent_id);
+    const selectedAgent = agents.find(x => x.id === selected_agent_id);
+
     useEffect(() => {
-        setRows(agent_sources)
-    }, [agent_sources]);
+        console.log(selectedAgent.knowledge_sources)
+        setRows(selectedAgent.knowledge_sources)
+    }, [selectedAgent]);
 
     const handleSearch = (event) => {
         const filteredRows = agent_sources.filter((row) => {
@@ -280,11 +280,9 @@ const AgentSourcesTable = () => {
         setPage(newPage);
     };
 
-    const selectedAgentId = useSelector((state) => state.agentsReducer.selectedAgentId);
-    console.log("selectedAgentId ", selectedAgentId);
     const onUnlinkClick = (source_id) => {
-        if (selectedAgentId) {
-            dispatch(DELETE_SOURCE_CONNECTION(source_id, selectedAgentId));
+        if (selected_agent_id) {
+            dispatch(DELETE_SOURCE_CONNECTION(source_id, selected_agent_id));
         } else {
             console.log('No selected agent ID');
         }
@@ -299,6 +297,8 @@ const AgentSourcesTable = () => {
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+
 
     return (
         <Box>

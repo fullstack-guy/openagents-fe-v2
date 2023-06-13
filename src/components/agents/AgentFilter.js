@@ -8,7 +8,6 @@ import {
     ListItemIcon,
     Typography,
 } from '@mui/material';
-import {setVisibilityFilter} from 'src/store/AgentSlice';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import {IconMail, IconSend, IconBucket, IconFolder} from '@tabler/icons';
 
@@ -90,7 +89,6 @@ const AgentFilter = () => {
                             <ListItemButton
                                 sx={{mb: 1, mx: 3, borderRadius: br}}
                                 selected={active === `${filter.sort}`}
-                                onClick={() => dispatch(setVisibilityFilter(`${filter.sort}`))}
                                 key={filter.id}
                             >
                                 <ListItemIcon sx={{minWidth: '30px', color: filter.color}}>

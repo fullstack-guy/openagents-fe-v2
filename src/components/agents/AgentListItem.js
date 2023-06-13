@@ -16,7 +16,7 @@ const AgentListItem = ({
                            onContactClick,
                            configs,
                            role,
-                           photo_url,
+                           image_url,
                            image,
                            active,
                        }) => {
@@ -24,7 +24,7 @@ const AgentListItem = ({
     return (
         <ListItemButton sx={{mb: 1}} selected={active}>
             <ListItemAvatar>
-                <Avatar alt={image} src={photo_url}/>
+                <Avatar alt={image} src={image_url}/>
             </ListItemAvatar>
             <ListItemText>
                 <Stack direction="row" gap="10px" alignItems="center">

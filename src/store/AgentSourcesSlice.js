@@ -35,9 +35,7 @@ export const EcommerceSlice = createSlice({
         SearchProduct: (state, action) => {
             state.productSearch = action.payload;
         },
-        setVisibilityFilter: (state, action) => {
-            state.currentFilter = action.payload;
-        },
+
         //  SORT  PRODUCTS
         sortByProducts(state, action) {
             state.sortBy = action.payload;
@@ -112,7 +110,6 @@ export const {
     hasError,
     setAgentSources,
     unlinkAgentSource,
-    setVisibilityFilter,
     increment,
     decrement,
 } = EcommerceSlice.actions;

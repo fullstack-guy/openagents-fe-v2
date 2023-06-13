@@ -12,11 +12,6 @@ import {
     Grid,
     Tooltip, Tabs, Tab,
 } from '@mui/material';
-import {
-    setAgentEditable,
-    deleteAgent,
-    getSelectedAgent,
-} from 'src/store/AgentSlice';
 import BlankCard from 'src/components/shared/BlankCard';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import emailIcon from 'src/assets/images/breadcrumb/emailSv.png';
@@ -32,14 +27,14 @@ const AgentDetails = () => {
     };
 
     const agents = useSelector((state) => state.agentsReducer.agents);
-    const selectedAgentId = useSelector((state) => state.agentsReducer.selectedAgentId);
-    const selectedAgent = agents.find(x => x.id === selectedAgentId);
-
+    const selected_agent_id = useSelector((state) => state.agentsReducer.selected_agent_id);
+    const selectedAgent = agents.find(x => x.id === selected_agent_id);
     const editContact = useSelector((state) => state.agentsReducer.editContact);
+    console.log("selectedAgent", selectedAgent)
+
     return (
 
         <>
-
 
             {selectedAgent && !selectedAgent.deleted ? (
                 <>

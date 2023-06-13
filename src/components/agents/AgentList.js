@@ -3,16 +3,15 @@ import {List} from '@mui/material';
 import {useSelector, useDispatch} from 'react-redux';
 import {
     selectAgent,
-    deleteAgent,
 } from 'src/store/AgentSlice';
 import {GET_AGENTS} from "src/services/AgentsService"
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import AgentListItem from './AgentListItem';
 import AgentAdd from './AgentAdd';
+import {GET_KNOWLEDGE_SOURCES} from "../../services/KnowledgeSourcesService";
 
 const AgentList = ({showrightSidebar}) => {
     const dispatch = useDispatch();
-
 
     useEffect(() => {
         dispatch(GET_AGENTS());
@@ -76,7 +75,12 @@ const AgentList = ({showrightSidebar}) => {
         ),
     );
 
-    const active = useSelector((state) => state.agentsReducer.agentData);
+    const selected_agent_id = useSelector((state) => state.agentsReducer.selected_agent_id);
+
+    const handleClicked = (id) => {
+        dispatch(selectAgent(id));
+        showrightSidebar();
+    };
 
     return (
         <>
@@ -86,13 +90,9 @@ const AgentList = ({showrightSidebar}) => {
                     {agents.map((agent) => (
                         <AgentListItem
                             key={agent.id}
-                            active={agent.id === active}
+                            active={agent.id === selected_agent_id}
+                            onContactClick={() => handleClicked(agent.id)}
                             {...agent}
-                            onContactClick={() => {
-                                dispatch(selectAgent(agent.id));
-                                showrightSidebar();
-                            }}
-                            onDeleteClick={() => dispatch(deleteAgent(agent.id))}
                         />
                     ))}
                 </Scrollbar>

@@ -24,14 +24,14 @@ const AgentEditForm = () => {
 
     // IMPLEMENT HERE
 
-    const selectedAgentId = useSelector((state) => state.agentsReducer.agentContent);
+    const selected_agent_id = useSelector((state) => state.agentsReducer.selected_agent_id);
     const agents = useSelector((state) => state.agentsReducer.agents);
-    const agent = agents.find(agent => agent.id === selectedAgentId);
+    const agent = agents.find(agent => agent.id === selected_agent_id);
     // console.log(agent);
     // console.log(agents);
-    // console.log(selectedAgentId);
+    // console.log(selected_agent_id);
 
-    // const agent = agents.find(agent => agent.id === selectedAgentId);
+    // const agent = agents.find(agent => agent.id === selected_agent_id);
     const [selectedColor, setSelectedColor] = useState("blue");
 
     const onColourChange = (color) => {
