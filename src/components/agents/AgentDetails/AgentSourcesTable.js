@@ -233,7 +233,7 @@ const AgentSourcesTable = () => {
 
     const handleSearch = (event) => {
         const filteredRows = agent_sources.filter((row) => {
-            return row.configs.name.toLowerCase().includes(event.target.value);
+            return row.configs.info.name.toLowerCase().includes(event.target.value);
         });
         setSearch(event.target.value);
         setRows(filteredRows);
@@ -337,7 +337,7 @@ const AgentSourcesTable = () => {
                                                 role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 tabIndex={-1}
-                                                key={row.configs.name}
+                                                key={row.configs.info.name}
                                                 selected={isItemSelected}
                                             >
                                                 <TableCell padding="checkbox">
@@ -359,7 +359,7 @@ const AgentSourcesTable = () => {
                                                             }}
                                                         >
                                                             <Typography variant="h6" fontWeight="600">
-                                                                {row.configs.name}
+                                                                {row.configs.info.name}
                                                             </Typography>
                                                             <Typography color="textSecondary" variant="subtitle2">
                                                                 {row.category}

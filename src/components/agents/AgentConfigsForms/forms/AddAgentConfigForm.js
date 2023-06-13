@@ -2,8 +2,19 @@ import {FormLabel, Grid, TextField} from "@mui/material";
 import React from "react";
 import {useFormikContext, FormikProvider, Form} from 'formik';
 
-const WebsiteChatbotAdd = () => {
+const AddAgentConfigForm = () => {
     const {values, handleChange} = useFormikContext();
+    const configs = {
+        "info": [
+            {
+                "name": "website_url",
+                "type": "text",
+                "required_at_init": true,
+                "label": "Website url",
+                "placeholder": "https://www.example.com",
+            }
+        ]
+    }
 
     return (
         <Grid item xs={12} lg={12}>
@@ -21,4 +32,4 @@ const WebsiteChatbotAdd = () => {
     )
 };
 
-export default WebsiteChatbotAdd;
+export default AddAgentConfigForm;

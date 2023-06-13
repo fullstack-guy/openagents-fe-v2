@@ -7,7 +7,6 @@ const initialState = {
     selected_agent_data: null,
     agentSearch: '',
     isAgentEditable: false,
-    currentAgentFilter: 'show_all',
 };
 
 export const AgentSlice = createSlice({
@@ -36,6 +35,7 @@ export const AgentSlice = createSlice({
             const selectedAgent = state.agents.find(agent => agent.id === state.selected_agent_id);
             if (selectedAgent) {
                 // Update the configs of the selected agent
+                console.log("updatedConfig", updatedConfig)
                 selectedAgent.configs = updatedConfig;
             }
         },

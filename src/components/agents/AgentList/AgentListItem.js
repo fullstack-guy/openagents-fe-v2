@@ -13,27 +13,24 @@ import {IconStar, IconTrash} from '@tabler/icons';
 
 
 const AgentListItem = ({
-                           onContactClick,
-                           configs,
-                           role,
-                           image_url,
-                           image,
                            active,
+                           onContactClick,
+                           agent,
                        }) => {
 
     return (
         <ListItemButton sx={{mb: 1}} selected={active}>
             <ListItemAvatar>
-                <Avatar alt={image} src={image_url}/>
+                <Avatar alt={agent.image} src={agent.image_url}/>
             </ListItemAvatar>
             <ListItemText>
                 <Stack direction="row" gap="10px" alignItems="center">
                     <Box mr="auto" onClick={onContactClick}>
                         <Typography variant="subtitle1" noWrap fontWeight={600}>
-                            {configs.name}
+                            {agent.configs.info.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary" noWrap>
-                            {role}
+                            {agent.role}
                         </Typography>
                     </Box>
 

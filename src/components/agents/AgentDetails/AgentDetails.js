@@ -17,7 +17,7 @@ import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import emailIcon from 'src/assets/images/breadcrumb/emailSv.png';
 import {IconAB2, IconBolt, IconDatabase, IconSettings} from "@tabler/icons";
 import AgentSourcesTable from "./AgentSourcesTable";
-import AgentConfigForm from "../AgentConfigForm";
+import EditAgentConfigForm from "../AgentConfigsForms/forms/EditAgentConfigForm";
 
 const AgentDetails = () => {
     const [value, setValue] = React.useState(0);
@@ -47,7 +47,7 @@ const AgentDetails = () => {
                                             sx={{width: '72px', height: '72px'}}
                                         />
                                         <Typography variant="h6" mb={0.5}>
-                                            {selected_agent_data.configs.name}
+                                            {selected_agent_data.configs.info.name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary"
                                                     mb={0.5}>
@@ -75,7 +75,7 @@ const AgentDetails = () => {
                                     </Box>
                                     <Box sx={{overflow: 'auto'}}>
                                         {
-                                            value === 0 ? <AgentConfigForm agent_configs={selected_agent_data.configs}/> :
+                                            value === 0 ? <EditAgentConfigForm agent_configs_dict={selected_agent_data.configs}/> :
                                                 value === 1 ? <AgentSourcesTable></AgentSourcesTable> :
                                                 null
                                         }
