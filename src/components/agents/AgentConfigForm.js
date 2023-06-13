@@ -1,24 +1,24 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {getAgentConfig, setAgentEditable, updateAgent, updateAgentConfig} from 'src/store/AgentSlice';
-import {Box, Button, TextField, Typography} from "@mui/material";
+import {useDispatch} from 'react-redux';
+import {setAgentEditable, updateAgentConfig} from 'src/store/AgentSlice';
+import {Box, Button, TextField, Typography, Grid} from "@mui/material";
 import BlankCard from "../shared/BlankCard";
 import SketchExample from "../shared/HexColourButton";
 import {useFormik} from 'formik';
 import {showNotification} from "src/store/NotificationSlice";
 
-const AgentConfig = ({selectedAgent}) => {
+const AgentConfigForm = ({agent_configs}) => {
     const dispatch = useDispatch();
 
-    const configData = selectedAgent.configs ? Object.keys(selectedAgent.configs).map(key => {
+    const configData = agent_configs ? Object.keys(agent_configs).map(key => {
         return {
             name: key,
-            value: selectedAgent.configs[key]
+            value: agent_configs[key]
         }
     }) : [];
 
     const formik = useFormik({
-        initialValues: selectedAgent.configs,
+        initialValues: agent_configs,
         onSubmit: (values, {setSubmitting}) => {
             dispatch(updateAgentConfig(values));
             setSubmitting(false);
@@ -66,22 +66,27 @@ const AgentConfig = ({selectedAgent}) => {
 
         <BlankCard sx={{p: 0}}>
             <form>
-                <Box pt={1}>
-                    {configData.map((data) => (
-                        <Box key={data.id} px={3} py={1.5}>
-                            <Typography variant="body2" color="text.secondary">
-                                {replaceUnderscoresAndCapitalize(data.name)}
-                            </Typography>
-                            {renderField(data)}
-                        </Box>
-                    ))}
+                <Box p={3}>
+                    <Grid container spacing={3}>
+                        {configData.map((data, index) => (
+                            <Grid item xs={6} key={data.id}>
+                                <Box px={3} py={1.5}>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {replaceUnderscoresAndCapitalize(data.name)}
+                                    </Typography>
+                                    {renderField(data)}
+                                </Box>
+                            </Grid>
+                        ))}
+                    </Grid>
                     <Box p={3} display="flex" justifyContent="flex-start">
                         <Button
                             color="primary"
                             variant="contained"
+                            size="large"
                             onClick={formik.handleSubmit}
                         >
-                            Save Config
+                            Save
                         </Button>
                     </Box>
                 </Box>
@@ -91,6 +96,6 @@ const AgentConfig = ({selectedAgent}) => {
         ;
 };
 
-export default AgentConfig;
+export default AgentConfigForm;
 
 

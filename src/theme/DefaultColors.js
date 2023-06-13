@@ -124,7 +124,7 @@ const baseDarkTheme = {
       hoverOpacity: 0.02,
       hover: '#131f34',
     },
-    divider: '#131f34',
+    divider: 'rgb(32, 46, 73)',
     background: {
       default: '#171c23',
       dark: '#171c23',

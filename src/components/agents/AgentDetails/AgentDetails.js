@@ -15,10 +15,9 @@ import {
 import BlankCard from 'src/components/shared/BlankCard';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import emailIcon from 'src/assets/images/breadcrumb/emailSv.png';
-import AgentTabs from './AgentTabs';
-import AgentConfig from "./AgentConfig";
 import {IconAB2, IconBolt, IconDatabase, IconSettings} from "@tabler/icons";
 import AgentSourcesTable from "./AgentSourcesTable";
+import AgentConfigForm from "../AgentConfigForm";
 
 const AgentDetails = () => {
     const [value, setValue] = React.useState(0);
@@ -26,17 +25,14 @@ const AgentDetails = () => {
         setValue(newValue);
     };
 
-    const agents = useSelector((state) => state.agentsReducer.agents);
-    const selected_agent_id = useSelector((state) => state.agentsReducer.selected_agent_id);
-    const selectedAgent = agents.find(x => x.id === selected_agent_id);
+    const selected_agent_data = useSelector((state) => state.agentsReducer.selected_agent_data);
     const editContact = useSelector((state) => state.agentsReducer.editContact);
-    console.log("selectedAgent", selectedAgent)
 
     return (
 
         <>
 
-            {selectedAgent && !selectedAgent.deleted ? (
+            {selected_agent_data && !selected_agent_data.deleted ? (
                 <>
                     <Box sx={{overflow: 'auto'}}>
                         {!editContact ? (
@@ -46,16 +42,16 @@ const AgentDetails = () => {
                                          flexDirection={"column"}
                                          alignItems="center">
                                         <Avatar
-                                            alt={selectedAgent.image}
-                                            src={selectedAgent.photo_url}
+                                            alt={selected_agent_data.image}
+                                            src={selected_agent_data.photo_url}
                                             sx={{width: '72px', height: '72px'}}
                                         />
                                         <Typography variant="h6" mb={0.5}>
-                                            {selectedAgent.configs.name}
+                                            {selected_agent_data.configs.name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary"
                                                     mb={0.5}>
-                                            {selectedAgent.role}
+                                            {selected_agent_data.role}
                                         </Typography>
 
                                     </Box>
@@ -79,7 +75,7 @@ const AgentDetails = () => {
                                     </Box>
                                     <Box sx={{overflow: 'auto'}}>
                                         {
-                                            value === 0 ? <AgentConfig selectedAgent={selectedAgent}></AgentConfig> :
+                                            value === 0 ? <AgentConfigForm agent_configs={selected_agent_data.configs}/> :
                                                 value === 1 ? <AgentSourcesTable></AgentSourcesTable> :
                                                 null
                                         }

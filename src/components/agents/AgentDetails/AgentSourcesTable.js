@@ -30,7 +30,7 @@ import {Button} from '@mui/material';
 import {useSelector, useDispatch} from 'react-redux';
 import CustomCheckbox from 'src/components/forms/theme-elements/CustomCheckbox';
 import {IconSearch, IconTrash, IconUnlink} from '@tabler/icons';
-import sourceIcons from "./SourceIcons";
+import sourceIcons from "../SourceIcons";
 import {useEffect} from "react";
 
 import {GET_KNOWLEDGE_SOURCES, DELETE_SOURCE_CONNECTION} from "src/services/KnowledgeSourcesService"

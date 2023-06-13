@@ -7,8 +7,8 @@ import {
 import {GET_AGENTS} from "src/services/AgentsService"
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import AgentListItem from './AgentListItem';
-import AgentAdd from './AgentAdd';
-import {GET_KNOWLEDGE_SOURCES} from "../../services/KnowledgeSourcesService";
+import AgentAdd from '../AgentAdd';
+import {GET_KNOWLEDGE_SOURCES} from "../../../services/KnowledgeSourcesService";
 
 const AgentList = ({showrightSidebar}) => {
     const dispatch = useDispatch();

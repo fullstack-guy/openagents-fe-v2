@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Button, Box, Drawer, useMediaQuery } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import Breadcrumb from 'src/layouts/shared/breadcrumb/Breadcrumb';
-import AgentDetails from 'src/components/agents/AgentDetails';
-import AgentList from 'src/components/agents/AgentList';
-import AgentSearch from 'src/components/agents/AgentSearch';
-import AgentFilter from 'src/components/agents/AgentFilter';
+import AgentDetails from 'src/components/agents/AgentDetails/AgentDetails';
+import AgentList from 'src/components/agents/AgentList/AgentList';
+import AgentSearch from 'src/components/agents/AgentList/AgentSearch';
+import AgentFilter from 'src/components/agents/AgentList/AgentFilter';
 import AppCard from 'src/components/shared/AppCard';
 
 const drawerWidth = 240;
