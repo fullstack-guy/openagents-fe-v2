@@ -7,7 +7,7 @@ import "./theme/styles.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { hideNotification } from 'src/store/NotificationSlice';
 import Notification from 'src/components/shared/Notification';
-
+import { supabase } from 'src/services/supabase';
 function App() {
     const routing = useRoutes(Router);
     const theme = ThemeSettings();

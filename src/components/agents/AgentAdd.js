@@ -105,18 +105,10 @@ const AgentAdd = () => {
                                     <Grid item xs={12} lg={12} style={{
                                         marginBottom: '40px'
                                     }}>
-                                        <FormLabel>Name</FormLabel>
-                                        <TextField
-                                            id="name"
-                                            size="large"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={formik.values.configs.info.name}
-                                            onChange={formik.handleChange}
-                                        />
+                                        <AddAgentConfigForm></AddAgentConfigForm>
                                     </Grid>
 
-                                    <AddAgentConfigForm></AddAgentConfigForm>
+
                                 </Grid>
                                 <Stack spacing={2}
                                        direction="row"
