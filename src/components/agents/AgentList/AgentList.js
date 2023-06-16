@@ -9,12 +9,14 @@ import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import AgentListItem from './AgentListItem';
 import AgentAdd from '../AgentAdd';
 import {GET_KNOWLEDGE_SOURCES} from "../../../services/KnowledgeSourcesService";
+import {SupabaseContext} from 'src/supabase/SupabaseContext';
+import {useContext} from 'react';
 
 const AgentList = ({showrightSidebar}) => {
     const dispatch = useDispatch();
-
+    const supabase = useContext(SupabaseContext);
     useEffect(() => {
-        dispatch(GET_AGENTS());
+        dispatch(GET_AGENTS(supabase, dispatch));
     }, [dispatch]);
 
 

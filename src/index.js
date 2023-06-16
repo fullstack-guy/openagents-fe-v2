@@ -8,6 +8,7 @@ import Spinner from './views/spinner/Spinner';
 import './_mockApis';
 import './utils/i18n';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

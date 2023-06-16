@@ -26,6 +26,12 @@ const Menuitems = [
         icon: IconMessage,
         href: '/chats',
     },
+    {
+        id: uniqueId(),
+        title: 'Login',
+        icon: IconMessage,
+        href: '/auth/login',
+    },
 ];
 
 export default Menuitems;

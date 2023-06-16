@@ -12,6 +12,7 @@ const Login = Loadable(lazy(() => import('src/pages/Login/Login')));
 const Chat = Loadable(lazy(() => import('src/pages/Chat/Chat')));
 
 
+//    const {user} = useAuth()
 
 // landingpage
 
@@ -25,7 +26,6 @@ const Router = [
             {path: '/agents', exact: true, element: <Agents/>},
             {path: '/login', exact: true, element: <Login/>},
             {path: '/chats', exact: true, element: <Chat/>},
-
         ],
     },
 ];
