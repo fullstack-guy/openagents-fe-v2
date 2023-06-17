@@ -10,6 +10,7 @@ const ModernDash = Loadable(lazy(() => import('../views/dashboard/Home')));
 const Agents = Loadable(lazy(() => import('src/pages/Agents/Agents')));
 const Login = Loadable(lazy(() => import('src/pages/Login/Login')));
 const Chat = Loadable(lazy(() => import('src/pages/Chat/Chat')));
+const Feed = Loadable(lazy(() => import('src/pages/Feed/Feed')));
 
 
 //    const {user} = useAuth()
@@ -21,11 +22,8 @@ const Router = [
         path: '/',
         element: <FullLayout/>,
         children: [
-            {path: '/', element: <Navigate to="/home"/>},
-            {path: '/home', exact: true, element: <ModernDash/>},
-            {path: '/agents', exact: true, element: <Agents/>},
-            {path: '/login', exact: true, element: <Login/>},
-            {path: '/chats', exact: true, element: <Chat/>},
+            {path: '/', element: <Navigate to="/feed"/>},
+            {path: '/feed', exact: true, element: <Feed/>},
         ],
     },
 ];

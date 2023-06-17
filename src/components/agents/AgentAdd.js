@@ -30,7 +30,7 @@ const AgentAdd = () => {
     };
 
     useEffect(() => {
-        const fetchAgents = async () => {
+        const fetchAgentRoles = async () => {
             const {data: agent_roles, error} = await supabase
                 .from('agent_types')
                 .select('*')
@@ -42,23 +42,33 @@ const AgentAdd = () => {
                 }
             }
         }
-        fetchAgents()
+        fetchAgentRoles()
     }, []);
 
 
     const formik = useFormik({
         initialValues: {
-            "role": "",
-            "configs": {
-                "info": {
-                    "name": ""
-                }
-            }
+            "uid": "417ddd7b-3342-4bcf-926d-887c01ca562c",
+            "llm": "gpt_3_5_turbo",
+            "image_url": "https://i.ibb.co/JKn3XH6/Screenshot-2023-05-15-at-2-33-24-PM.png",
+            "agent_template_id": "",
+            "settings": []
         },
+        // TODO Implement proper format of values for creating an agent
+        // TODO Some issues with grabing values from the formik form due to formik provider
         onSubmit: (values) => {
             console.log(values);
+            const finalValues = {
+                ...values,
+                _settings: Object.entries(values._settings).map(([group, settings]) =>
+                    Object.entries(settings).map(([name, value]) => ({
+                        group, name, value
+                    }))
+                ).flat()
+            };
+            console.log(finalValues);
             setModal(false);
-            dispatch(addAgent(values));
+            // dispatch(addAgent(finalValues));
             dispatch(showNotification({
                 severity: 'success',
                 title: 'Success',
@@ -66,6 +76,8 @@ const AgentAdd = () => {
             }));
         }
     });
+
+
     const handleRoleChange = (event) => {
         const selectedRoleId = event.target.value;
         const selectedRole = agent_roles.find(role => role.id === selectedRoleId);

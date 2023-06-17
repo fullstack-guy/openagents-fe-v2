@@ -15,7 +15,7 @@ const AddAgentConfigForm = ({templateId}) => {
         const fetchAgentSettingTemplates = async () => {
             const response = await supabase
                 .from('agent_settings_templates')
-                .select('section, name, type, label')
+                .select('group, name, type, label')
                 .eq('agent_template_id', templateId)
                 .eq('is_required', true);
             handleSupabaseError(dispatch, response);
@@ -26,10 +26,10 @@ const AddAgentConfigForm = ({templateId}) => {
             if (data) {
                 const groupedSettings = {};
                 (data || []).forEach((setting) => {
-                    if (!groupedSettings[setting.section]) {
-                        groupedSettings[setting.section] = [];
+                    if (!groupedSettings[setting.group]) {
+                        groupedSettings[setting.group] = [];
                     }
-                    groupedSettings[setting.section].push(setting);
+                    groupedSettings[setting.group].push(setting);
                 });
                 setAgentSettings(groupedSettings);
             }
@@ -50,16 +50,19 @@ const AddAgentConfigForm = ({templateId}) => {
                     Configurations
                 </DialogContentText>
             </Grid>
-            {Object.entries(agentSettings).map(([section, configs]) => (
+            {Object.entries(agentSettings).map(([group, configs]) => (
                 configs.length > 0 &&
-                <Grid item xs={12} key={section}>
+                <Grid item xs={12} key={group}>
                     <Typography variant="h6">
-                        {replaceUnderscoresAndCapitalize(section)}
+                        {replaceUnderscoresAndCapitalize(group)}
                     </Typography>
                     {configs.map((config, index) => (
                         <Grid item xs={12} key={index}>
                             <FormLabel>{replaceUnderscoresAndCapitalize(config.name)}</FormLabel>
-                            {getComponentByType(config.type, config, handleChange, values)}
+                            {getComponentByType(config.type, {
+                                ...config,
+                                name: `settings.${config.name}`
+                            }, handleChange, values)}
                         </Grid>
                     ))}
                 </Grid>

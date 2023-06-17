@@ -10,21 +10,9 @@ const Menuitems = [
 
     {
         id: uniqueId(),
-        title: 'Home',
+        title: 'Feed',
         icon: IconAperture,
-        href: '/home',
-    },
-    {
-        id: uniqueId(),
-        title: 'Agents',
-        icon: IconAperture,
-        href: '/agents',
-    },
-    {
-        id: uniqueId(),
-        title: 'Chat',
-        icon: IconMessage,
-        href: '/chats',
+        href: '/',
     },
     {
         id: uniqueId(),
