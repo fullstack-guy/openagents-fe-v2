@@ -1,38 +1,45 @@
-import React from 'react';
-import {TextField, Typography, Grid, FormLabel, DialogContentText} from "@mui/material";
+import React, {useEffect, useState} from 'react';
 import {useFormikContext} from 'formik';
-import {SupabaseContext} from 'src/supabase/SupabaseContext';
-import {useEffect, useContext, useState} from 'react';
+import {Grid, FormLabel, DialogContentText, Typography} from "@mui/material";
+import {getComponentByType} from "src/components/forms/config-component/getComponentByType";
+import {useDispatch} from 'react-redux';
+import {handleSupabaseError, supabase} from 'src/supabase/supabase';
 
 const AddAgentConfigForm = ({templateId}) => {
     const {values, handleChange} = useFormikContext();
-    const supabase = useContext(SupabaseContext);
-    const [agentSettings, setAgentSettings] = useState([])
+    const dispatch = useDispatch();
+    const [agentSettings, setAgentSettings] = useState([]);
 
+    // Inside your React component
     useEffect(() => {
-        const fetchAgents = async () => {
-            const {data: agent_settings_templates, error} = await supabase
+        const fetchAgentSettingTemplates = async () => {
+            const response = await supabase
                 .from('agent_settings_templates')
-                .select('name, type, label')
+                .select('section, name, type, label')
                 .eq('agent_template_id', templateId)
                 .eq('is_required', true);
-
-            if (error) {
-                console.error(error);
-            } else {
-                setAgentSettings(agent_settings_templates || []);
-            }
+            handleSupabaseError(dispatch, response);
+            return response;
         };
-        fetchAgents();
-    }, [templateId, supabase]);
 
-    const configs = {
-        "info": agentSettings,
-    }
+        fetchAgentSettingTemplates().then(({data}) => {
+            if (data) {
+                const groupedSettings = {};
+                (data || []).forEach((setting) => {
+                    if (!groupedSettings[setting.section]) {
+                        groupedSettings[setting.section] = [];
+                    }
+                    groupedSettings[setting.section].push(setting);
+                });
+                setAgentSettings(groupedSettings);
+            }
+        });
+    }, [templateId, supabase, dispatch]);
+
 
     function replaceUnderscoresAndCapitalize(str) {
-        let modifiedStr = str.replace(/_/g, ' '); // replace underscores with spaces
-        modifiedStr = modifiedStr.charAt(0).toUpperCase() + modifiedStr.slice(1); // capitalize first letter
+        let modifiedStr = str.replace(/_/g, ' ');
+        modifiedStr = modifiedStr.charAt(0).toUpperCase() + modifiedStr.slice(1);
         return modifiedStr;
     }
 
@@ -43,32 +50,18 @@ const AddAgentConfigForm = ({templateId}) => {
                     Configurations
                 </DialogContentText>
             </Grid>
-            {Object.entries(configs).map(([section, configs]) => (
-                // if length of configs > 0, then display the section
+            {Object.entries(agentSettings).map(([section, configs]) => (
                 configs.length > 0 &&
-                <Grid item xs={12}>
-
+                <Grid item xs={12} key={section}>
                     <Typography variant="h6">
                         {replaceUnderscoresAndCapitalize(section)}
                     </Typography>
-                    {configs.map((config, index) => {
-                        return (
-                            <Grid item xs={12} key={index}>
-                                <FormLabel>{replaceUnderscoresAndCapitalize(config.name)}</FormLabel>
-                                <TextField
-                                    id={`${section}.${config.name}`}
-                                    name={`${section}.${config.name}`}
-                                    size="small"
-                                    variant="outlined"
-                                    fullWidth
-                                    placeholder={config.placeholder}
-                                    onChange={handleChange}
-                                    value={values[section] && values[section][config.name]}
-                                />
-                            </Grid>
-                        )
-                    })}
-
+                    {configs.map((config, index) => (
+                        <Grid item xs={12} key={index}>
+                            <FormLabel>{replaceUnderscoresAndCapitalize(config.name)}</FormLabel>
+                            {getComponentByType(config.type, config, handleChange, values)}
+                        </Grid>
+                    ))}
                 </Grid>
             ))}
         </Grid>

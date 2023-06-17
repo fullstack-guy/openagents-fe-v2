@@ -14,18 +14,15 @@ import CustomSelect from 'src/components/forms/theme-elements/CustomSelect.js';
 import AddAgentConfigForm from "./AgentConfigsForms/forms/AddAgentConfigForm";
 import {useFormik, FormikProvider, Form} from "formik";
 import {addAgent} from "src/store/AgentSlice"
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {showNotification} from "src/store/NotificationSlice";
-import {SupabaseContext} from 'src/supabase/SupabaseContext';
-import {useContext} from "react";
 import {replaceUnderscoresAndCapitalize} from "../../utils/formatting";
-
+import {supabase} from "src/supabase/supabase"
 
 const AgentAdd = () => {
     const [modal, setModal] = useState(false);
     const dispatch = useDispatch();
     const [agent_roles, setAgentRoles] = useState([]);
-    const supabase = useContext(SupabaseContext)
     const [selectedTemplate, setSelectedTemplate] = useState({})
 
     const toggle = () => {
@@ -37,14 +34,12 @@ const AgentAdd = () => {
             const {data: agent_roles, error} = await supabase
                 .from('agent_types')
                 .select('*')
-            console.log("fetching agent_roles", agent_roles)
             if (error) {
                 console.error("Error fetching agent_roles", error)
             } else {
                 if (agent_roles) {
                     setAgentRoles(agent_roles)
                 }
-                console.log("fetching agent_roles", error)
             }
         }
         fetchAgents()

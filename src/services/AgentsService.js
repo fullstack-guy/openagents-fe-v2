@@ -62,10 +62,7 @@ export const GET_AGENTS = (supabase) => async (dispatch) => {
         if (error) {
             console.error(error)
         } else {
-            console.log(agents)
         }
-        console.log("Retrieved agents: ", agents)
-        // policy:
         //dispatch(setAgents(data));
     } catch (err) {
         throw new Error(err);
