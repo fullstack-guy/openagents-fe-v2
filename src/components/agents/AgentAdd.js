@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import {
     Box,
     Button,
@@ -16,18 +16,44 @@ import {useFormik, FormikProvider, Form} from "formik";
 import {addAgent} from "src/store/AgentSlice"
 import {useSelector, useDispatch} from 'react-redux';
 import {showNotification} from "src/store/NotificationSlice";
+import {SupabaseContext} from 'src/supabase/SupabaseContext';
+import {useContext} from "react";
+import {replaceUnderscoresAndCapitalize} from "../../utils/formatting";
+
 
 const AgentAdd = () => {
-    const [modal, setModal] = React.useState(false);
+    const [modal, setModal] = useState(false);
     const dispatch = useDispatch();
+    const [agent_roles, setAgentRoles] = useState([]);
+    const supabase = useContext(SupabaseContext)
+    const [selectedTemplate, setSelectedTemplate] = useState({})
 
     const toggle = () => {
         setModal(!modal);
     };
 
+    useEffect(() => {
+        const fetchAgents = async () => {
+            const {data: agent_roles, error} = await supabase
+                .from('agent_types')
+                .select('*')
+            console.log("fetching agent_roles", agent_roles)
+            if (error) {
+                console.error("Error fetching agent_roles", error)
+            } else {
+                if (agent_roles) {
+                    setAgentRoles(agent_roles)
+                }
+                console.log("fetching agent_roles", error)
+            }
+        }
+        fetchAgents()
+    }, []);
+
+
     const formik = useFormik({
         initialValues: {
-            "role": "Website chatbot",
+            "role": "",
             "configs": {
                 "info": {
                     "name": ""
@@ -45,8 +71,11 @@ const AgentAdd = () => {
             }));
         }
     });
-
-    const AGENT_LIST = ['Website chatbot'];
+    const handleRoleChange = (event) => {
+        const selectedRoleId = event.target.value;
+        const selectedRole = agent_roles.find(role => role.id === selectedRoleId);
+        setSelectedTemplate(selectedRole);
+    };
 
 
     return (
@@ -72,40 +101,29 @@ const AgentAdd = () => {
                     {'Create an Agent'}
                 </DialogTitle>
                 <DialogContent>
-
                     <Box sx={{
                         p: 3
                     }}>
-                        <DialogContentText id="alert-dialog-description">
-                            Step 1: Choose an Agent role<br/>
-                        </DialogContentText>
                         <FormikProvider value={formik}>
                             <Form>
                                 <Grid spacing={3} container>
                                     <Grid item xs={12} lg={12}>
                                         <FormLabel>Agent role</FormLabel>
-                                        <CustomSelect fullWidth variant="outlined">
-                                            {AGENT_LIST.map((option) => (
-                                                <MenuItem value={formik.values.role}
-                                                          onChange={formik.handleChange}
-                                                          key={option.value}>
-                                                    {option}
+                                        <CustomSelect fullWidth variant="outlined" value={selectedTemplate?.id || ""}
+                                                      onChange={handleRoleChange}>
+                                            {agent_roles.map((option) => (
+                                                <MenuItem value={option.id} key={option.id}>
+                                                    {replaceUnderscoresAndCapitalize(option.type)}
                                                 </MenuItem>
                                             ))}
                                         </CustomSelect>
 
+
                                     </Grid>
 
-                                    <Grid mt={3} item xs={12} lg={12}>
-                                        <DialogContentText id="alert-dialog-description">
-                                            Step 2: Configure your agent
-                                        </DialogContentText>
-                                    </Grid>
 
-                                    <Grid item xs={12} lg={12} style={{
-                                        marginBottom: '40px'
-                                    }}>
-                                        <AddAgentConfigForm></AddAgentConfigForm>
+                                    <Grid item xs={12} lg={12} style={{marginBottom: '40px'}}>
+                                        {selectedTemplate && <AddAgentConfigForm templateId={selectedTemplate.id}/>}
                                     </Grid>
 
 
