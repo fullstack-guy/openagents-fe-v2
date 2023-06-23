@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Box, Card, Typography, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
-import Logo from 'src/layouts/full/shared/logo/Logo';
+import Logo from 'src/layouts/shared/logo/Logo';
 
 import AuthRegister from '../authForms/AuthRegister';
 
@@ -34,7 +34,7 @@ const Register2 = () => (
           justifyContent="center"
           alignItems="center"
         >
-          <Card elevation={9} sx={{ p: 4, m:3, zIndex: 1, width: '100%', maxWidth: '450px' }}>
+          <Card elevation={9} sx={{ p: 4, m: 3, zIndex: 1, width: '100%', maxWidth: '450px' }}>
             <Box display="flex" alignItems="center" justifyContent="center">
               <Logo />
             </Box>
@@ -44,9 +44,9 @@ const Register2 = () => (
                   <Typography color="textSecondary" variant="h6" fontWeight="400">
                     Already have an Account?
                   </Typography>
-                  <Typography 
+                  <Typography
                     component={Link}
-                    to="/auth/login2"
+                    to="/auth/login"
                     fontWeight="500"
                     sx={{
                       textDecoration: 'none',

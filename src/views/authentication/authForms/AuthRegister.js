@@ -112,6 +112,7 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
               <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
               <CustomTextField
                 id="password"
+                type="password"
                 variant="outlined"
                 fullWidth
                 {...getFieldProps('password')}
