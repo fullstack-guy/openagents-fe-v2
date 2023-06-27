@@ -1,11 +1,17 @@
-import { useMediaQuery, Box, Drawer, useTheme } from '@mui/material';
+import { useCallback } from 'react';
+import { useMediaQuery, Button, Box, Drawer, useTheme } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import SidebarItems from './SidebarItems';
 import Logo from 'src/layouts/shared/logo/Logo';
-import { useSelector, useDispatch } from 'react-redux';
 import { hoverSidebar, toggleMobileSidebar } from 'src/store/CustomizerSlice';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
+import { supabase } from 'src/supabase/supabase';
+import { useSupabaseContext } from 'src/supabase/SupabaseContext';
 
 const Sidebar = () => {
+  const { session } = useSupabaseContext()
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const customizer = useSelector((state) => state.customizer);
   const dispatch = useDispatch();
@@ -24,6 +30,10 @@ const Sidebar = () => {
   const onHoverLeave = () => {
     dispatch(hoverSidebar(false));
   };
+
+  const handleLogout = useCallback(async () => {
+    await supabase.auth.signOut()
+  }, [])
 
   if (lgUp) {
     return (
@@ -81,6 +91,11 @@ const Sidebar = () => {
               <SidebarItems />
             </Scrollbar>
           </Box>
+          {session && <Box mt={1} py={1} px={2}>
+            <Button onClick={handleLogout} variant="outlined" color="primary" component={Link} fullWidth>
+              Logout
+            </Button>
+          </Box>}
         </Drawer>
       </Box>
     );

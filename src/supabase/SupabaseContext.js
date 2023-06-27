@@ -1,3 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-export const SupabaseContext = React.createContext();
+export const SupabaseContext = React.createContext({
+  session: null
+});
+
+export const useSupabaseContext = () => useContext(SupabaseContext)

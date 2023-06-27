@@ -1,28 +1,32 @@
 import React from 'react';
+import { Avatar, Box, Stack } from '@mui/material';
+
+import { supabase } from 'src/supabase/supabase';
+
 import icon1 from 'src/assets/images/svgs/google-icon.svg';
 import icon2 from 'src/assets/images/svgs/facebook-icon.svg';
 import CustomSocialButton from '../../../components/forms/theme-elements/CustomSocialButton';
-import { Avatar, Box, Stack } from '@mui/material';
 import useAuth from 'src/guards/authGuard/UseAuth';
 
 const AuthSocialButtons = ({ title }) => {
-  const { loginWithGoogle, loginWithFaceBook } = useAuth();
 
   const handleLoginGoogle = async () => {
     try {
-      await loginWithGoogle();
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleLoginFaceBook = async () => {
-    try {
-      await loginWithFaceBook();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleLoginFaceBook = async () => {
+  //   try {
+  //     await loginWithFaceBook();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <>
@@ -45,7 +49,7 @@ const AuthSocialButtons = ({ title }) => {
           </Box>{' '}
           Google
         </CustomSocialButton>
-        <CustomSocialButton onClick={handleLoginFaceBook}>
+        {/* <CustomSocialButton onClick={handleLoginFaceBook}>
           <Avatar
             src={icon2}
             alt={icon2}
@@ -62,7 +66,7 @@ const AuthSocialButtons = ({ title }) => {
             {title}
           </Box>{' '}
           FB
-        </CustomSocialButton>
+        </CustomSocialButton> */}
       </Stack>
     </>
   );

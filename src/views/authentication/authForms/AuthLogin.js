@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -17,24 +17,30 @@ import CustomCheckbox from 'src/components/forms/theme-elements/CustomCheckbox';
 import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
 import CustomFormLabel from 'src/components/forms/theme-elements/CustomFormLabel';
 import AuthSocialButtons from './AuthSocialButtons';
-import useAuth from 'src/guards/authGuard/UseAuth';
 import useMounted from 'src/guards/authGuard/UseMounted';
+import { supabase } from 'src/supabase/supabase';
+
 
 const AuthLogin = ({ title, subtitle, subtext }) => {
   const mounted = useMounted();
-  const { signin } = useAuth();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email is invalid').required('Email is required'),
     password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
   });
 
+  const handleLoginWIthEmail = useCallback(async (email, password) => {
+    await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+  }, [])
+
   const formik = useFormik({
     initialValues: {
-      email: 'demo@demo.com',
-      password: 'demo123',
+      email: '',
+      password: '',
       submit: null,
     },
 
@@ -42,7 +48,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
 
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
       try {
-        await signin(values.email, values.password);
+        await handleLoginWIthEmail(values.email, values.password);
 
         if (mounted.current) {
           setStatus({ success: true });

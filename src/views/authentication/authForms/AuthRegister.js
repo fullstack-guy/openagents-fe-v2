@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Box, Typography, Button, Divider, Alert, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Form, useFormik, FormikProvider } from 'formik';
@@ -7,27 +7,31 @@ import * as Yup from 'yup';
 import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
 import CustomFormLabel from '../../../components/forms/theme-elements/CustomFormLabel';
 import AuthSocialButtons from './AuthSocialButtons';
-import useAuth from 'src/guards/authGuard/UseAuth';
 import useMounted from 'src/guards/authGuard/UseMounted';
+import { supabase } from 'src/supabase/supabase';
 
 const AuthRegister = ({ title, subtitle, subtext }) => {
   const mounted = useMounted();
-  const { signup } = useAuth();
   const navigate = useNavigate();
 
   const registerSchema = Yup.object().shape({
-    UserName: Yup.string().required('UserName is required'),
+    username: Yup.string().required('username is required'),
     email: Yup.string().email('Email is invalid').required('Email is required'),
     password: Yup.string()
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
-
-    acceptTerms: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
   });
+
+  const handleSignUp = useCallback(async (email, password) => {
+    await supabase.auth.signUp({
+      email,
+      password,
+    })
+  }, [])
 
   const formik = useFormik({
     initialValues: {
-      UserName: '',
+      username: '',
       email: '',
       password: '',
       policy: true,
@@ -39,8 +43,8 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
 
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
       try {
-        await signup(values.email, values.password);
-        navigate('/auth/login1');
+        await handleSignUp(values.email, values.password);
+        navigate('/auth/login');
         if (mounted.current) {
           setStatus({ success: true });
           setSubmitting(true);
@@ -96,9 +100,9 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
                 id="name"
                 variant="outlined"
                 fullWidth
-                {...getFieldProps('UserName')}
-                error={Boolean(touched.UserName && errors.UserName)}
-                helperText={touched.UserName && errors.UserName}
+                {...getFieldProps('username')}
+                error={Boolean(touched.username && errors.username)}
+                helperText={touched.username && errors.username}
               />
               <CustomFormLabel htmlFor="email">Email Adddress</CustomFormLabel>
               <CustomTextField
@@ -112,6 +116,7 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
               <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
               <CustomTextField
                 id="password"
+                type="password"
                 variant="outlined"
                 fullWidth
                 {...getFieldProps('password')}
@@ -119,16 +124,18 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
                 helperText={touched.password && errors.password}
               />
             </Stack>
-            <Button
-              color="primary"
-              variant="contained"
-              size="large"
-              fullWidth
-              type="submit"
-              disabled={isSubmitting}
-            >
-              Sign Up
-            </Button>
+            <Box>
+              <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                fullWidth
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Sign Up
+              </Button>
+            </Box>
           </Form>
         </FormikProvider>
       </Box>
