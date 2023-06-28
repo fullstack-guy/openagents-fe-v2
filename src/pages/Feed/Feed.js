@@ -14,7 +14,7 @@ import { useSupabaseContext } from 'src/supabase/SupabaseContext';
 
 const TABs = [
   { label: 'Sources', disabled: false, component: <div>Market and Sources</div> },
-  { label: 'Chart', disabled: false, component: <Chats /> },
+  { label: 'Chat', disabled: false, component: <Chats /> },
 ];
 
 const Feed = () => {
@@ -56,12 +56,10 @@ const Feed = () => {
   return (
     <PageContainer title="Feed" description="this is feed page">
       <Grid container>
-        <Grid item xs={12} lg={4}>
-          <BlankCard>
+        <Grid item xs={12} xl={4}>
             <CardContent>
               <Typography variant="h2" textAlign="center">Live Feeds</Typography>
             </CardContent>
-          </BlankCard>
           <ScrollableFeed>
             {feeds.map(
               (item, i) =>
@@ -75,7 +73,7 @@ const Feed = () => {
             }
           </ScrollableFeed>
         </Grid>
-        <Grid item xs={12} lg={8}>
+        <Grid item xs={12} xl={8}>
           <TabContext value={tabId}>
             <Box>
               <TabList variant="scrollable"
