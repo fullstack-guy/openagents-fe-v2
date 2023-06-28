@@ -74,6 +74,7 @@ const ChatMsgSent = () => {
         </Popover>
         <InputBase
           id="msg-sent"
+          autoFocus
           fullWidth
           value={msg}
           placeholder="Type a Message"
