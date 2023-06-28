@@ -23,7 +23,7 @@ const ChatMsgSent = () => {
     setAnchorEl(null);
   };
 
-  const id = useSelector((state) => state.chatReducer.selected_chat_id);
+  const id = useSelector((state) => state.chatReducer.chatContent);
 
   const handleChatMsgChange = (e) => {
     setMsg(e.target.value);
@@ -39,10 +39,7 @@ const ChatMsgSent = () => {
   };
 
   return (
-    <Box p={2}
-    sx = {{
-      border:"solid 1px white"
-    }}>
+    <Box p={2}>
       {/* ------------------------------------------- */}
       {/* sent chat */}
       {/* ------------------------------------------- */}

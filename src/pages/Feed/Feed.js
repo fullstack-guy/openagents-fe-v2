@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Box, Drawer, useMediaQuery, Grid } from '@mui/material';
+import { Button, Box, Card, CardContent, Drawer, Typography, useMediaQuery, Grid, Paper, Tab, Divider, Tabs } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+
 import { sub } from 'date-fns';
 
 import PageContainer from 'src/components/container/PageContainer';
-import Breadcrumb from 'src/layouts/shared/breadcrumb/Breadcrumb';
 import ScrollableFeed from 'react-scrollable-feed'
 import FeedCard from "../../components/feed/feed";
+import BlankCard from 'src/components/shared/BlankCard';
+import Chats from '../Chat/Chat';
 import { supabase } from 'src/supabase/supabase';
 import { useSupabaseContext } from 'src/supabase/SupabaseContext';
 
-const Feed = () => {
+const TABs = [
+  { label: 'Sources', disabled: false, component: <div>Market and Sources</div> },
+  { label: 'Chart', disabled: false, component: <Chats /> },
+];
 
+const Feed = () => {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(false);
   const [isRightSidebarOpen, setRightSidebarOpen] = useState(false);
+  const [tabId, setTabId] = useState(0);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const mdUp = useMediaQuery((theme) => theme.breakpoints.up('md'));
   const [isLoading, setIsLoading] = useState(false)
@@ -41,14 +49,19 @@ const Feed = () => {
     getFeedList()
   }, [session])
 
+  const handleTabChange = (event, newId) => {
+    setTabId(newId);
+  };
+
   return (
-    <PageContainer title="Contact App" description="this is Contact page">
-
-      <Grid container justifyContent="center" alignItems="center">
-
-        <Grid item xs={12} sm={6}>
-          <Breadcrumb
-            title="Open Agents crypto feed" />
+    <PageContainer title="Feed" description="this is feed page">
+      <Grid container>
+        <Grid item xs={12} lg={4}>
+          <BlankCard>
+            <CardContent>
+              <Typography variant="h2" textAlign="center">Live Feeds</Typography>
+            </CardContent>
+          </BlankCard>
           <ScrollableFeed>
             {feeds.map(
               (item, i) =>
@@ -57,14 +70,32 @@ const Feed = () => {
                   from={item.title}
                   subject={item.text}
                   label={item.tag}
-
-                ></FeedCard>
+                />
             )
             }
           </ScrollableFeed>
         </Grid>
+        <Grid item xs={12} lg={8}>
+          <TabContext value={tabId}>
+            <Box>
+              <TabList variant="scrollable"
+                scrollButtons="auto" onChange={handleTabChange} aria-label="lab API tabs example">
+                {TABs.map((tab, index) => (
+                  <Tab key={index} label={tab.label} value={index} />
+                ))}
+              </TabList>
+            </Box>
+            <Divider />
+            <Box mt={2}>
+              {TABs.map((panel, index) => (
+                <TabPanel key={index} value={index}>
+                  {panel.component}
+                </TabPanel>
+              ))}
+            </Box>
+          </TabContext>
+        </Grid>
       </Grid>
-
     </PageContainer>
   );
 };
