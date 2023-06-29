@@ -65,11 +65,11 @@ const ChatContent = ({ toggleChatSidebar }) => {
             {/* ------------------------------------------- */}
 
             <Box width="100%">
-              <Scrollbar sx={{ overflow: 'auto' }} style={{maxHeight: '490px'}} >
+              <Scrollbar sx={{ overflow: 'auto' }} style={{height: '500px'}} >
                 <Box p={3}>
-                  {messages && messages?.map((chat) => {
+                  {messages && messages?.map((chat, index) => {
                     return (
-                      <Box key={chat.id + chat.msg + chat.createdAt}>
+                      <Box key={index}>
                         <Box mb={1}>
                           <Box alignItems="flex-end" display="flex" flexDirection={'column'}>
                             {chat.createdAt ? (

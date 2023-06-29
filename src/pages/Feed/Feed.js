@@ -19,7 +19,7 @@ const TABs = [
 const Feed = () => {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(false);
   const [isRightSidebarOpen, setRightSidebarOpen] = useState(false);
-  const [tabId, setTabId] = useState(0);
+  const [tabId, setTabId] = useState('0');
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const mdUp = useMediaQuery((theme) => theme.breakpoints.up('md'));
   const [isLoading, setIsLoading] = useState(false)
@@ -78,14 +78,14 @@ const Feed = () => {
               <TabList variant="scrollable"
                 scrollButtons="auto" onChange={handleTabChange} aria-label="lab API tabs example">
                 {TABs.map((tab, index) => (
-                  <Tab key={index} label={tab.label} value={index} />
+                  <Tab key={index} label={tab.label} value={index.toString()} />
                 ))}
               </TabList>
             </Box>
             <Divider />
             <Box mt={2}>
               {TABs.map((panel, index) => (
-                <TabPanel key={index} value={index}>
+                <TabPanel key={index} value={index.toString()}>
                   {panel.component}
                 </TabPanel>
               ))}

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
@@ -13,13 +14,21 @@ const Scrollbar = (props) => {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent,
   );
+  const simpleBarRef = useRef(null)
 
   if (isMobile) {
     return <Box sx={{ overflowX: 'auto' }}>{children}</Box>;
   }
 
+  const scrollToBottom = () => {
+    if (simpleBarRef.current) {
+      simpleBarRef.current.getScrollElement().scrollTop = (simpleBarRef.current.getScrollElement().scrollHeight + 50);
+    }
+  };
+  scrollToBottom()
+
   return (
-    <SimpleBarStyle sx={sx} {...other}>
+    <SimpleBarStyle sx={sx} {...other} ref={simpleBarRef}>
       {children}
     </SimpleBarStyle>
   );

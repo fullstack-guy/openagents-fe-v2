@@ -58,6 +58,14 @@ const messages = [
         attachment: [],
         id: uniqueId(),
       },
+      {
+        created_at: sub(new Date(), { minutes: 5 }),
+        msg: chance.sentence({ words: 5 }),
+        senderId: 1,
+        type: 'text',
+        attachment: [],
+        id: uniqueId(),
+      },
     ]
 
 mock.onGet('/api/data/messages').reply(() => {
