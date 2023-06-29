@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Box, Card, CardContent, Drawer, Typography, useMediaQuery, Grid, Paper, Tab, Divider, Tabs } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-
 import { sub } from 'date-fns';
 
 import PageContainer from 'src/components/container/PageContainer';
 import ScrollableFeed from 'react-scrollable-feed'
 import FeedCard from "../../components/feed/feed";
-import BlankCard from 'src/components/shared/BlankCard';
 import Chats from '../Chat/Chat';
 import { supabase } from 'src/supabase/supabase';
 import { useSupabaseContext } from 'src/supabase/SupabaseContext';
+import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 
 const TABs = [
   { label: 'Sources', disabled: false, component: <div>Market and Sources</div> },
@@ -55,12 +54,12 @@ const Feed = () => {
 
   return (
     <PageContainer title="Feed" description="this is feed page">
-      <Grid container>
-        <Grid item xs={12} xl={4}>
+      <Grid container height="calc(100vh - 70px)">
+        <Grid item xs={12} lg={4} maxHeight="780px">
             <CardContent>
               <Typography variant="h2" textAlign="center">Live Feeds</Typography>
             </CardContent>
-          <ScrollableFeed>
+          <Scrollbar style={{ height: "100%", padding: '25px'}}>
             {feeds.map(
               (item, i) =>
                 <FeedCard key={i}
@@ -71,9 +70,9 @@ const Feed = () => {
                 />
             )
             }
-          </ScrollableFeed>
+          </Scrollbar>
         </Grid>
-        <Grid item xs={12} xl={8}>
+        <Grid item xs={12} lg={8} height="100%">
           <TabContext value={tabId}>
             <Box>
               <TabList variant="scrollable"

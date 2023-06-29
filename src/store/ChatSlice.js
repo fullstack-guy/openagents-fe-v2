@@ -3,26 +3,18 @@ import { uniqueId } from 'lodash';
 import { sub } from 'date-fns';
 
 import axios from 'src/utils/axios';
-const API_URL = '/api/data/chat/ChatData';
+const API_URL = '/api/data/messages';
 
 const initialState = {
-  chats: [],
-  chatContent: 1,
-  chatSearch: '',
+  messages: []
 };
 
 export const ChatSlice = createSlice({
-  name: 'chat',
+  name: 'messages',
   initialState,
   reducers: {
     getChats: (state, action) => {
-      state.chats = action.payload;
-    },
-    SearchChat: (state, action) => {
-      state.chatSearch = action.payload;
-    },
-    SelectChat: (state, action) => {
-      state.chatContent = action.payload;
+      state.messages = action.payload;
     },
     sendMsg: (state, action) => {
       const conversation = action.payload;
@@ -33,23 +25,19 @@ export const ChatSlice = createSlice({
         msg: msg,
         type: 'text',
         attachments: [],
-        createdAt: sub(new Date(), { seconds: 1 }),
+        createdAt: sub(new Date(), { seconds: 1 }).toString(),
         senderId: uniqueId(),
       };
 
-      state.chats = state.chats.map((chat) =>
-        chat.id === action.payload.id
-          ? {
-            ...chat,
-            ...chat.messages.push(newMessage),
-          }
-          : chat,
-      );
+      state.messages = [
+        ...state.messages,
+        newMessage
+      ]
     },
   },
 });
 
-export const { SearchChat, getChats, sendMsg, SelectChat } = ChatSlice.actions;
+export const { getChats, sendMsg } = ChatSlice.actions;
 
 export const fetchChats = () => async (dispatch) => {
   try {
