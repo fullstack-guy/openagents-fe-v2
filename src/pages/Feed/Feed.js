@@ -55,7 +55,7 @@ const Feed = () => {
   return (
     <PageContainer title="Feed" description="this is feed page">
       <Grid container height="calc(100vh - 70px)">
-        <Grid item xs={12} lg={4} maxHeight="780px">
+        <Grid item xs={12} lg={4} maxHeight="865px" overflow="hidden">
             <CardContent>
               <Typography variant="h2" textAlign="center">Live Feeds</Typography>
             </CardContent>
