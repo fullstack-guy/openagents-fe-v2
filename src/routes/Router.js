@@ -7,10 +7,9 @@ import Loadable from '../layouts/shared/loadable/Loadable';
 const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
 
 /* ****Pages***** */
-const ModernDash = Loadable(lazy(() => import('../views/dashboard/Home')));
-const Agents = Loadable(lazy(() => import('src/pages/Agents/Agents')));
+// const ModernDash = Loadable(lazy(() => import('../views/dashboard/Home')));
+// const Agents = Loadable(lazy(() => import('src/pages/Agents/Agents')));
 const Login = Loadable(lazy(() => import('src/pages/Login/Login')));
-const Chat = Loadable(lazy(() => import('src/pages/Chat/Chat')));
 const Feed = Loadable(lazy(() => import('src/pages/Feed/Feed')));
 const Register = Loadable(lazy(() => import('src/pages/Register/Register')));
 
