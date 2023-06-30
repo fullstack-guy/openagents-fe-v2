@@ -19,7 +19,7 @@ const ChatDetails = () => {
   return (
     <TabContext value={tabId}>
       <CardContent>
-        <Typography variant="h2" textAlign="center">Live Feeds</Typography>
+        <Typography variant="h2" textAlign="center">Details</Typography>
       </CardContent>
       <Box sx={{ padding: "0 24px", border: "none" }}>
         <Tabs
