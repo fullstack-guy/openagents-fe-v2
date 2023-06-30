@@ -22,7 +22,7 @@ const Scrollbar = (props) => {
 
   const scrollToBottom = () => {
     if (simpleBarRef.current) {
-      simpleBarRef.current.getScrollElement().scrollTop = (simpleBarRef.current.getScrollElement().scrollHeight + 50);
+      simpleBarRef.current.getScrollElement().scrollTop = simpleBarRef.current.getScrollElement().scrollHeight;
     }
   };
   scrollToBottom()
