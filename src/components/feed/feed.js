@@ -25,8 +25,6 @@ const FeedCard = ({
                   }) => {
     const theme = useTheme();
 
-    const warningColor = theme.palette.warning.main;
-    const errorColor = theme.palette.error.light;
 
     return (
         <ListItemButton sx={{
