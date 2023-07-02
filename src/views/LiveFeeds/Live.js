@@ -42,7 +42,7 @@ const Live = () => {
             (item, i) =>
               <FeedCard key={i}
                 time={sub(new Date(), { days: 0, hours: 1, minutes: 45 })}
-                from={item.title}
+                title={item.title}
                 subject={item.text}
                 label={item.tag}
               />

@@ -19,17 +19,17 @@ const ChatDetails = () => {
   return (
     <TabContext value={tabId}>
       <CardContent>
-        <Typography variant="h2" textAlign="center">Details</Typography>
+        <Typography variant="h4" textAlign="left" sx={{ml:4}}>Details</Typography>
       </CardContent>
       <Box sx={{ padding: "0 24px", border: "none" }}>
         <Tabs
           value={tabId}
           onChange={handleTabChange}
-          indicatorColor="secondary"
+          indicatorColor="primary"
           textColor="inherit"
           variant="fullWidth"
           aria-label="full width tabs example"
-          sx={{ backgroundColor: (theme) => theme.palette.primary.main, borderRadius: (theme) => theme.shape.borderRadius / 20 }}
+          sx={{borderRadius: (theme) => theme.shape.borderRadius / 20 }}
         >
           {DetailsTabs.map((tab, index) => (
             <Tab key={index} label={tab.label} value={index} />

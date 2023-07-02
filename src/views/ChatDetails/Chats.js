@@ -9,14 +9,6 @@ const Chats = () => {
   return (
     <PageContainer title="Chat ui" description="this is Chat page">
       <AppCard>
-        {/* ------------------------------------------- */}
-        {/* Left part */}
-        {/* ------------------------------------------- */}
-
-        {/* ------------------------------------------- */}
-        {/* Right part */}
-        {/* ------------------------------------------- */}
-
         <Box flexGrow={1}>
           <ChatContent />
           <Divider />
