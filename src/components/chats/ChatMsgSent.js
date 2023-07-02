@@ -47,40 +47,16 @@ const ChatMsgSent = () => {
         onSubmit={onChatMsgSubmit}
         style={{ display: 'flex', gap: '10px', alignItems: 'center' }}
       >
-        {/* ------------------------------------------- */}
-        {/* Emoji picker */}
-        {/* ------------------------------------------- */}
-        <IconButton
-          aria-label="more"
-          id="long-button"
-          aria-controls="long-menu"
-          aria-expanded="true"
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          <IconMoodSmile />
-        </IconButton>
-        <Popover
-          id="long-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          <Picker onEmojiClick={onEmojiClick} native />
-          <Box p={2}>Selected: {chosenEmoji ? chosenEmoji.emoji : ''}</Box>
-        </Popover>
+
         <InputBase
           id="msg-sent"
           autoFocus
           fullWidth
           value={msg}
-          placeholder="Type a Message"
+          placeholder="Chat with your trading agent"
           size="small"
           type="text"
-          inputProps={{ 'aria-label': 'Type a Message' }}
+          inputProps={{ 'aria-label': 'Chat with your trading agent' }}
           onChange={handleChatMsgChange.bind(null)}
         />
         <IconButton
@@ -94,12 +70,7 @@ const ChatMsgSent = () => {
         >
           <IconSend stroke={1.5} size="20" />
         </IconButton>
-        <IconButton aria-label="delete">
-          <IconPhoto stroke={1.5} size="20" />
-        </IconButton>
-        <IconButton aria-label="delete">
-          <IconPaperclip stroke={1.5} size="20" />
-        </IconButton>
+
       </form>
     </Box>
   );

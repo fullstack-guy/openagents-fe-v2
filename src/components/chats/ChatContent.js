@@ -28,36 +28,6 @@ const ChatContent = ({ toggleChatSidebar }) => {
     <Box>
       {messages ? (
         <Box>
-          {/* ------------------------------------------- */}
-          {/* Header Part */}
-          {/* ------------------------------------------- */}
-          <Box>
-            <Box display="flex" alignItems="center" p={2}>
-              <Box
-                sx={{
-                  display: { xs: 'block', md: 'block', lg: 'none' },
-                  mr: '10px',
-                }}
-              >
-                <IconMenu2 stroke={1.5} onClick={toggleChatSidebar} />
-              </Box>
-              <Stack direction={'row'}>
-                <IconButton aria-label="delete">
-                  <IconPhone stroke={1.5} />
-                </IconButton>
-                <IconButton aria-label="delete">
-                  <IconVideo stroke={1.5} />
-                </IconButton>
-                <IconButton aria-label="delete" onClick={() => setOpen(!open)}>
-                  <IconDotsVertical stroke={1.5} />
-                </IconButton>
-              </Stack>
-            </Box>
-            <Divider />
-          </Box>
-          {/* ------------------------------------------- */}
-          {/* Chat Content */}
-          {/* ------------------------------------------- */}
 
           <Box display="flex">
             {/* ------------------------------------------- */}
@@ -65,7 +35,7 @@ const ChatContent = ({ toggleChatSidebar }) => {
             {/* ------------------------------------------- */}
 
             <Box width="100%">
-              <Scrollbar sx={{ overflow: 'auto' }} style={{height: '540px'}}>
+              <Scrollbar sx={{ overflow: 'auto' }} style={{height: '100%'}}>
                 <Box  p={3} height="540px">
                   {messages && messages?.map((chat, index) => {
                     return (

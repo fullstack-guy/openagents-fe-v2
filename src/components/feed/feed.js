@@ -30,7 +30,7 @@ const FeedCard = ({
 
     return (
         <ListItemButton sx={{
-            mb: 1,
+            mb: 2,
             py: 2,
             border: "solid 1px " + theme.palette.divider,
             borderRadius: (theme) => theme.shape.borderRadius / 20,
@@ -38,14 +38,18 @@ const FeedCard = ({
                         selected={isSelected}
                         alignItems="flex-start">
             <ListItemText onClick={onClick}>
-                <Stack direction="row" gap="10px" alignItems="center">
+                <Stack direction="row" gap="10px" alignItems="center" sx={{mb:1}}>
                     <Typography variant="subtitle2" mb={0.5} fontWeight={500} mr={'auto'}>
                         {title}
                     </Typography>
                     <Chip
                         label={label}
                         size="small"
-                        color={label === 'Promotional' ? 'primary' : label === 'Social' ? 'error' : 'success'}
+                        sx={{
+                            border: (theme) => `solid 1px ${theme.palette.divider}`,
+                            color: (theme) => theme.palette.text.secondary,
+                            backgroundColor: (theme) => theme.palette.background.paper,
+                        }}
                     />
                 </Stack>
                 <Typography variant="subtitle2" width={'100%'} color="text.secondary">

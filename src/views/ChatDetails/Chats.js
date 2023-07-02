@@ -7,7 +7,7 @@ import AppCard from 'src/components/shared/AppCard';
 
 const Chats = () => {
   return (
-    <PageContainer title="Chat ui" description="this is Chat page">
+    <PageContainer title="Rumorz - Feed" description="this is Chat page">
       <AppCard>
         <Box flexGrow={1}>
           <ChatContent />
