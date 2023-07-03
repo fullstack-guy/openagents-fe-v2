@@ -1,27 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { IconButton, InputBase, Box, Popover } from '@mui/material';
-import Picker from 'emoji-picker-react';
-import { IconMoodSmile, IconPaperclip, IconPhoto, IconSend } from '@tabler/icons';
+import { IconButton, InputBase, Box } from '@mui/material';
+import { IconSend } from '@tabler/icons';
 import { sendMsg } from 'src/store/ChatSlice';
 
 const ChatMsgSent = () => {
   const [msg, setMsg] = React.useState('');
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [chosenEmoji, setChosenEmoji] = React.useState();
-
-  const onEmojiClick = (_event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-    setMsg(emojiObject.emoji);
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const id = useSelector((state) => state.chatReducer.chatContent);
 

@@ -37,7 +37,7 @@ const Live = () => {
   return (
     <div style={{ height: "100%" }}>
       {feeds.length > 0 ? (
-        <Scrollbar sx={{ overflow: 'auto' }} style={{ height: '740px' }}>
+        <Scrollbar sx={{ overflow: 'auto', height: "calc(100vh - 186px)" }}>
           {feeds.map(
             (item, i) =>
               <FeedCard key={i}

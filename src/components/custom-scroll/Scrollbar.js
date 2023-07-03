@@ -11,14 +11,7 @@ const SimpleBarStyle = styled(SimpleBar)(() => ({
 
 const Scrollbar = (props) => {
   const { children, sx, ...other } = props;
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent,
-  );
   const simpleBarRef = useRef(null)
-
-  if (isMobile) {
-    return <Box sx={{ overflowX: 'auto' }}>{children}</Box>;
-  }
 
   const scrollToBottom = () => {
     if (simpleBarRef.current) {

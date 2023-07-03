@@ -21,7 +21,7 @@ const ChatDetails = () => {
             <CardContent>
                 <Typography variant="h4" textAlign="left" sx={{ml: 4}}>Details</Typography>
             </CardContent>
-            <Box sx={{padding: "0 44px", border: "none"}}>
+            <Box sx={{padding: "0 24px", border: "none"}}>
                 <Tabs
                     value={tabId}
                     onChange={handleTabChange}

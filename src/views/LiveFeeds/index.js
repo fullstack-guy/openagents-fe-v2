@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Box, CardContent, Tab, Tabs, Typography, useTheme} from '@mui/material';
+import {Box, CardContent, Tab, Tabs, Typography} from '@mui/material';
 import {TabContext, TabPanel} from '@mui/lab';
 
 import Live from './Live';
@@ -16,8 +16,6 @@ const LiveFeeds = () => {
     const handleTabChange = (event, newId) => {
         setTabId(newId);
     };
-
-    const theme = useTheme();
 
     return (
         <TabContext value={tabId}>
@@ -47,7 +45,7 @@ const LiveFeeds = () => {
             </Box>
             <Box mt={2}>
                 {LiveTabs.map((panel, index) => (
-                    <TabPanel key={index} value={index} sx={{height: "740px"}}>
+                    <TabPanel key={index} value={index} style={{ height: "calc(100vh - 186px)" }}>
                         {panel.component}
                     </TabPanel>
                 ))}

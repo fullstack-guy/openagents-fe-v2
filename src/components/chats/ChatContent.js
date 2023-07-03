@@ -1,19 +1,15 @@
 import React, { useEffect } from 'react';
 import {
   Typography,
-  Divider,
-  IconButton,
   Box,
-  Stack,
 } from '@mui/material';
-import { IconDotsVertical, IconMenu2, IconPhone, IconVideo } from '@tabler/icons';
+import { IconMenu2 } from '@tabler/icons';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import { fetchChats } from 'src/store/ChatSlice';
 
 const ChatContent = ({ toggleChatSidebar }) => {
-  const [open, setOpen] = React.useState(true);
   const dispatch = useDispatch()
 
   const messages = useSelector(
@@ -35,7 +31,7 @@ const ChatContent = ({ toggleChatSidebar }) => {
             {/* ------------------------------------------- */}
 
             <Box width="100%">
-              <Scrollbar sx={{ overflow: 'auto' }} style={{height: '100%'}}>
+              <Scrollbar sx={{ overflow: 'auto', height: "calc(100vh - 325px)" }}>
                 <Box  p={3} height="540px">
                   {messages && messages?.map((chat, index) => {
                     return (
