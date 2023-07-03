@@ -56,6 +56,7 @@ const ChatContent = ({ toggleChatSidebar }) => {
                                   backgroundColor: 'primary.light',
                                   ml: 'auto',
                                   maxWidth: '320px',
+                                  wordWrap: "break-word"
                                 }}
                               >
                                 {chat.msg}
