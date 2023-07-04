@@ -32,7 +32,6 @@ const ChatDetails = () => {
                     sx={{
                         borderRadius: (theme) => theme.shape.borderRadius / 20,
                         borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-                        width: "50%",
                     }}
                 >
                     {DetailsTabs.map((tab, index) => (

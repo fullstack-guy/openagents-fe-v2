@@ -45,7 +45,7 @@ const LiveFeeds = () => {
             </Box>
             <Box mt={2}>
                 {LiveTabs.map((panel, index) => (
-                    <TabPanel key={index} value={index} style={{ height: "calc(100vh - 186px)" }}>
+                    <TabPanel key={index} value={index}>
                         {panel.component}
                     </TabPanel>
                 ))}

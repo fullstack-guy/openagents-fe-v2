@@ -31,7 +31,7 @@ const ChatContent = ({ toggleChatSidebar }) => {
             {/* ------------------------------------------- */}
 
             <Box width="100%">
-              <Scrollbar sx={{ overflow: 'auto', height: "calc(100vh - 325px)" }}>
+              <Scrollbar sx={{ overflow: 'auto', height: "calc(100vh - 400px)" }}>
                 <Box  p={3} height="540px">
                   {messages && messages?.map((chat, index) => {
                     return (

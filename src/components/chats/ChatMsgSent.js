@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { IconButton, InputBase, Box } from '@mui/material';
+import { IconButton, InputBase, Box, TextField } from '@mui/material';
 import { IconSend } from '@tabler/icons';
 import { sendMsg } from 'src/store/ChatSlice';
+import Scrollbar from '../custom-scroll/Scrollbar';
 
 const ChatMsgSent = () => {
   const [msg, setMsg] = React.useState('');
@@ -23,41 +24,52 @@ const ChatMsgSent = () => {
     setMsg('');
   };
 
+  const handleKeyDown = (e) => {
+    const key = e.keyCode
+    if (key === 13 && !e.shiftKey) {
+      onChatMsgSubmit(e)
+    }
+  }
+
   return (
-    <Box p={2}>
-      {/* ------------------------------------------- */}
-      {/* sent chat */}
-      {/* ------------------------------------------- */}
-      <form
-        onSubmit={onChatMsgSubmit}
-        style={{ display: 'flex', gap: '10px', alignItems: 'center' }}
-      >
-
-        <InputBase
-          id="msg-sent"
-          autoFocus
-          fullWidth
-          value={msg}
-          placeholder="Chat with your trading agent"
-          size="small"
-          type="text"
-          inputProps={{ 'aria-label': 'Chat with your trading agent' }}
-          onChange={handleChatMsgChange.bind(null)}
-        />
-        <IconButton
-          aria-label="delete"
-          onClick={() => {
-            dispatch(sendMsg(newMsg));
-            setMsg('');
-          }}
-          disabled={!msg}
-          color="primary"
+    <Box p={2} sx={{ height: "100%" }}>
+        {/* ------------------------------------------- */}
+        {/* sent chat */}
+        {/* ------------------------------------------- */}
+        <form
+          onSubmit={onChatMsgSubmit}
+          style={{ display: 'flex', gap: '10px', alignItems: 'center' }}
         >
-          <IconSend stroke={1.5} size="20" />
-        </IconButton>
+        <Scrollbar sx={{ maxHeight: "100px", overflow: "auto", width: "100%" }}>
+          <TextField
+            id="msg-sent"
+            autoFocus
+            multiline
+            fullWidth
+            autoComplete="off"
+            value={msg}
+            placeholder="Chat with your trading agent"
+            size="medium"
+            inputProps={{ 'aria-label': 'Chat with your trading agent' }}
+            onChange={handleChatMsgChange.bind(null)}
+            onKeyDown={handleKeyDown}
+            // sx={{ height: "100px" }}
+          />
+            </Scrollbar>
+          <IconButton
+            aria-label="delete"
+            onClick={() => {
+              dispatch(sendMsg(newMsg));
+              setMsg('');
+            }}
+            disabled={!msg}
+            color="primary"
+          >
+            <IconSend stroke={1.5} size="20" />
+          </IconButton>
 
-      </form>
-    </Box>
+        </form>
+      </Box>
   );
 };
 
