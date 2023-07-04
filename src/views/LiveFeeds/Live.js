@@ -52,7 +52,7 @@ const Live = () => {
 
   return (
     <div style={{ height: "100%" }}>
-      {feeds.length > 0 ? (
+      {!isLoading ? (
         <Scrollbar sx={{ overflow: 'auto', height: "calc(100vh - 265px)" }}>
           {feeds.map(
             (item, i) =>
