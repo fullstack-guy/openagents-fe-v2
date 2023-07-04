@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import { Box, CircularProgress } from "@mui/material";
 import { sub } from 'date-fns';
 
@@ -6,10 +7,14 @@ import { supabase } from 'src/supabase/supabase';
 import { useSupabaseContext } from 'src/supabase/SupabaseContext';
 import FeedCard from "../../components/feed/feed";
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
+import { setFeed } from "src/store/feedSlice";
+import { useCallback } from "react";
 
 const Live = () => {
   const [feeds, setFeeds] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+
+  const dispatch = useDispatch()
 
   const { session } = useSupabaseContext()
 
@@ -34,6 +39,17 @@ const Live = () => {
   useEffect(() => {
     getFeedList()
   }, [session])
+
+  const handleFeedSelect = useCallback((feed) => {
+    dispatch(setFeed(feed))
+  }, [dispatch])
+  
+  const selectedFeed = useSelector(
+    (state) => state.feedReducer.selectedFeed
+  )
+  // You can get selected feed here
+  console.log(selectedFeed, 'aaaa')
+
   return (
     <div style={{ height: "100%" }}>
       {feeds.length > 0 ? (
@@ -43,8 +59,10 @@ const Live = () => {
               <FeedCard key={i}
                 time={sub(new Date(), { days: 0, hours: 1, minutes: 45 })}
                 title={item.title}
-                subject={item.text}
-                label={item.tag}
+                text={item.text}
+                tag={item.tag}
+                onClick={handleFeedSelect}
+                id={item.id}
               />
           )
           }
