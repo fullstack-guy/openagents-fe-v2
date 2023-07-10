@@ -21,7 +21,7 @@ const Live = () => {
   const getFeedList = async () => {
     try {
       setIsLoading(true);
-      const { data, error, status } = await supabase.from('feeds').select(`*`);
+      const { data, error, status } = await supabase.from('feed').select(`*`);
       if (error && status !== 406) {
         throw error;
       }
@@ -43,12 +43,6 @@ const Live = () => {
   const handleFeedSelect = useCallback((feed) => {
     dispatch(setFeed(feed))
   }, [dispatch])
-  
-  const selectedFeed = useSelector(
-    (state) => state.feedReducer.selectedFeed
-  )
-  // You can get selected feed here
-  console.log(selectedFeed, 'aaaa')
 
   return (
     <div style={{ height: "100%" }}>

@@ -1,27 +1,13 @@
-import axiosServices from "../utils/axios";
-import {getUserChatSessions} from "../store/ChatSlice";
+import {handleSupabaseError, supabase} from 'src/supabase/supabase';
+import {getChats} from "../store/ChatSlice";
 
-export const GET_MESSAGES = (chat_session_id) => async (dispatch) => {
+export const GET_FEED_MESSAGES = (feedId) => async (dispatch) => {
     try {
-        const response = await axiosServices.get('/message?chat_session_id=' + chat_session_id);
-        console.log("Messages", response.data.data)
-    } catch (err) {
-        throw new Error(err);
-    }
-};
-
-export const GET_RECENT_CHAT_SESSIONS = () => async (dispatch) => {
-    try {
-        const response = await axiosServices.get('/chat_session');
-        console.log("Chat sessions", response.data.data)
-        dispatch(getUserChatSessions(response.data.data));
-        // Check if there's at least one chat session
-        if (response.data.data.length > 0) {
-            // Get the first chat session's ID
-            const firstSessionId = response.data.data[0].id;
-            // Fetch the session messages
-            dispatch(GET_MESSAGES(firstSessionId));
-        }
+        const response = await supabase
+            .rpc('get_messages_or_create_session', {feed_id_input: feedId})
+        handleSupabaseError(dispatch, response);
+        console.log(response.data);
+        dispatch(getChats(response.data));
     } catch (err) {
         throw new Error(err);
     }
