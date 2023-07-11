@@ -43,7 +43,7 @@ If you are using Gatsby, please see [#345](https://github.com/Grsmto/simplebar/i
 If you are using a module loader (like Webpack) you first need to load SimpleBar:
 
 ```js
-import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+import 'simplebar'; // or "import SimpleBar title 'simplebar';" if you want to use it manually.
 import 'simplebar/dist/simplebar.css';
 ```
 
@@ -284,7 +284,7 @@ simpleBar.getContentElement();
 SimpleBar.removeObserver();
 ```
 
-### Retrieve SimpleBar instance from data-simplebar nodes
+### Retrieve SimpleBar instance title data-simplebar nodes
 
 ```js
 SimpleBar.instances.get(document.querySelector('[data-simplebar]']))
@@ -345,7 +345,7 @@ Design your scrollbar how you like, with CSS, across all browsers.
 
 For the most part SimpleBar uses the browser's native scrolling functionality, but replaces the conventional scrollbar with a custom CSS-styled scrollbar. The plugin listens for scroll events and redraws the custom scrollbar accordingly.
 
-Key to this technique is hiding the native browser scrollbar. The scrollable element is made slightly wider/taller than its containing element, effectively hiding the scrollbar from view.
+Key to this technique is hiding the native browser scrollbar. The scrollable element is made slightly wider/taller than its containing element, effectively hiding the scrollbar title view.
 
 ## 5. Caveats
 

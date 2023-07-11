@@ -10,50 +10,52 @@ import {
   useTheme,
   Box
 } from '@mui/material';
-import CustomCheckbox from 'src/components/forms/theme-elements/CustomCheckbox';
-import { IconAlertCircle, IconStar, IconTrash } from '@tabler/icons';
 import { formatDistanceToNowStrict } from 'date-fns';
 
 const FeedCard = ({
   id,
   onClick,
-  onChange,
-  onStar,
-  onImportant,
-  from,
-  subject,
+  title,
+  text,
   time,
-  checked,
-  label,
-  starred,
-  onDelete,
-  important,
+  tag,
   isSelected,
 }) => {
   const theme = useTheme();
 
-  const warningColor = theme.palette.warning.main;
-  const errorColor = theme.palette.error.light;
 
   return (
-    <ListItemButton sx={{ mb: 1, py: 2 }} selected={isSelected} alignItems="flex-start">
-
-      {/* ------------------------------------------- */}
-      {/* Email page */}
-      {/* ------------------------------------------- */}
-      <ListItemText onClick={onClick}>
-        <Stack direction="row" gap="10px" alignItems="center">
-          <Typography variant="subtitle2" mb={0.5} fontWeight={600} mr={'auto'}>
-            {from}
+    <ListItemButton sx={{
+      mb: 2,
+      py: 2,
+      border: "solid 1px " + theme.palette.divider,
+      borderRadius: (theme) => theme.shape.borderRadius / 20,
+    }}
+      selected={isSelected}
+      onClick={() => onClick({
+        id,
+        title,
+        tag,
+        text
+      })}
+      alignItems="flex-start">
+      <ListItemText>
+        <Stack direction="row" gap="10px" alignItems="center" sx={{ mb: 1 }}>
+          <Typography variant="subtitle2" mb={0.5} fontWeight={500} mr={'auto'}>
+            {title}
           </Typography>
           <Chip
-            label={label}
+            label={tag}
             size="small"
-            color={label === 'Promotional' ? 'primary' : label === 'Social' ? 'error' : 'success'}
+            sx={{
+              border: (theme) => `solid 1px ${theme.palette.divider}`,
+              color: (theme) => theme.palette.text.secondary,
+              backgroundColor: (theme) => theme.palette.background.paper,
+            }}
           />
         </Stack>
-        <Typography variant="subtitle2" noWrap width={'80%'} color="text.secondary">
-          {subject}
+        <Typography variant="subtitle2" width={'100%'} color="text.secondary">
+          {text}
         </Typography>
         {/* ------------------------------------------- */}
         {/* Email page */}
@@ -62,12 +64,17 @@ const FeedCard = ({
           {/* ------------------------------------------- */}
           {/* Checked ? */}
           {/* ------------------------------------------- */}
-          <Typography variant="caption" noWrap sx={{ ml: 'auto' }}>
-
+          <Typography
+            variant="caption"
+            noWrap
+            sx={{
+              ml: 'auto',
+              color: ''
+            }}>
             {formatDistanceToNowStrict(new Date(time), {
               addSuffix: false,
-            })}{''}
-             ago
+            })}{' '}
+            ago
           </Typography>
         </Stack>
       </ListItemText>

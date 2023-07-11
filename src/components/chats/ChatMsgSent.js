@@ -1,110 +1,127 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { IconButton, InputBase, Box, Popover } from '@mui/material';
-import Picker from 'emoji-picker-react';
-import { IconMoodSmile, IconPaperclip, IconPhoto, IconSend } from '@tabler/icons';
-import { sendMsg } from 'src/store/ChatSlice';
+import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {IconButton, InputBase, Box, TextField} from '@mui/material';
+import {IconSend} from '@tabler/icons';
+import {addFeedMessage} from 'src/store/ChatSlice';
+import Scrollbar from '../custom-scroll/Scrollbar';
+import "src/components/chats/chatsent.css";
+import "./chatsent.css"
+import {handleSupabaseError, supabase} from "../../supabase/supabase";
+import axiosServices from "../../utils/axios";
+import {hasError, unlinkAgentSource} from "../../store/AgentSourcesSlice";
+import {showNotification} from "../../store/NotificationSlice";
 
 const ChatMsgSent = () => {
-  const [msg, setMsg] = React.useState('');
-  const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [chosenEmoji, setChosenEmoji] = React.useState();
+    const [msg, setMsg] = React.useState('');
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false)
 
-  const onEmojiClick = (_event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-    setMsg(emojiObject.emoji);
-  };
+    const handleChatMsgChange = (e) => {
+        setMsg(e.target.value);
+    };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const session_id = useSelector(
+        (state) => state.chatReducer.sessionId
+    )
 
-  const id = useSelector((state) => state.chatReducer.selected_chat_id);
+    const onChatMsgSubmit = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsLoading(true)
+        try {
+            const response = await supabase
+                .from('feed_chat_messages')
+                .insert([
+                    {
+                        session_id: session_id,
+                        message: e.target.value,
+                        sender: 'user'
+                    },
+                ])
+                .select()
+            handleSupabaseError(dispatch, response);
+            if (response.data) {
+                dispatch(addFeedMessage(response.data[0]));
+            }
 
-  const handleChatMsgChange = (e) => {
-    setMsg(e.target.value);
-  };
+        } catch (err) {
+            throw new Error(err);
+        }
 
-  const newMsg = { id, msg };
+        try {
+            const response = await axiosServices.post(`/chat`,
+                {
+                    session_id: session_id,
+                    message: e.target.value,
+                });
+            console.log(response.data.data)
+            dispatch(addFeedMessage(response.data.data))
+        } catch (error) {
+            dispatch(showNotification({
+                severity: 'error',
+                title: 'Fail',
+                message: error.response.data.message
+            }));
+            dispatch(hasError(error));
+        }
+        setIsLoading(false)
+        setMsg('');
+    };
 
-  const onChatMsgSubmit = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dispatch(sendMsg(newMsg));
-    setMsg('');
-  };
+    const handleKeyDown = (e) => {
+        const key = e.keyCode
+        if (key === 13 && !e.shiftKey) {
+            onChatMsgSubmit(e)
+        }
+    }
 
-  return (
-    <Box p={2}
-    sx = {{
-      border:"solid 1px white"
-    }}>
-      {/* ------------------------------------------- */}
-      {/* sent chat */}
-      {/* ------------------------------------------- */}
-      <form
-        onSubmit={onChatMsgSubmit}
-        style={{ display: 'flex', gap: '10px', alignItems: 'center' }}
-      >
-        {/* ------------------------------------------- */}
-        {/* Emoji picker */}
-        {/* ------------------------------------------- */}
-        <IconButton
-          aria-label="more"
-          id="long-button"
-          aria-controls="long-menu"
-          aria-expanded="true"
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          <IconMoodSmile />
-        </IconButton>
-        <Popover
-          id="long-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          <Picker onEmojiClick={onEmojiClick} native />
-          <Box p={2}>Selected: {chosenEmoji ? chosenEmoji.emoji : ''}</Box>
-        </Popover>
-        <InputBase
-          id="msg-sent"
-          fullWidth
-          value={msg}
-          placeholder="Type a Message"
-          size="small"
-          type="text"
-          inputProps={{ 'aria-label': 'Type a Message' }}
-          onChange={handleChatMsgChange.bind(null)}
-        />
-        <IconButton
-          aria-label="delete"
-          onClick={() => {
-            dispatch(sendMsg(newMsg));
-            setMsg('');
-          }}
-          disabled={!msg}
-          color="primary"
-        >
-          <IconSend stroke={1.5} size="20" />
-        </IconButton>
-        <IconButton aria-label="delete">
-          <IconPhoto stroke={1.5} size="20" />
-        </IconButton>
-        <IconButton aria-label="delete">
-          <IconPaperclip stroke={1.5} size="20" />
-        </IconButton>
-      </form>
-    </Box>
-  );
+    return (
+        <Box p={2} sx={{height: "100%"}}>
+            <form
+                onSubmit={onChatMsgSubmit}
+                style={{display: 'flex', gap: '10px', alignItems: 'center'}}
+            >
+                <Scrollbar sx={{
+                    paddingLeft: "20px",
+                    maxHeight: "100px",
+                    overflow: "auto",
+                    width: "100%"
+                }}>
+                    <TextField
+                        variant="standard"
+                        disabled={isLoading}
+                        margin="normal"
+                        // <== changed this
+                        className="msg-sent"
+                        autoFocus
+                        multiline
+                        fullWidth
+                        autoComplete="off"
+                        value={msg}
+                        placeholder="Chat with your trading agent"
+                        size="medium"
+                        InputProps={{
+                            disableUnderline: true, // <== added this
+                        }}
+                        inputProps={{
+                            'aria-label': 'Chat with your trading agent',
+                            border: "none"
+                        }}
+                        onChange={handleChatMsgChange.bind(null)}
+                        onKeyDown={handleKeyDown}
+                    />
+                </Scrollbar>
+                <IconButton
+                    aria-label="delete"
+                    disabled={!msg}
+                    color="primary"
+                >
+                    <IconSend stroke={1.5} size="20"/>
+                </IconButton>
+
+            </form>
+        </Box>
+    );
 };
 
 export default ChatMsgSent;

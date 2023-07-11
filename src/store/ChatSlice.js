@@ -1,65 +1,40 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {uniqueId} from 'lodash';
-import {sub} from 'date-fns';
-import {ChatData} from "src/_mockApis/Chatdata"
-import axiosServices from "src/utils/axios";
+import { createSlice } from '@reduxjs/toolkit';
+import { uniqueId } from 'lodash';
+import { sub } from 'date-fns';
 
+import axios from 'src/utils/axios';
 
 const initialState = {
-    session_messages: [],
-    chat_sessions: [],
-    selected_agent_chat_id: 1,
-    chatSearch: '',
+  messages: [],
+  sessionId: null
 };
 
 export const ChatSlice = createSlice({
-    name: 'chat',
-    initialState,
-    reducers: {
-        getUserChatSessions: (state, action) => {
-            state.chat_sessions = action.payload;
-        },
-        selectAgentSession: (state, action) => {
-            state.selected_agent_chat_id = action.payload;
-        },
-        SearchChat: (state, action) => {
-            state.session_messagesearch = action.payload;
-        },
-        selectAgentChat: (state, action) => {
-            state.selected_chat_id = action.payload;
-        },
-        sendMessageState: (state, action) => {
-            const conversation = action.payload;
-            const {id, msg} = conversation;
-
-            const newMessage = {
-                id: id,
-                message: msg,
-                type: 'text',
-                attachments: [],
-                created_at: sub(new Date(), {seconds: 1}),
-                sender_id: uniqueId(),
-            };
-
-            state.session_messages = state.session_messages.map((chat) =>
-                chat.id === action.payload.id
-                    ? {
-                        ...chat,
-                        ...chat.messages.push(newMessage),
-                    }
-                    : chat,
-            );
-        },
+  name: 'messages',
+  initialState,
+  reducers: {
+    setFeedMessages: (state, action) => {
+      state.messages = action.payload;
     },
+    addFeedMessage: (state, action) => {
+      const response_data = action.payload;
+      console.log(response_data);
+      const { id, message } = response_data;
+      const newMessage = {
+        id: id,
+        message: message,
+      };
+      state.messages = [
+        ...state.messages,
+        newMessage
+      ]
+    },
+    setSessionId: (state, action) => {
+      state.sessionId = action.payload;
+    }
+  },
 });
 
-export const {
-    SearchChat,
-    sendMsg,
-    selectAgentChat,
-    getUserChatSessions,
-} = ChatSlice.actions;
-
-
+export const { setFeedMessages, addFeedMessage, setSessionId } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

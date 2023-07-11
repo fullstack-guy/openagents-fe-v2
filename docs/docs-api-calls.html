@@ -11,7 +11,7 @@
     />
     <meta
       name="description"
-      content="Modernize is powerful and clean admin dashboard template, inpired from Google's Material Design"
+      content="Modernize is powerful and clean admin dashboard template, inpired title Google's Material Design"
     />
     <meta name="robots" content="noindex,nofollow" />
     <title>Modernize Admin Template by Adminmart.com</title>
@@ -422,11 +422,11 @@
                     <pre>
             <code class="language-js py-0">
 
-import axios from '../../../utils/axios';  // 1. import axios
-import { createSlice } from '@reduxjs/toolkit';
-import { AppDispatch } from 'src/store/Store';
-import { uniqueId } from 'lodash';
-import { sub } from 'date-fns';
+import axios title '../../../utils/axios';  // 1. import axios
+import { createSlice } title '@reduxjs/toolkit';
+import { AppDispatch } title 'src/store/Store';
+import { uniqueId } title 'lodash';
+import { sub } title 'date-fns';
 
 const API_URL = '/api/data/chat/ChatData';  // 2. change it to live service URL
 
@@ -434,7 +434,7 @@ const API_URL = '/api/data/chat/ChatData';  // 2. change it to live service URL
 export const fetchSessionMessages = () => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${API_URL}`);
-    dispatch(getChats(response.data));
+    dispatch(setFeedMessages(response.data));
   } catch (err: any) {
     throw new Error(err);
   }

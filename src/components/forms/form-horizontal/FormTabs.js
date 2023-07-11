@@ -86,7 +86,7 @@ const FormTabs = () => {
       {/* ------------------------------------------------------------------------------------------------ */}
       <BlankCard>
         <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: (theme) => theme.palette.divider }}>
+          <Box>
             <TabList onChange={handleChange} aria-label="lab API tabs example" variant="scrollable"
   scrollButtons="auto">
               <Tab label="Personal Info" value="1" />

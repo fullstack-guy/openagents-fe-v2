@@ -5,6 +5,7 @@ import AgentsReducer from './AgentSlice';
 import NotificationReducer from './NotificationSlice';
 import AgentSourcesReducer from './AgentSourcesSlice';
 import ChatReducer from './ChatSlice';
+import feedReducer from './feedSlice';
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         analyticsReducer: AnalyticsReducer,
         agentsReducer: AgentsReducer,
         chatReducer:ChatReducer,
+        feedReducer,
     },
 });
 
