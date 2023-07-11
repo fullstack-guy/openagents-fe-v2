@@ -53,20 +53,9 @@
       ]
     }
   ],
-  "feed-messages": [
-    {
-      "id": "1",
-      "session_id": "1",
-      "sender": "user",
-      "message": "How much BTC buying happened over the last 24 hours? Any patterns you noticed?",
-      "since": "7m"
-    },
-    {
-      "id": "2",
-      "session_id": "1",
-      "sender": "agent",
-      "message": "There has been 200mio USD of BTC buying over the last 24 hours. The biggest buyer was a whale who bought 50mio USD worth of BTC.",
-      "since": "6m"
-    }
-  ]
+  "chat": {
+    "status": 200,
+    "error": null,
+    "data": "Hi, I am the Rumorz Trading agent at your service. How can I help you today?"
+  }
 }

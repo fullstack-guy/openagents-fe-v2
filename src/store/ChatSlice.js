@@ -14,19 +14,16 @@ export const ChatSlice = createSlice({
   initialState,
   reducers: {
     setFeedMessages: (state, action) => {
-      console.log("Payload ",action.payload)
       state.messages = action.payload;
     },
-    sendFeedMessage: (state, action) => {
-      const response = action.payload;
-      console.log(response.data)
-      const { id, message } = response.data[0];
-
+    addFeedMessage: (state, action) => {
+      const response_data = action.payload;
+      console.log(response_data);
+      const { id, message } = response_data;
       const newMessage = {
         id: id,
         message: message,
       };
-      console.log("Adding message ",newMessage)
       state.messages = [
         ...state.messages,
         newMessage
@@ -38,6 +35,6 @@ export const ChatSlice = createSlice({
   },
 });
 
-export const { setFeedMessages, sendFeedMessage, setSessionId } = ChatSlice.actions;
+export const { setFeedMessages, addFeedMessage, setSessionId } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

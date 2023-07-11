@@ -1,5 +1,5 @@
 import {handleSupabaseError, supabase} from 'src/supabase/supabase';
-import {sendFeedMessage, setFeedMessages, setSessionId} from "../store/ChatSlice";
+import {addFeedMessage, setFeedMessages, setSessionId} from "../store/ChatSlice";
 
 export const GET_FEED_MESSAGES = (feedId) => async (dispatch) => {
     try {
@@ -18,26 +18,3 @@ export const GET_FEED_MESSAGES = (feedId) => async (dispatch) => {
         throw new Error(err);
     }
 };
-
-
-export const SEND_FEED_MESSAGE = (session_id, message) => async (dispatch) => {
-    try {
-
-        const response = await supabase
-            .from('feed_chat_messages')
-            .insert([
-                {
-                    session_id: session_id,
-                    message: message,
-                    sender: 'user'
-                },
-            ])
-            .select()
-        handleSupabaseError(dispatch, response);
-        console.log("Dispatching response", response);
-        dispatch(sendFeedMessage(response));
-    } catch (err) {
-        throw new Error(err);
-    }
-};
-

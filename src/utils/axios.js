@@ -1,6 +1,10 @@
 import axios from 'axios';
+import {BACKEND_URL} from "../configs";
 
-const axiosServices = axios.create();
+
+const axiosServices = axios.create({
+    baseURL: BACKEND_URL
+});
 
 // interceptor for http
 axiosServices.interceptors.response.use(

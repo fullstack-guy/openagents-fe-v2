@@ -45,15 +45,17 @@ const ChatContent = ({toggleChatSidebar}) => {
                                         return (
                                             <Box key={index}>
                                                 <Box mb={1}>
-                                                    <Box alignItems="flex-end" display="flex" flexDirection={'column'}>
+                                                    <Box
+                                                        display="flex"
+                                                        flexDirection={chat.sender === "user" ? 'row-reverse' : 'row'}
+                                                    >
                                                         <Box
                                                             mb={1}
                                                             key={chat.message_id}
                                                             sx={{
-                                                                p: 1,
-                                                                backgroundColor: 'primary.light',
-                                                                ml: 'auto',
-                                                                maxWidth: '320px',
+                                                                p: 2,
+                                                                backgroundColor: chat.sender === "user" ? 'primary.dark' : 'primary.light',
+                                                                maxWidth: '90%',
                                                                 wordWrap: "break-word"
                                                             }}
                                                         >
@@ -62,6 +64,7 @@ const ChatContent = ({toggleChatSidebar}) => {
                                                     </Box>
                                                 </Box>
                                             </Box>
+
                                         );
                                     })}
                                 </Box>
