@@ -28,7 +28,6 @@ const ChatContent = ({toggleChatSidebar}) => {
     const messages = useSelector(
         (state) => state.chatReducer.messages,
     );
-
     return (
         <Box>
             {messages ? (
@@ -47,31 +46,19 @@ const ChatContent = ({toggleChatSidebar}) => {
                                             <Box key={index}>
                                                 <Box mb={1}>
                                                     <Box alignItems="flex-end" display="flex" flexDirection={'column'}>
-                                                        {chat.created_at ? (
-                                                            <Typography variant="body2" color="grey.400" mb={1}>
-                                                                ago
-                                                            </Typography>
-                                                        ) : null}
-                                                        {chat.type === 'text' ? (
-                                                            <Box
-                                                                mb={1}
-                                                                key={chat.id}
-                                                                sx={{
-                                                                    p: 1,
-                                                                    backgroundColor: 'primary.light',
-                                                                    ml: 'auto',
-                                                                    maxWidth: '320px',
-                                                                    wordWrap: "break-word"
-                                                                }}
-                                                            >
-                                                                {chat.msg}
-                                                            </Box>
-                                                        ) : null}
-                                                        {chat.type === 'image' ? (
-                                                            <Box mb={1} sx={{overflow: 'hidden', lineHeight: '0px'}}>
-                                                                <img src={chat.msg} alt="attach" width="250"/>
-                                                            </Box>
-                                                        ) : null}
+                                                        <Box
+                                                            mb={1}
+                                                            key={chat.message_id}
+                                                            sx={{
+                                                                p: 1,
+                                                                backgroundColor: 'primary.light',
+                                                                ml: 'auto',
+                                                                maxWidth: '320px',
+                                                                wordWrap: "break-word"
+                                                            }}
+                                                        >
+                                                            {chat.message}
+                                                        </Box>
                                                     </Box>
                                                 </Box>
                                             </Box>

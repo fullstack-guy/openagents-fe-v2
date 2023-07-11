@@ -26,7 +26,7 @@ const handleSupabaseError = (dispatch, response) => {
       dispatch(showNotification({
         severity: 'error',
         title: 'Fail',
-        message: error.message
+        message: error.message+' - '+error.details
       }));
     }
   }

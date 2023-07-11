@@ -14,6 +14,7 @@ export const ChatSlice = createSlice({
   initialState,
   reducers: {
     setFeedMessages: (state, action) => {
+      console.log("Payload ",action.payload)
       state.messages = action.payload;
     },
     sendFeedMessage: (state, action) => {
