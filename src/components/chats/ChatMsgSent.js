@@ -1,28 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {IconButton, InputBase, Box, TextField} from '@mui/material';
 import {IconSend} from '@tabler/icons';
-import {sendMsg} from 'src/store/ChatSlice';
+import {sendFeedMessage} from 'src/store/ChatSlice';
 import Scrollbar from '../custom-scroll/Scrollbar';
 import "src/components/chats/chatsent.css";
 import "./chatsent.css"
+import {SEND_FEED_MESSAGE} from "../../services/ChatService";
 
 const ChatMsgSent = () => {
     const [msg, setMsg] = React.useState('');
     const dispatch = useDispatch();
 
-    const id = useSelector((state) => state.chatReducer.chatContent);
-
     const handleChatMsgChange = (e) => {
         setMsg(e.target.value);
     };
 
-    const newMsg = {id, msg};
+    const session_id = useSelector(
+        (state) => state.chatReducer.sessionId
+    )
 
     const onChatMsgSubmit = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        dispatch(sendMsg(newMsg));
+        dispatch(SEND_FEED_MESSAGE(session_id, msg));
         setMsg('');
     };
 
@@ -72,7 +73,7 @@ const ChatMsgSent = () => {
                 <IconButton
                     aria-label="delete"
                     onClick={() => {
-                        dispatch(sendMsg(newMsg));
+                        dispatch(SEND_FEED_MESSAGE(session_id, msg));
                         setMsg('');
                     }}
                     disabled={!msg}

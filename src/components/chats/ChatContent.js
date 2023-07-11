@@ -20,7 +20,9 @@ const ChatContent = ({toggleChatSidebar}) => {
         (state) => state.feedReducer.selectedFeed
     )
     useEffect(() => {
-        dispatch(GET_FEED_MESSAGES(selectedFeed.id));
+        if (selectedFeed.id) {
+            dispatch(GET_FEED_MESSAGES(selectedFeed.id));
+        }
     }, [dispatch, selectedFeed.id]);
 
     const messages = useSelector(
@@ -45,7 +47,7 @@ const ChatContent = ({toggleChatSidebar}) => {
                                             <Box key={index}>
                                                 <Box mb={1}>
                                                     <Box alignItems="flex-end" display="flex" flexDirection={'column'}>
-                                                        {chat.createdAt ? (
+                                                        {chat.created_at ? (
                                                             <Typography variant="body2" color="grey.400" mb={1}>
                                                                 ago
                                                             </Typography>

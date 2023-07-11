@@ -3,26 +3,26 @@ import { uniqueId } from 'lodash';
 import { sub } from 'date-fns';
 
 import axios from 'src/utils/axios';
-const API_URL = '/api/data/messages';
 
 const initialState = {
-  messages: []
+  messages: [],
+  sessionId: null
 };
 
 export const ChatSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    getChats: (state, action) => {
+    setFeedMessages: (state, action) => {
       state.messages = action.payload;
     },
-    sendMsg: (state, action) => {
-      const conversation = action.payload;
-      const { id, msg } = conversation;
+    sendFeedMessage: (state, action) => {
+      const message_data = action.payload;
+      const { id, message } = message_data;
 
       const newMessage = {
         id: id,
-        msg: msg,
+        msg: message,
         type: 'text',
         attachments: [],
         createdAt: sub(new Date(), { seconds: 1 }).toString(),
@@ -34,18 +34,12 @@ export const ChatSlice = createSlice({
         newMessage
       ]
     },
+    setSessionId: (state, action) => {
+      state.sessionId = action.payload;
+    }
   },
 });
 
-export const { getChats, sendMsg } = ChatSlice.actions;
-
-export const fetchChats = () => async (dispatch) => {
-  try {
-    const response = await axios.get(`${API_URL}`);
-    dispatch(getChats(response.data));
-  } catch (err) {
-    throw new Error(err);
-  }
-};
+export const { setFeedMessages, sendFeedMessage, setSessionId } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

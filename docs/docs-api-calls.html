@@ -434,7 +434,7 @@ const API_URL = '/api/data/chat/ChatData';  // 2. change it to live service URL
 export const fetchSessionMessages = () => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${API_URL}`);
-    dispatch(getChats(response.data));
+    dispatch(setFeedMessages(response.data));
   } catch (err: any) {
     throw new Error(err);
   }

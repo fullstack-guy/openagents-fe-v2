@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     selectedFeed: {
-    id: 0,
+    id: null,
     title: "",
     tag: "",
     text: "",
