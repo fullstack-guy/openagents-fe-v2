@@ -34,8 +34,8 @@ export const SEND_FEED_MESSAGE = (session_id, message) => async (dispatch) => {
             ])
             .select()
         handleSupabaseError(dispatch, response);
-        dispatch(sendFeedMessage(response.data[0].id, message));
-
+        console.log("Dispatching response", response);
+        dispatch(sendFeedMessage(response));
     } catch (err) {
         throw new Error(err);
     }

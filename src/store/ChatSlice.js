@@ -18,18 +18,15 @@ export const ChatSlice = createSlice({
       state.messages = action.payload;
     },
     sendFeedMessage: (state, action) => {
-      const message_data = action.payload;
-      const { id, message } = message_data;
+      const response = action.payload;
+      console.log(response.data)
+      const { id, message } = response.data[0];
 
       const newMessage = {
         id: id,
-        msg: message,
-        type: 'text',
-        attachments: [],
-        createdAt: sub(new Date(), { seconds: 1 }).toString(),
-        senderId: uniqueId(),
+        message: message,
       };
-
+      console.log("Adding message ",newMessage)
       state.messages = [
         ...state.messages,
         newMessage
