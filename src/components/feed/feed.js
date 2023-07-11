@@ -10,8 +10,6 @@ import {
   useTheme,
   Box
 } from '@mui/material';
-import CustomCheckbox from 'src/components/forms/theme-elements/CustomCheckbox';
-import { IconAlertCircle, IconStar, IconTrash } from '@tabler/icons';
 import { formatDistanceToNowStrict } from 'date-fns';
 
 const FeedCard = ({

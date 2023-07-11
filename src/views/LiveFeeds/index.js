@@ -22,9 +22,9 @@ const LiveFeeds = () => {
             <CardContent>
                 <Typography variant="h4"
                             textAlign="left"
-                sx={{
-                    ml:1,
-                }}>Feed</Typography>
+                            sx={{
+                                ml: 1,
+                            }}>Feed</Typography>
             </CardContent>
             <Box sx={{padding: "0 24px", border: "none"}}>
                 <Tabs
@@ -34,12 +34,15 @@ const LiveFeeds = () => {
                     textColor="inherit"
                     variant="fullWidth"
                     aria-label="full width tabs example"
-                    sx={{
-                        borderRadius: (theme) => theme.shape.borderRadius / 20,
-                    }}
                 >
                     {LiveTabs.map((tab, index) => (
-                        <Tab key={index} label={tab.label} value={index}/>
+                        <Tab key={index} label={tab.label} value={index}
+                             sx={
+                                 {
+                                     ":hover": {
+                                         bgcolor: 'primary.light'
+                                     },
+                             }}/>
                     ))}
                 </Tabs>
             </Box>

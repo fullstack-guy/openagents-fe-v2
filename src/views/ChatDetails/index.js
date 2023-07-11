@@ -4,11 +4,14 @@ import {TabContext, TabPanel} from '@mui/lab';
 
 import Chats from './Chats';
 import Sources from './Sources';
+import CustomTab from "../../components/forms/theme-elements/CustomTab";
 
 const DetailsTabs = [
-    {label: 'Sources', disabled: false, component: <Sources/>},
+    {label: 'Details', disabled: false, component: <Sources/>},
     {label: 'Chat', disabled: false, component: <Chats/>},
+
 ];
+
 
 const ChatDetails = () => {
     const [tabId, setTabId] = useState(1);
@@ -19,7 +22,7 @@ const ChatDetails = () => {
     return (
         <TabContext value={tabId}>
             <CardContent>
-                <Typography variant="h4" textAlign="left" sx={{ml: 4}}>Details</Typography>
+                <Typography variant="h4" textAlign="left" sx={{ml: 1}}>Agent</Typography>
             </CardContent>
             <Box sx={{padding: "0 24px", border: "none"}}>
                 <Tabs
@@ -29,13 +32,9 @@ const ChatDetails = () => {
                     textColor="inherit"
                     variant="fullWidth"
                     aria-label="full width tabs example"
-                    sx={{
-                        borderRadius: (theme) => theme.shape.borderRadius / 20,
-                        borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-                    }}
                 >
                     {DetailsTabs.map((tab, index) => (
-                        <Tab key={index} label={tab.label} value={index}/>
+                        <CustomTab key={index} label={tab.label} value={index}/>
                     ))}
                 </Tabs>
             </Box>
