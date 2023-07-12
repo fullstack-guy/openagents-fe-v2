@@ -3,11 +3,11 @@ import {Box, CardContent, Tab, Tabs, Typography} from '@mui/material';
 import {TabContext, TabPanel} from '@mui/lab';
 
 import Chats from './Chats';
-import Sources from './Sources';
+import Overview from './Overview';
 import CustomTab from "../../components/forms/theme-elements/CustomTab";
 
 const DetailsTabs = [
-    {label: 'Details', disabled: false, component: <Sources/>},
+    {label: 'Overview', disabled: false, component: <Overview/>},
     {label: 'Chat', disabled: false, component: <Chats/>},
 
 ];
@@ -22,7 +22,7 @@ const ChatDetails = () => {
     return (
         <TabContext value={tabId}>
             <CardContent>
-                <Typography variant="h4" textAlign="left" sx={{ml: 1}}>Agent</Typography>
+                <Typography variant="h4" textAlign="left" sx={{ml: 1}}>Details</Typography>
             </CardContent>
             <Box sx={{padding: "0 24px", border: "none"}}>
                 <Tabs

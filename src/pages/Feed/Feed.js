@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@mui/material';
 
 import PageContainer from 'src/components/container/PageContainer';
-import ChatDetails from 'src/views/ChatDetails';
+import ChatDetails from 'src/views/ChatDetails/Details';
 import LiveFeeds from 'src/views/LiveFeeds';
 
 const Feed = () => {
