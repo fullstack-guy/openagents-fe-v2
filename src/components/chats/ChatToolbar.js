@@ -1,4 +1,3 @@
-// ChatToolbar.js
 import React from 'react';
 import {IconRecycle} from '@tabler/icons';
 import {Button, Box} from '@mui/material';
@@ -31,7 +30,6 @@ const ChatToolbar = ({selectedFeed, session_id, setIsLoading}) => {
             }
         }
     };
-
 
     const handleSuggestedQuestionClick = async (e) => {
         const suggestion = e.target.innerText;
@@ -74,29 +72,34 @@ const ChatToolbar = ({selectedFeed, session_id, setIsLoading}) => {
         setIsLoading(false);
     };
 
-
     return (
         <>
-            {feed_messages.length === 0 && selectedFeed.id && (
+            {selectedFeed.id && (
                 <Box display="flex" alignItems="center" justifyContent="space-between">
                     <Box display="flex" alignItems="center" flexWrap="wrap" gap={1}>
-                        {suggested_questions.map((question, index) => (
-                            <Button
-                                key={index}
-                                variant="outlined"
-                                size="small"
-                                onClick={handleSuggestedQuestionClick}
-                            >
-                                {question}
-                            </Button>
-                        ))}
+                        {feed_messages.length === 0 &&
+                            suggested_questions.map((question, index) => (
+                                <Button
+                                    key={index}
+                                    variant="outlined"
+                                    size="small"
+                                    onClick={handleSuggestedQuestionClick}
+                                >
+                                    {question}
+                                </Button>
+                            ))
+                        }
                     </Box>
-                    <Button onClick={onResetClick} color="primary" variant="outlined" size="small">
-                        <IconRecycle/> Reset
-                    </Button>
+                    <div onClick={onResetClick}>
+                        <Button color="primary" variant="outlined" size="small">
+                            <IconRecycle/> Reset
+                        </Button>
+                    </div>
+
                 </Box>
             )}
         </>
     );
 };
+
 export default ChatToolbar;
