@@ -2,7 +2,7 @@ import React from 'react';
 import {Stack, Typography, Box, Divider} from '@mui/material';
 import {IconGridDots} from '@tabler/icons';
 
-const CustomStatistic = ({name, value}) => {
+const CustomStatistic = ({name, value, icon}) => {
     return (
         <Stack direction="row" spacing={2} alignItems="center">
             <Box
@@ -19,7 +19,7 @@ const CustomStatistic = ({name, value}) => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    <IconGridDots width={22}/>
+                    {icon}
                 </Typography>
             </Box>
             <Box>

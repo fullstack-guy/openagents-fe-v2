@@ -4,6 +4,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const initialState = {
     live_feed: [],
     selectedFeed: {
+
     }
 }
 
