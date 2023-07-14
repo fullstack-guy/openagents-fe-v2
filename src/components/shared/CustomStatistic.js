@@ -4,11 +4,10 @@ import {IconGridDots} from '@tabler/icons';
 
 const CustomStatistic = ({name, value, icon}) => {
     return (
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={2} alignItems="flex-start">
             <Box
                 width={38}
                 height={38}
-                bgcolor="primary.light"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -29,10 +28,8 @@ const CustomStatistic = ({name, value, icon}) => {
                 <Typography variant="h6" fontWeight="400">
                     {value}
                 </Typography>
-
             </Box>
         </Stack>
-
     )
 }
 

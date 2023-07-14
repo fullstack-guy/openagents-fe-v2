@@ -9,7 +9,7 @@ import {useTheme} from '@mui/material';
 
 const DetailsTabs = [
     {label: 'Analytics', disabled: false, component: <Overview/>},
-    {label: 'Related', disabled: false, component: <Overview/>},
+    {label: 'Sources', disabled: false, component: <Overview/>},
 ];
 
 const FeedDetails = () => {
