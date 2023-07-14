@@ -18,6 +18,7 @@ import axiosServices from "../../utils/axios";
 import {hasError, unlinkAgentSource} from "../../store/AgentSourcesSlice";
 import {showNotification} from "../../store/NotificationSlice";
 import {useSelector, useDispatch} from 'react-redux';
+import ChatToolbar from './ChatToolbar';
 
 const ChatMsgSent = () => {
     const [msg, setMsg] = React.useState('');
@@ -41,9 +42,13 @@ const ChatMsgSent = () => {
         (state) => state.chatReducer.messages
     );
 
+    const handleSuggestedQuestionClick = async (e) => {
+        const suggestion = e.target.innerText;
+        setMsg(suggestion);
+        onChatMsgSubmit(e, suggestion);
+    };
+
     const onResetClick = async (e) => {
-
-
         if (feed_messages.length > 0 && e.target.tagName.toLowerCase() === "button" && e.target.textContent.trim() === "Reset") {
             dispatch(resetFeedMessages())
             try {
@@ -59,15 +64,16 @@ const ChatMsgSent = () => {
                 // Handle the error if necessary
             }
         }
-
         setIsLoading(false);
         setMsg('');
     };
 
-    const onChatMsgSubmit = async (e) => {
+    const onChatMsgSubmit = async (e, suggestion = null) => {
         e.preventDefault();
         e.stopPropagation();
         setIsLoading(true);
+        console.log("suggestion", suggestion)
+        const chatMsg = suggestion ? suggestion : msg;
 
         try {
             const response = await supabase
@@ -75,7 +81,7 @@ const ChatMsgSent = () => {
                 .insert([
                     {
                         session_id: session_id,
-                        message: e.target.value,
+                        message: chatMsg,
                         sender: 'user',
                     },
                 ])
@@ -93,7 +99,7 @@ const ChatMsgSent = () => {
             const response = await axiosServices.post(`/chat`, {
                 session_id: session_id,
                 feed_id: selectedFeed.id,
-                message: e.target.value,
+                message: chatMsg,
                 related_news: selectedFeed.news,
             });
             dispatch(addFeedMessage(response.data.data));
@@ -120,18 +126,12 @@ const ChatMsgSent = () => {
 
     return (
         <Box p={2} mb={2}>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
-                <Box display="flex" alignItems="center" flexWrap="wrap" gap={1}>
-                    {suggested_questions.map((question, index) => (
-                        <Button key={index} variant="outlined" size="small">
-                            {question}
-                        </Button>
-                    ))}
-                </Box>
-                <Button onClick={onResetClick} color='primary' variant="outlined" size="small">
-                    <IconRecycle/> Reset
-                </Button>
-            </Box>
+            <ChatToolbar
+                selectedFeed={selectedFeed}
+                session_id={session_id}
+                setIsLoading={setIsLoading}
+            />
+
             <Box
                 p={1}
                 display="flex"

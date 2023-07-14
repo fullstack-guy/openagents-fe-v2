@@ -10,7 +10,7 @@ import Scrollbar from 'src/components/custom-scroll/Scrollbar';
 import {fetchChats} from 'src/store/ChatSlice';
 import {GET_AGENTS} from "../../services/AgentsService";
 import {supabase} from "../../supabase/supabase";
-import {GET_FEED_MESSAGES} from "../../services/ChatService";
+import {GET_SELECTED_FEED_CHAT} from "../../services/ChatService";
 
 const ChatContent = ({toggleChatSidebar}) => {
     const dispatch = useDispatch()
@@ -19,9 +19,10 @@ const ChatContent = ({toggleChatSidebar}) => {
     const selectedFeed = useSelector(
         (state) => state.feedReducer.selectedFeed
     )
+
     useEffect(() => {
         if (selectedFeed.id) {
-            dispatch(GET_FEED_MESSAGES(selectedFeed.id));
+            dispatch(GET_SELECTED_FEED_CHAT(selectedFeed.id));
         }
     }, [dispatch, selectedFeed.id]);
 

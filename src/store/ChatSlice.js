@@ -17,7 +17,6 @@ export const ChatSlice = createSlice({
                 state.messages = [];
             },
             setFeedMessages: (state, action) => {
-                console.log("Setting feed messages ", action.payload)
                 state.messages = action.payload;
             },
             addFeedMessage: (state, action) => {

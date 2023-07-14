@@ -13,6 +13,7 @@ export const feedSlice = createSlice({
     initialState,
     reducers: {
         selectFeed: (state, action) => {
+
             state.selectedFeed = action.payload
         },
         selectFeedByID: (state, action) => {

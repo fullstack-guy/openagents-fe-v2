@@ -8,6 +8,7 @@ import {useCallback} from "react";
 import {GET_LIVE_FEED} from "../../services/LiveFeedService";
 import {supabase} from 'src/supabase/supabase';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import {GET_SELECTED_FEED_CHAT} from "../../services/ChatService";
 
 function truncateWords(text, numWords) {
     const wordsArray = text.split(' ');
@@ -33,8 +34,8 @@ const ThemeTab = () => {
 
     const handleFeedSelect = useCallback((feed) => {
         dispatch(selectFeedByID(feed.id))
+        dispatch(GET_SELECTED_FEED_CHAT(feed.id));
     }, [dispatch])
-
 
 
     useEffect(() => {
