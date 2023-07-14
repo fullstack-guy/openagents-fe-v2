@@ -1,6 +1,6 @@
 import {
-    IconAperture,
-    IconMessage
+    IconAccessPoint,
+    IconMessageCircle2
 
 } from '@tabler/icons';
 
@@ -11,14 +11,14 @@ const Menuitems = [
     {
         id: uniqueId(),
         title: 'Feed',
-        icon: IconAperture,
+        icon: IconAccessPoint,
         href: '/',
     },
     {
         id: uniqueId(),
-        title: 'Login',
-        icon: IconMessage,
-        href: '/auth/login',
+        title: 'Chat',
+        icon: IconMessageCircle2,
+        href: '/chat',
     },
 ];
 

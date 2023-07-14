@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
 import {IconButton, InputBase, Box, TextField, useTheme} from '@mui/material';
 import {IconSend} from '@tabler/icons';
 import {addFeedMessage} from 'src/store/ChatSlice';
@@ -10,6 +9,7 @@ import {handleSupabaseError, supabase} from "../../supabase/supabase";
 import axiosServices from "../../utils/axios";
 import {hasError, unlinkAgentSource} from "../../store/AgentSourcesSlice";
 import {showNotification} from "../../store/NotificationSlice";
+import {useSelector, useDispatch} from 'react-redux';
 
 
 const ChatMsgSent = () => {
@@ -24,6 +24,7 @@ const ChatMsgSent = () => {
     const session_id = useSelector(
         (state) => state.chatReducer.sessionId
     )
+    const selectedFeed = useSelector((state) => state.feedReducer.selectedFeed);
 
     const onChatMsgSubmit = async (e) => {
         e.preventDefault();
@@ -53,6 +54,7 @@ const ChatMsgSent = () => {
             const response = await axiosServices.post(`/chat`,
                 {
                     session_id: session_id,
+                    feed_id: selectedFeed.id,
                     message: e.target.value,
                 });
             dispatch(addFeedMessage(response.data.data))

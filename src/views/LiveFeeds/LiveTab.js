@@ -2,7 +2,7 @@ import {useState, useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux";
 import {Box, CircularProgress} from "@mui/material";
 
-import FeedCard from "../../components/feed/feed";
+import FeedCard from "../../components/feed/FeedCard";
 import {selectFeedByID, resetFeeds, appendFeeds, prependFeed} from "src/store/feedSlice";
 import {useCallback} from "react";
 import {GET_LIVE_FEED} from "../../services/LiveFeedService";
@@ -36,7 +36,6 @@ const LiveTab = () => {
     }, [dispatch])
 
 
-
     useEffect(() => {
 
         const feed = supabase.channel('custom-all-channel')
@@ -67,6 +66,7 @@ const LiveTab = () => {
 
     };
 
+    const selectedFeedId = useSelector((state) => state.feedReducer.selectedFeedId);
 
     return (
         <div style={{}}>
@@ -83,18 +83,21 @@ const LiveTab = () => {
                             </p>
                         }
                     >
-                        {live_feed.map(
-                            (item, i) =>
-                                <FeedCard key={i}
-                                          time={new Date(item.timestamp)}
-                                          title={item.title}
-                                          text={truncateWords(item.summary, 25)}
-                                          tag={item.tag}
-                                          onClick={handleFeedSelect}
-                                          id={item.id}
-                                />
+                        {live_feed.map((item, i) =>
+                            <FeedCard
+                                key={i}
+                                time={new Date(item.timestamp)}
+                                title={item.title}
+                                text={truncateWords(item.summary, 25)}
+                                onClick={handleFeedSelect}
+                                id={item.id}
+                                isSelected={selectedFeedId === item.id} // Assuming selectedFeedId is the id of the selected feed
+                                tags={item.tags}
+                                entities={item.entities}
+                            />
                         )}
                     </InfiniteScroll>
+
 
                 )
                 :
@@ -105,4 +108,4 @@ const LiveTab = () => {
     )
 }
 
-export default LiveTab
+export default LiveTab;

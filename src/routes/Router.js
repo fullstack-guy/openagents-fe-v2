@@ -1,5 +1,5 @@
-import React, { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, {lazy} from 'react';
+import {Navigate} from 'react-router-dom';
 
 import Loadable from '../layouts/shared/loadable/Loadable';
 
@@ -11,6 +11,7 @@ const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
 // const Agents = Loadable(lazy(() => import('src/pages/Agents/Agents')));
 const Login = Loadable(lazy(() => import('src/pages/Login/Login')));
 const Feed = Loadable(lazy(() => import('src/pages/Feed/FeedPage')));
+const Chat = Loadable(lazy(() => import('src/pages/Chat/ChatPage')));
 const Register = Loadable(lazy(() => import('src/pages/Register/Register')));
 
 const AuthRoute = Loadable(lazy(() => import('src/components/Auth/AuthRoute')));
@@ -21,22 +22,24 @@ const PrivateRoute = Loadable(lazy(() => import('src/components/Auth/PrivateRout
 // landingpage
 
 const Router = [
-  {
-    path: '/',
-    element: <FullLayout />,
-    children: [
-      { path: '/', element: <Navigate to="/feed" /> },
-      { path: '/feed', exact: true, element: <PrivateRoute component={Feed} /> },
-    ],
-  },
-  {
-    path: '/auth',
-    element: <FullLayout />,
-    children: [
-      { path: '/auth/login', element: <AuthRoute component={Login} /> },
-      { path: '/auth/register', element: <AuthRoute component={Register} /> },
-    ],
-  },
+    {
+        path: '/',
+        element: <FullLayout/>,
+        children: [
+            {path: '/', element: <Navigate to="/feed"/>},
+            {path: '/feed', exact: true, element: <PrivateRoute component={Feed}/>},
+            {path: '/chat', exact: true, element: <PrivateRoute component={Chat}/>},
+        ],
+    },
+    {
+        path: '/auth',
+        element: <FullLayout/>,
+        children: [
+            {path: '/auth/login', element: <AuthRoute component={Login}/>},
+            {path: '/auth/register', element: <AuthRoute component={Register}/>},
+        ],
+    },
+
 ];
 
 export default Router;

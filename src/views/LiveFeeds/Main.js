@@ -5,12 +5,12 @@ import AppCard from 'src/components/shared/AppCard';
 import CustomTab from "src/components/forms/theme-elements/CustomTab";
 
 import NewsTab from './LiveTab';
-import AlphaTab from './Alpha';
+import ThemeTab from './Alpha';
 import {useTheme} from '@mui/material';
 
 const FeedTabs = [
     {label: 'News', disabled: false, component: <NewsTab/>},
-    {label: 'Opinions', disabled: false, component: <AlphaTab/>},
+    {label: 'Themes', disabled: false, component: <ThemeTab/>},
 ];
 
 const LiveFeeds = () => {
@@ -32,13 +32,6 @@ const LiveFeeds = () => {
                     borderRadius: '0px',
 
                 }}>
-                    <CardContent>
-                        <Typography variant="h4"
-                                    textAlign="left"
-                                    sx={{
-                                        ml: 1,
-                                    }}>Feed</Typography>
-                    </CardContent>
                     <Box sx={{}}>
                         <Tabs
                             value={tabId}

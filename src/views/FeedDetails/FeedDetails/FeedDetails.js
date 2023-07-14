@@ -3,13 +3,14 @@ import {Box, Grid, Tab, Tabs, Typography} from '@mui/material';
 import {TabContext, TabPanel} from '@mui/lab';
 import {useSelector} from 'react-redux';
 
-import ChatWindow from './ChatWindow';
-import Overview from './Overview';
+import ChatWindow from '../ChatWindow';
+import FeedAnalyticsTab from './FeedAnalyticsTab';
 import {useTheme} from '@mui/material';
+import FeedRelatedTab from "./RelatedTab";
 
 const DetailsTabs = [
-    {label: 'Analytics', disabled: false, component: <Overview/>},
-    {label: 'Sources', disabled: false, component: <Overview/>},
+    {label: 'Analytics', disabled: false, component: <FeedAnalyticsTab/>},
+    {label: 'Related', disabled: false, component: <FeedRelatedTab/>},
 ];
 
 const FeedDetails = () => {

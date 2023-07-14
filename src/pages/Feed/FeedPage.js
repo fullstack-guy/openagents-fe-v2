@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid} from '@mui/material';
 
 import PageContainer from 'src/components/container/PageContainer';
-import FeedDetails from 'src/views/ChatDetails/Details';
+import FeedDetails from 'src/views/FeedDetails/FeedDetails/FeedDetails';
 import LiveFeeds from 'src/views/LiveFeeds/Main';
 
 const FeedPage = () => {

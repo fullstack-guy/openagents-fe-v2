@@ -3,13 +3,10 @@ import {prependFeed} from "../store/feedSlice";
 
 export const GET_LIVE_FEED = () => async (dispatch) => {
     try {
-        const {data, error, status} = await supabase.rpc('get_news_feed');
-        if (error && status !== 406) {
-            throw error;
-        }
-
-        if (data) {
-            dispatch(prependFeed(data));
+        const response = await supabase.rpc('get_news_feed');
+        handleSupabaseError(dispatch, response);
+        if (response.data) {
+            dispatch(prependFeed(response.data));
         }
     } catch (error) {
         console.log(error);

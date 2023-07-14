@@ -1,10 +1,10 @@
 import React from 'react';
 import {Grid, Typography, Box} from '@mui/material';
-import CustomStatistic from "../../components/shared/CustomStatistic";
+import CustomStatistic from "../../../components/shared/CustomStatistic";
 import {useSelector} from "react-redux";
 import {IconHearts, IconMoodPin, IconAlertOctagon, IconCoin, IconAffiliate, IconBookmark} from '@tabler/icons-react';
 
-const Overview = () => {
+const FeedAnalyticsTab = () => {
     const selectedFeed = useSelector((state) => state.feedReducer.selectedFeed);
 
     const {sentiment, importance, asset_classes, entities, tags, summary} = selectedFeed;
@@ -20,7 +20,6 @@ const Overview = () => {
         {name: "importance", value: importance, icon: <IconAlertOctagon/>},
         {name: "sentiment", value: sentiment.sentiment, icon: <IconHearts/>},
         {name: "emotion", value: getHighestEmotion(sentiment), icon: <IconMoodPin/>},
-        {name: "asset_classes", value: asset_classes.join(', '), icon: <IconCoin/>},
         {name: "entities", value: entities.join(', '), icon: <IconAffiliate/>},
         {name: "tags", value: tags.join(', '), icon: <IconBookmark/>},
     ];
@@ -50,4 +49,4 @@ function titleCase(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-export default Overview;
+export default FeedAnalyticsTab;
