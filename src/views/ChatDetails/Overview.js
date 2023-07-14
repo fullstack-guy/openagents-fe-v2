@@ -2,8 +2,14 @@ import React from 'react';
 import {CardContent, Grid, Typography} from '@mui/material';
 import AppCard from "../../components/shared/AppCard";
 import CustomStatistic from "../../components/shared/CustomStatistic";
+import {useSelector} from "react-redux";
 
 const Overview = () => {
+    const selectedFeed = useSelector(
+        (state) => state.feedReducer.selectedFeed
+    );
+    console.log("selectedFeed", selectedFeed)
+
     const stats_list = [
         {
             "name": "sentiment",
@@ -31,20 +37,13 @@ const Overview = () => {
     ]
     return (
         <>
-
-
-            <AppCard>
-
-                <Grid container spacing={5}>
-
-                    {stats_list.map((stat, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={index}>
-                            <CustomStatistic name={capitalizeFirstLetter(stat.name)} value={stat.value}/>
-                        </Grid>
-                    ))}
-                </Grid>
-            </AppCard>
-
+            <Grid container spacing={5}>
+                {stats_list.map((stat, index) => (
+                    <Grid item xs={12} sm={6} md={4} key={index}>
+                        <CustomStatistic name={capitalizeFirstLetter(stat.name)} value={stat.value}/>
+                    </Grid>
+                ))}
+            </Grid>
         </>
 
     )

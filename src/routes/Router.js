@@ -10,7 +10,7 @@ const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
 // const ModernDash = Loadable(lazy(() => import('../views/dashboard/Home')));
 // const Agents = Loadable(lazy(() => import('src/pages/Agents/Agents')));
 const Login = Loadable(lazy(() => import('src/pages/Login/Login')));
-const Feed = Loadable(lazy(() => import('src/pages/Feed/Feed')));
+const Feed = Loadable(lazy(() => import('src/pages/Feed/FeedPage')));
 const Register = Loadable(lazy(() => import('src/pages/Register/Register')));
 
 const AuthRoute = Loadable(lazy(() => import('src/components/Auth/AuthRoute')));

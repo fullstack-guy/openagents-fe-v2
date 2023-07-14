@@ -8,7 +8,7 @@ const CustomTab = ({ label, index, ...props }) => (
         value={index}
         sx={(theme) => ({
             backgroundColor: (tabProps) => (tabProps.selected ? 'white' : 'inherit'),
-            borderBottom: `1px solid ${theme.palette.divider}`,
+            borderBottom: `1px solid ${theme.palette.divider}!important`,
             ":hover": {
                 bgcolor: theme.palette.primary.light,
             },

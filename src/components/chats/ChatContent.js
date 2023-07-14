@@ -21,6 +21,7 @@ const ChatContent = ({toggleChatSidebar}) => {
     )
     useEffect(() => {
         if (selectedFeed.id) {
+            console.log('selectedFeed.id', selectedFeed.id)
             dispatch(GET_FEED_MESSAGES(selectedFeed.id));
         }
     }, [dispatch, selectedFeed.id]);
@@ -39,8 +40,8 @@ const ChatContent = ({toggleChatSidebar}) => {
                         {/* ------------------------------------------- */}
 
                         <Box width="100%">
-                            <Scrollbar sx={{overflow: 'auto', height: "calc(100vh - 400px)"}}>
-                                <Box p={3} height="540px">
+                            <Scrollbar sx={{overflow: 'auto', height: "calc(100vh - 600px)"}}>
+                                <Box p={3}>
                                     {messages && messages?.map((chat, index) => {
                                         return (
                                             <Box key={index}>

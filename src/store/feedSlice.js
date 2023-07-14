@@ -1,13 +1,9 @@
 // feedSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    live_feed:[],
+    live_feed: [],
     selectedFeed: {
-    id: null,
-    title: "",
-    tag: "",
-    text: "",
     }
 }
 
@@ -16,12 +12,12 @@ export const feedSlice = createSlice({
     initialState,
     reducers: {
         selectFeed: (state, action) => {
-            const { id, title, tag, text } = action.payload;
-            state.selectedFeed = {
-                id,
-                title,
-                tag,
-                text
+            state.selectedFeed = action.payload
+        },
+        selectFeedByID: (state, action) => {
+            const feed = state.live_feed.find(feed => feed.id === action.payload);
+            if (feed) {
+                state.selectedFeed = feed;
             }
         },
         appendFeeds: (state, action) => {
@@ -30,7 +26,7 @@ export const feedSlice = createSlice({
                 state.live_feed.push(feed);
             });
         },
-        prependFeeds: (state, action) => {
+        prependFeed: (state, action) => {
             // Adds the feeds at the start of the live_feed array
             state.live_feed = [...action.payload, ...state.live_feed];
         },
@@ -44,9 +40,10 @@ export const feedSlice = createSlice({
 
 export const {
     selectFeed,
+    selectFeedByID,
     appendFeeds,
-    prependFeeds,
+    prependFeed,
     resetFeeds,
 } = feedSlice.actions;
 
-export default feedSlice.reducer;
+export default feedSlice.reducer

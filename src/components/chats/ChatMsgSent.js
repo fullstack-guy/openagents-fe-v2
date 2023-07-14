@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {IconButton, InputBase, Box, TextField} from '@mui/material';
+import {IconButton, InputBase, Box, TextField, useTheme} from '@mui/material';
 import {IconSend} from '@tabler/icons';
 import {addFeedMessage} from 'src/store/ChatSlice';
 import Scrollbar from '../custom-scroll/Scrollbar';
@@ -10,6 +10,7 @@ import {handleSupabaseError, supabase} from "../../supabase/supabase";
 import axiosServices from "../../utils/axios";
 import {hasError, unlinkAgentSource} from "../../store/AgentSourcesSlice";
 import {showNotification} from "../../store/NotificationSlice";
+
 
 const ChatMsgSent = () => {
     const [msg, setMsg] = React.useState('');
@@ -54,7 +55,6 @@ const ChatMsgSent = () => {
                     session_id: session_id,
                     message: e.target.value,
                 });
-            console.log(response.data.data)
             dispatch(addFeedMessage(response.data.data))
         } catch (error) {
             dispatch(showNotification({
@@ -74,9 +74,13 @@ const ChatMsgSent = () => {
             onChatMsgSubmit(e)
         }
     }
+    const theme = useTheme();
 
     return (
-        <Box p={2} sx={{height: "100%"}}>
+        <Box p={2} mb={2} sx={{
+            border: "solid 1px " + theme.palette.divider,
+            width: "95%",
+        }}>
             <form
                 onSubmit={onChatMsgSubmit}
                 style={{display: 'flex', gap: '10px', alignItems: 'center'}}
