@@ -21,7 +21,6 @@ const ChatContent = ({toggleChatSidebar}) => {
     )
     useEffect(() => {
         if (selectedFeed.id) {
-            console.log('selectedFeed.id', selectedFeed.id)
             dispatch(GET_FEED_MESSAGES(selectedFeed.id));
         }
     }, [dispatch, selectedFeed.id]);

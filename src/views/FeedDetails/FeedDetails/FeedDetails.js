@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Box, Grid, Tab, Tabs, Typography} from '@mui/material';
+import {Box, Divider, Grid, Tab, Tabs, Typography} from '@mui/material';
 import {TabContext, TabPanel} from '@mui/lab';
 import {useSelector} from 'react-redux';
 
@@ -9,7 +9,7 @@ import {useTheme} from '@mui/material';
 import FeedRelatedTab from "./RelatedTab";
 
 const DetailsTabs = [
-    {label: 'Analytics', disabled: false, component: <FeedAnalyticsTab/>},
+    {label: 'Summary', disabled: false, component: <FeedAnalyticsTab/>},
     {label: 'Related', disabled: false, component: <FeedRelatedTab/>},
 ];
 
@@ -64,7 +64,8 @@ const FeedDetails = () => {
                     </Box>
                 </TabContext>
             </Grid>
-            <Grid item xs={12} sx={{ flexBasis: '50%', overflow: 'auto' }}>
+            <Divider></Divider>
+            <Grid item xs={12}>
                 <ChatWindow/>
             </Grid>
         </Box>

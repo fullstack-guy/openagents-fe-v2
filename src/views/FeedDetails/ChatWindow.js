@@ -11,8 +11,6 @@ const ChatWindow = () => {
     return (
         <Box flexGrow={1}
              sx={{
-                 borderTop: "solid 1px " + theme.palette.divider,
-                 height: "100%",
                  width:"100%",
                  borderRadius:'0px'
              }}>

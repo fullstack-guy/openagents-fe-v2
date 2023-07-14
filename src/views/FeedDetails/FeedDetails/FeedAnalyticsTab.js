@@ -7,7 +7,7 @@ import {IconHearts, IconMoodPin, IconAlertOctagon, IconCoin, IconAffiliate, Icon
 const FeedAnalyticsTab = () => {
     const selectedFeed = useSelector((state) => state.feedReducer.selectedFeed);
 
-    const {sentiment, importance, asset_classes, entities, tags, summary} = selectedFeed;
+    const {title, sentiment, importance, asset_classes, entities, tags, summary} = selectedFeed;
 
     // Function to find the emotion with the highest value
     const getHighestEmotion = (sentiment) => {
@@ -27,7 +27,7 @@ const FeedAnalyticsTab = () => {
     return (
         <>
             <Box marginBottom={4}>
-                <Typography variant="subtitle2" color="textSecondary" component="div">Summary</Typography>
+                <Typography mb={2} variant="h5" color="white" component="div">{title}</Typography>
                 <Typography variant="body1" component="p">{summary}</Typography>
             </Box>
             <Grid container spacing={5}>
