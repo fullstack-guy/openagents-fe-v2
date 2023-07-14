@@ -9,8 +9,7 @@ import ThemeTab from './Alpha';
 import {useTheme} from '@mui/material';
 
 const FeedTabs = [
-    {label: 'News', disabled: false, component: <NewsTab/>},
-    {label: 'Themes', disabled: false, component: <ThemeTab/>},
+    {label: 'Live', disabled: false, component: <NewsTab/>},
 ];
 
 const LiveFeeds = () => {
