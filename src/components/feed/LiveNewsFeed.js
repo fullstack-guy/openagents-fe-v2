@@ -96,7 +96,7 @@ const LiveNewsFeed = () => {
         <div style={{
             marginTop:"20px",
         }}>
-            <Breadcrumb title="Live feed" subtitle="Sit back, read, and trade"/>
+            <Breadcrumb title="Real-time feed" subtitle="Sit back, read, and trade"/>
 
             <CenteredBox mt={4}>
                 <FormDialog>

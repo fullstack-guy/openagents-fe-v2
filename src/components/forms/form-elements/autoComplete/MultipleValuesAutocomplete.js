@@ -8,7 +8,9 @@ const top100Films = [
     {title: 'The Godfather', year: 1972}
 ];
 
-const MultipleValuesAutocomplete = ({options}) => (
+const MultipleValuesAutocomplete = ({options,
+                                    placeholder,
+                                    label}) => (
     <Autocomplete
         multiple
         fullWidth
@@ -18,7 +20,7 @@ const MultipleValuesAutocomplete = ({options}) => (
         defaultValue={[]}
         filterSelectedOptions
         renderInput={(params) => (
-            <CustomTextField label="Type"{...params} placeholder="Customize your feed" aria-label="Favorites"/>
+            <CustomTextField label={label} {...params} placeholder={placeholder} />
         )}
     />
 );
