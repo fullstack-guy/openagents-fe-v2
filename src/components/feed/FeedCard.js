@@ -10,9 +10,13 @@ import {
     Box
 } from '@mui/material';
 import {formatDistanceToNowStrict} from 'date-fns';
+import {useSelector} from "react-redux";
 
 const FeedCard = (props) => {
     const theme = useTheme();
+    const selectedFeed = useSelector(
+        (state) => state.feedReducer.selectedFeed
+    )
 
     const {
         id,
@@ -27,10 +31,12 @@ const FeedCard = (props) => {
     return (
         <ListItemButton
             sx={{
-                m : 2,
+                m: 2,
                 py: 3,
-                border: "solid 1px " + theme.palette.divider,
-                borderRadius: (theme) => theme.shape.borderRadius /20 ,
+                border: id === selectedFeed.id ?
+                    `solid 1px ${theme.palette.grey[200]}` :
+                    `solid 1px ${theme.palette.divider}`,
+                borderRadius: (theme) => theme.shape.borderRadius / 20,
             }}
             selected={isSelected}
             onClick={() => onClick(props)}

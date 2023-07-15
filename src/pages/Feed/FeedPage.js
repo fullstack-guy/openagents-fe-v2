@@ -8,7 +8,7 @@ import LiveNewsFeed from "../../components/feed/LiveNewsFeed";
 
 const FeedPage = () => {
     return (
-        <PageContainer title="Rumorz - Feed" description="this is feed page">
+        <PageContainer title="Rumorz - Feed" description="Explore live crypto markets">
 
             <Grid container direction="row" overflow="hidden" spacing={1}>
                 <Grid item xs={12} lg={4}>

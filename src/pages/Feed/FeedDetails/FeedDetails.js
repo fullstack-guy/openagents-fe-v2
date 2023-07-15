@@ -52,8 +52,6 @@ const FeedDetails = () => {
                             indicatorColor="primary"
                             textColor="inherit"
                             variant="fullWidth"
-                            aria-label="full width tabs example"
-
                         >
                             {DetailsTabs.map((tab, index) => (
                                 <CustomTab key={index} label={tab.label} value={String(index)}
@@ -79,20 +77,21 @@ const FeedDetails = () => {
                                 }}>
                                 <Box sx={{
                                     display: "flex",
-                                    flexDirection: "row",
+                                    flexDirection: "column",
                                     justifyContent: "center",
                                     alignItems: "center",
                                 }}>
-                                    <IconWand style={{
-                                        color: theme.palette.text.secondary,
-                                        marginRight: theme.spacing(2)
-                                    }
-                                    }
+                                    <IconWand size="35px"
+                                              style={{
+                                                  color: theme.palette.text.secondary,
+                                                  marginBottom: theme.spacing(2)
+                                              }
+                                              }
                                               stroke={1}
                                               color={theme.palette.text.secondary}>
                                     </IconWand>
                                     <Typography variant="h6" fontWeight={400} color="text.secondary">
-                                        Explore real-time markets with AI
+                                        Select a story and explore real-time markets with AI
                                     </Typography>
                                 </Box>
                             </Box>

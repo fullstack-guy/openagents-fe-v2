@@ -21,6 +21,9 @@ export const feedSlice = createSlice({
             if (feed) {
                 state.selectedFeed = feed;
             }
+            else {
+                state.selectedFeed = {};
+            }
         },
         appendFeeds: (state, action) => {
             // Adds the feeds at the end of the live_feed array

@@ -14,12 +14,7 @@ const Menuitems = [
         icon: IconAccessPoint,
         href: '/',
     },
-    {
-        id: uniqueId(),
-        title: 'Chat',
-        icon: IconMessageCircle2,
-        href: '/chat',
-    },
+
 ];
 
 export default Menuitems;

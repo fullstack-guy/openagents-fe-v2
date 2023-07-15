@@ -31,8 +31,17 @@ const LiveNewsFeed = () => {
         setIsLoading(false);
     }, [dispatch])
 
+    const selectedFeed = useSelector((state) => state.feedReducer.selectedFeed);
+
     const handleFeedSelect = useCallback((feed) => {
-        dispatch(selectFeedByID(feed.id))
+            console.log("deselecting feed")
+            dispatch(selectFeedByID(feed.id))
+
+        if (selectedFeed.id === feed.id) {
+            console.log("deselecting feed")
+            dispatch(selectFeedByID({'id': null}))
+        } else {
+        }
     }, [dispatch])
 
 
