@@ -11,6 +11,9 @@ const CustomStatistic = ({name, value, icon}) => {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
+                sx={{
+                    backgroundColor: 'primary.light',
+                }}
             >
                 <Typography
                     color="primary.main"

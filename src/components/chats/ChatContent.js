@@ -30,9 +30,9 @@ const ChatContent = ({toggleChatSidebar}) => {
     return (
         <Box>
             {messages ? (
-                <Box>
-
-                    <Box display="flex">
+                    <Box sx={{
+                        mt:2
+                    }} display="flex">
                         <Box width="100%">
                             <Scrollbar sx={{overflow: 'auto', height: "calc(100vh - 600px)"}}>
                                 <Box p={3}>
@@ -65,12 +65,7 @@ const ChatContent = ({toggleChatSidebar}) => {
                                 </Box>
                             </Scrollbar>
                         </Box>
-
-                        {/* ------------------------------------------- */}
-                        {/* Chat right sidebar Content */}
-                        {/* ------------------------------------------- */}
                     </Box>
-                </Box>
             ) : (
                 <Box display="flex" alignItems="center" p={2} pb={1} pt={1}>
                     {/* ------------------------------------------- */}

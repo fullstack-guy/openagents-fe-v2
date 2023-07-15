@@ -2,12 +2,13 @@ import {useState, useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux";
 import {Box, CircularProgress} from "@mui/material";
 
-import FeedCard from "../../components/feed/FeedCard";
+import FeedCard from "./FeedCard";
 import {selectFeedByID, resetFeeds, appendFeeds, prependFeed} from "src/store/feedSlice";
 import {useCallback} from "react";
 import {GET_LIVE_FEED} from "../../services/LiveFeedService";
 import {supabase} from 'src/supabase/supabase';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import "./Feed.css"
 
 function truncateWords(text, numWords) {
     const wordsArray = text.split(' ');

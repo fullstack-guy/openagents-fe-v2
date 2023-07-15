@@ -103,8 +103,8 @@ const ChatToolbar = ({selectedFeed, session_id, setIsLoading}) => {
                     </Box>
                     <div onClick={onResetClick}>
                         <Button sx={{
-                            color: theme.palette.grey[300],
-                            border: "solid 1px " + theme.palette.grey[200],
+                            color: theme.palette.grey[200],
+                            border: "solid 1px " + theme.palette.grey[100],
                         }} variant="outlined" size="small">
                             <IconSquareX style={
                                 {

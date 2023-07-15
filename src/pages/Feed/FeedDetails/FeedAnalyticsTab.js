@@ -2,24 +2,45 @@ import React from 'react';
 import {Grid, Typography, Box} from '@mui/material';
 import CustomStatistic from "../../../components/shared/CustomStatistic";
 import {useSelector} from "react-redux";
-import {IconHearts, IconMoodPin, IconAlertOctagon, IconCoin, IconAffiliate, IconBookmark} from '@tabler/icons-react';
+import {
+    IconAlertTriangle,
+    IconMoodAngry,
+    IconMoodHappy,
+    IconMoodSad,
+    IconHeart,
+    IconMoodPin,
+    IconAlertOctagon,
+    IconCoin,
+    IconAffiliate,
+    IconBookmark
+} from '@tabler/icons-react';
 
 const FeedAnalyticsTab = () => {
     const selectedFeed = useSelector((state) => state.feedReducer.selectedFeed);
 
     const {title, sentiment, importance, asset_classes, entities, tags, summary} = selectedFeed;
 
-    // Function to find the emotion with the highest value
     const getHighestEmotion = (sentiment) => {
         const emotions = {...sentiment};
         delete emotions.sentiment; // exclude 'sentiment' field
         return Object.keys(emotions).reduce((a, b) => emotions[a] > emotions[b] ? a : b);
     }
 
+    const highestEmotion = getHighestEmotion(sentiment);
+
+    const emotionIconMapping = {
+        optimism: <IconMoodHappy/>,
+        joy: <IconMoodHappy/>,
+        sadness: <IconMoodSad/>,
+        anger: <IconMoodAngry/>,
+        hate: <IconMoodAngry/>,
+        offensive: <IconAlertTriangle/>
+    }
+
     const stats_list = [
         {name: "importance", value: importance, icon: <IconAlertOctagon/>},
-        {name: "sentiment", value: sentiment.sentiment, icon: <IconHearts/>},
-        {name: "emotion", value: getHighestEmotion(sentiment), icon: <IconMoodPin/>},
+        {name: "sentiment", value: sentiment.sentiment, icon: <IconHeart/>},
+        {name: "emotion", value: highestEmotion, icon: emotionIconMapping[highestEmotion]},
         {name: "entities", value: entities.join(', '), icon: <IconAffiliate/>},
         {name: "tags", value: tags.join(', '), icon: <IconBookmark/>},
     ];
@@ -44,7 +65,6 @@ const FeedAnalyticsTab = () => {
     );
 }
 
-// Function to capitalize the first letter of each word in a string
 function titleCase(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }

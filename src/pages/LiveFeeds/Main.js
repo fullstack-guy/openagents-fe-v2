@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Box} from '@mui/material';
 
-import NewsFeed from './LiveNewsFeed';
+import NewsFeed from '../../components/feed/LiveNewsFeed';
 import {useTheme} from '@mui/material';
 
 const LiveFeeds = () => {
