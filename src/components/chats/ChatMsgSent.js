@@ -1,21 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {
     IconButton,
-    InputBase,
     Box,
     TextField,
     useTheme,
-    Button,
-    Grid,
 } from '@mui/material';
-import {IconSend, IconRecycle} from '@tabler/icons';
-import {addFeedMessage, resetFeedMessages} from 'src/store/ChatSlice';
+import {IconSend} from '@tabler/icons';
+import {addFeedMessage} from 'src/store/ChatSlice';
 import Scrollbar from '../custom-scroll/Scrollbar';
 import "src/components/chats/chatsent.css";
 import "./chatsent.css";
 import {handleSupabaseError, supabase} from "../../supabase/supabase";
 import axiosServices from "../../utils/axios";
-import {hasError, unlinkAgentSource} from "../../store/AgentSourcesSlice";
+import {hasError} from "../../store/AgentSourcesSlice";
 import {showNotification} from "../../store/NotificationSlice";
 import {useSelector, useDispatch} from 'react-redux';
 import ChatToolbar from './ChatToolbar';
@@ -31,42 +28,6 @@ const ChatMsgSent = () => {
 
     const session_id = useSelector((state) => state.chatReducer.sessionId);
     const selectedFeed = useSelector((state) => state.feedReducer.selectedFeed);
-
-    const suggested_questions = [
-        'Suggestion 1',
-        'Suggestion 2',
-        'Suggestion 3',
-    ];
-
-    const feed_messages = useSelector(
-        (state) => state.chatReducer.messages
-    );
-
-    const handleSuggestedQuestionClick = async (e) => {
-        const suggestion = e.target.innerText;
-        setMsg(suggestion);
-        onChatMsgSubmit(e, suggestion);
-    };
-
-    const onResetClick = async (e) => {
-        if (feed_messages.length > 0 && e.target.tagName.toLowerCase() === "button" && e.target.textContent.trim() === "Reset") {
-            dispatch(resetFeedMessages())
-            try {
-                const response = await supabase
-                    .from('feed_chat_messages')
-                    .delete()
-                    .eq('session_id', session_id);
-                handleSupabaseError(dispatch, response)
-                if (response.error) {
-                    // Handle the error if necessary
-                }
-            } catch (err) {
-                // Handle the error if necessary
-            }
-        }
-        setIsLoading(false);
-        setMsg('');
-    };
 
     const onChatMsgSubmit = async (e, suggestion = null) => {
         e.preventDefault();
@@ -131,7 +92,6 @@ const ChatMsgSent = () => {
                 session_id={session_id}
                 setIsLoading={setIsLoading}
             />
-
             <Box
                 p={1}
                 display="flex"
@@ -141,6 +101,8 @@ const ChatMsgSent = () => {
                 mt={3}
                 sx={{
                     border: "solid 1px " + theme.palette.divider,
+                    transition: "all 0.1s ease-in-out",
+                    ":hover": {border: "solid 1px " + theme.palette.primary.main},
                 }}
             >
                 <form onSubmit={onChatMsgSubmit} style={{width: "100%"}}>

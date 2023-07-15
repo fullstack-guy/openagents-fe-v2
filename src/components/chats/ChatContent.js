@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import ReactMarkdown from 'react-markdown';
 import {
     Typography,
     Box,
@@ -7,9 +8,6 @@ import {IconMenu2} from '@tabler/icons';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
-import {fetchChats} from 'src/store/ChatSlice';
-import {GET_AGENTS} from "../../services/AgentsService";
-import {supabase} from "../../supabase/supabase";
 import {GET_SELECTED_FEED_CHAT} from "../../services/ChatService";
 
 const ChatContent = ({toggleChatSidebar}) => {
@@ -35,10 +33,6 @@ const ChatContent = ({toggleChatSidebar}) => {
                 <Box>
 
                     <Box display="flex">
-                        {/* ------------------------------------------- */}
-                        {/* Chat msges */}
-                        {/* ------------------------------------------- */}
-
                         <Box width="100%">
                             <Scrollbar sx={{overflow: 'auto', height: "calc(100vh - 600px)"}}>
                                 <Box p={3}>
@@ -54,13 +48,13 @@ const ChatContent = ({toggleChatSidebar}) => {
                                                             mb={1}
                                                             key={chat.message_id}
                                                             sx={{
-                                                                p: 2,
+                                                                px: 2,
                                                                 backgroundColor: chat.sender === "user" ? 'primary.dark' : 'primary.light',
                                                                 maxWidth: '90%',
                                                                 wordWrap: "break-word"
                                                             }}
                                                         >
-                                                            {chat.message}
+                                                            <ReactMarkdown>{chat.message}</ReactMarkdown>
                                                         </Box>
                                                     </Box>
                                                 </Box>

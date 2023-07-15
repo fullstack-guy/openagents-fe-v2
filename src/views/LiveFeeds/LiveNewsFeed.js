@@ -18,9 +18,8 @@ function truncateWords(text, numWords) {
     }
 }
 
-const LiveTab = () => {
+const LiveNewsFeed = () => {
     const live_feed = useSelector((state) => state.feedReducer.live_feed);
-    console.log("Live Feed", live_feed)
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
 
@@ -72,7 +71,7 @@ const LiveTab = () => {
         <div style={{}}>
             {!isLoading ? (
                     <InfiniteScroll
-                        style={{height: "800px"}}
+                        style={{height: "100vh"}}
                         dataLength={live_feed.length}
                         next={fetchMoreData}
                         hasMore={true} // should be updated based on whether there are more feeds to load
@@ -108,4 +107,4 @@ const LiveTab = () => {
     )
 }
 
-export default LiveTab;
+export default LiveNewsFeed;

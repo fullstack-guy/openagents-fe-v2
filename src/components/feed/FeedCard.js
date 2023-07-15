@@ -27,8 +27,10 @@ const FeedCard = (props) => {
     return (
         <ListItemButton
             sx={{
+                m : 2,
                 py: 3,
-                borderTop: "solid 1px " + theme.palette.divider,
+                border: "solid 1px " + theme.palette.divider,
+                borderRadius: (theme) => theme.shape.borderRadius /20 ,
             }}
             selected={isSelected}
             onClick={() => onClick(props)}

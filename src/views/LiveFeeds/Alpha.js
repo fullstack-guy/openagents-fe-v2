@@ -1,13 +1,9 @@
 import {useState, useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux";
-import {Box, CircularProgress} from "@mui/material";
-
-import FeedCard from "../../components/feed/FeedCard";
 import {selectFeedByID, resetFeeds, appendFeeds, prependFeed} from "src/store/feedSlice";
 import {useCallback} from "react";
 import {GET_LIVE_FEED} from "../../services/LiveFeedService";
 import {supabase} from 'src/supabase/supabase';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import {GET_SELECTED_FEED_CHAT} from "../../services/ChatService";
 
 function truncateWords(text, numWords) {
@@ -64,44 +60,10 @@ const ThemeTab = () => {
 
     }, []);
 
-    const fetchMoreData = async () => {
-
-    };
-
 
     return (
-        <div style={{}}>
-            {!isLoading ? (
-                    <InfiniteScroll
-                        style={{height: "800px"}}
-                        dataLength={live_feed.length}
-                        next={fetchMoreData}
-                        hasMore={true} // should be updated based on whether there are more feeds to load
-                        loader={<h4>Loading...</h4>}
-                        endMessage={
-                            <p style={{textAlign: 'center'}}>
-                                <b>Yay! You have seen it all</b>
-                            </p>
-                        }
-                    >
-                        {live_feed.map(
-                            (item, i) =>
-                                <FeedCard key={i}
-                                          time={new Date(item.timestamp)}
-                                          title={item.title}
-                                          text={truncateWords(item.summary, 25)}
-                                          tag={item.tag}
-                                          onClick={handleFeedSelect}
-                                          id={item.id}
-                                />
-                        )}
-                    </InfiniteScroll>
+        <div >
 
-                )
-                :
-                <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: "100%"}}>
-                    <CircularProgress/>
-                </Box>}
         </div>
     )
 }

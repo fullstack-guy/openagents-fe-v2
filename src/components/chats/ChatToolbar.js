@@ -1,5 +1,5 @@
 import React from 'react';
-import {IconRecycle} from '@tabler/icons';
+import {IconSquareX} from '@tabler/icons';
 import {Button, Box} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import {resetFeedMessages, addFeedMessage} from 'src/store/ChatSlice';
@@ -7,14 +7,20 @@ import {handleSupabaseError, supabase} from "../../supabase/supabase";
 import axiosServices from "../../utils/axios";
 import {hasError} from "../../store/AgentSourcesSlice";
 import {showNotification} from "../../store/NotificationSlice";
+import {useTheme} from "@mui/material/styles";
 
 const ChatToolbar = ({selectedFeed, session_id, setIsLoading}) => {
     const dispatch = useDispatch();
     const suggested_questions = ['Suggestion 1', 'Suggestion 2', 'Suggestion 3'];
     const feed_messages = useSelector((state) => state.chatReducer.messages);
+    const theme = useTheme()
+
 
     const onResetClick = async (e) => {
-        if (feed_messages.length > 0 && e.target.tagName.toLowerCase() === "button" && e.target.textContent.trim() === "Reset") {
+        console.log("Feed messages", feed_messages)
+        console.log("Target", e.target.tagName.toLowerCase())
+
+        if (feed_messages.length > 0) {
             dispatch(resetFeedMessages())
             try {
                 const response = await supabase
@@ -75,7 +81,8 @@ const ChatToolbar = ({selectedFeed, session_id, setIsLoading}) => {
     return (
         <>
             {selectedFeed.id && (
-                <Box display="flex" alignItems="center" justifyContent="space-between">
+                <Box display="flex" alignItems="center" justifyContent="space-between"
+                     >
                     <Box display="flex" alignItems="center" flexWrap="wrap" gap={1}>
                         {feed_messages.length === 0 &&
                             suggested_questions.map((question, index) => (
@@ -84,6 +91,10 @@ const ChatToolbar = ({selectedFeed, session_id, setIsLoading}) => {
                                     variant="outlined"
                                     size="small"
                                     onClick={handleSuggestedQuestionClick}
+                                    sx={{
+                                        color: theme.palette.grey[300],
+                                        border: "solid 1px " + theme.palette.grey[200],
+                                    }}
                                 >
                                     {question}
                                 </Button>
@@ -91,8 +102,16 @@ const ChatToolbar = ({selectedFeed, session_id, setIsLoading}) => {
                         }
                     </Box>
                     <div onClick={onResetClick}>
-                        <Button color="primary" variant="outlined" size="small">
-                            <IconRecycle/> Reset
+                        <Button sx={{
+                            color: theme.palette.grey[300],
+                            border: "solid 1px " + theme.palette.grey[200],
+                        }} variant="outlined" size="small">
+                            <IconSquareX style={
+                                {
+                                    marginRight: '5px',
+                                }
+                            }
+                                         stroke={1}/> Clear
                         </Button>
                     </div>
 
