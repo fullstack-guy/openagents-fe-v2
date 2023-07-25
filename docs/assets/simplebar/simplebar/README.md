@@ -40,7 +40,7 @@ Check out the [React](https://github.com/Grsmto/simplebar/blob/master/examples/r
 
 If you are using Gatsby, please see [#345](https://github.com/Grsmto/simplebar/issues/345).
 
-If you are using a module loader (like Webpack) you first need to load SimpleBar:
+If you are using a module loader (like Webpack) you first need to load_model SimpleBar:
 
 ```js
 import 'simplebar'; // or "import SimpleBar title 'simplebar';" if you want to use it manually.

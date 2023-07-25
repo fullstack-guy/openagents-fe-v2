@@ -115,7 +115,7 @@ const LiveNewsFeed = () => {
                     style={{height: "100vh"}}
                     dataLength={live_feed.length}
                     next={fetchMoreData}
-                    hasMore={true} // should be updated based on whether there are more feeds to load
+                    hasMore={true} // should be updated based on whether there are more feeds to load_model
                     loader={<h4>Loading...</h4>}
                     endMessage={
                         <p style={{textAlign: 'center'}}>

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Stack, Typography, Box, Divider} from '@mui/material';
-import {IconGridDots} from '@tabler/icons';
+import {Stack, Typography, Box} from '@mui/material';
+import { Avatar, Chip }  from '@mui/material';
 
-const CustomStatistic = ({name, value, icon}) => {
+const CustomStatistic = ({name, values, icon}) => {
     return (
         <Stack direction="row" spacing={2} alignItems="flex-start">
             <Box
@@ -28,9 +28,25 @@ const CustomStatistic = ({name, value, icon}) => {
                 <Typography variant="subtitle2" color="textSecondary">
                     {name}
                 </Typography>
-                <Typography variant="h6" fontWeight="400">
-                    {value}
-                </Typography>
+                {values.map((value, index) => {
+                    let color = 'default';
+                    if (value.tag === 'sentiment') {
+                        if (['very positive', 'positive'].includes(value.value)) {
+                            color = 'success';
+                        } else if (['very negative', 'negative'].includes(value.value)) {
+                            color = 'error';
+                        }
+                    }
+                    return (
+                        <Chip
+                            key={index}
+                            variant="outlined"
+                            avatar={value.tag ? <Avatar>{value.tag[0]}</Avatar> : null}
+                            label={value.value}
+                            color={color}
+                        />
+                    );
+                })}
             </Box>
         </Stack>
     )

@@ -38,11 +38,11 @@ const FeedAnalyticsTab = () => {
     }
 
     const stats_list = [
-        {name: "importance", value: importance, icon: <IconAlertOctagon/>},
-        {name: "sentiment", value: sentiment.sentiment, icon: <IconHeart/>},
-        {name: "emotion", value: highestEmotion, icon: emotionIconMapping[highestEmotion]},
-        {name: "entities", value: entities.join(', '), icon: <IconAffiliate/>},
-        {name: "tags", value: tags.join(', '), icon: <IconBookmark/>},
+        {name: "importance", values: [{value: importance}], icon: <IconAlertOctagon/>},
+        {name: "sentiment", values: [{value: sentiment.sentiment}], icon: <IconHeart/>},
+        {name: "emotion", values: [{value: highestEmotion}], icon: emotionIconMapping[highestEmotion]},
+        {name: "entities", values: entities.map(entity => ({value: entity})), icon: <IconAffiliate/>},
+        {name: "tags", values: tags.map(tag => ({value: tag})), icon: <IconBookmark/>},
     ];
 
     return (
@@ -56,7 +56,7 @@ const FeedAnalyticsTab = () => {
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <CustomStatistic
                             name={titleCase(stat.name)}
-                            value={String(stat.value)}
+                            values={stat.values}
                             icon={stat.icon}/>
                     </Grid>
                 ))}

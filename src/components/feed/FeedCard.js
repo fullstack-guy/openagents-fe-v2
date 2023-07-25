@@ -37,6 +37,11 @@ const FeedCard = (props) => {
                     `solid 1px ${theme.palette.grey[200]}` :
                     `solid 1px ${theme.palette.divider}`,
                 borderRadius: (theme) => theme.shape.borderRadius / 20,
+                background: 'transparent',
+                '&:hover, &:focus, &:active': {
+                    background: 'radial-gradient(circle at 50% 50%, rgba(14, 54, 179, 0.4) 0%, rgba(0, 0, 0, 0.15) 100%)',
+                    border: 'solid 1px ' + theme.palette.primary.main,
+                },
             }}
             selected={isSelected}
             onClick={() => onClick(props)}
@@ -90,7 +95,8 @@ const FeedCard = (props) => {
                 </Stack>
             </ListItemText>
         </ListItemButton>
-    );
+    )
+        ;
 };
 
 export default FeedCard;
